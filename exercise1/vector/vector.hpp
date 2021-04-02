@@ -5,6 +5,8 @@
 /* ************************************************************************** */
 
 #include "../container/container.hpp"
+#include <stdexcept>
+#include <iostream>
 
 /* ************************************************************************** */
 
@@ -13,7 +15,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Vector { // Must extend LinearContainer<Data>, MappableContainer<Data>, and FoldableContainer<Data>
+class Vector: public LinearContainer<Data>, public MappableContainer<Data>, public FoldableContainer<Data> {
 
 private:
 
@@ -21,93 +23,88 @@ private:
 
 protected:
 
-  // using LinearContainer<Data>::???;
+  using LinearContainer<Data>::dim;
 
-  // ...
+  Data* elem=nullptr;
 
 public:
 
   // Default constructor
-  // Vector() specifiers;
+  Vector() = default;
 
   /* ************************************************************************ */
 
   // Specific constructors
-  // Vector(argument) specifiers; // A vector with a given initial dimension
-  // Vector(argument) specifiers; // A vector obtained from a LinearContainer
+  Vector(const unsigned long); // A vector with a given initial dimension
+  Vector (const LinearContainer<Data>& ); // A vector obtained from a LinearContainer: list in a vector, vector in a vector etc.
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // Vector(argument) specifiers;
+  Vector(const Vector&);
 
   // Move constructor
-  // Vector(argument) specifiers;
+  Vector(Vector&&) noexcept;
 
   /* ************************************************************************ */
 
-  // Destructor
-  // ~Vector() specifiers;
+  // Destructor for the class Vector
+  virtual ~Vector();
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument) specifiers;
+  Vector& operator=(const Vector&);
 
   // Move assignment
-  // type operator=(argument) specifiers;
+  Vector& operator=(Vector&&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+  bool operator==(const Vector&) const noexcept;
+  bool operator!=(const Vector&) const noexcept;
 
   /* ************************************************************************ */
 
   // Specific member functions
 
-  // type Resize(argument) specifiers; // Resize the vector to a given size
+  void Resize(const unsigned long); // Resize the vector to a given size
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
-  // type Clear() specifiers; // Override Container member
+  void Clear() override; // Override Container member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from LinearContainer)
 
-  // type Front() specifiers; // Override LinearContainer member (must throw std::length_error when empty)
-  // type Back() specifiers; // Override LinearContainer member (must throw std::length_error when empty)
+  Data& Front() const override;   // Override LinearContainer member (must throw std::length_error when empty)
+  Data& Back() const override;    // Override LinearContainer member (must throw std::length_error when empty)
 
-  // type operator[](argument) specifiers; // Override LinearContainer member (must throw std::out_of_range when out of range)
+  Data& operator[](const unsigned long) override;  // Override LinearContainer member (must throw std::out_of_range when out of range)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from MappableContainer)
 
-  // using typename MappableContainer<Data>::MapFunctor;
-
-  // type MapPreOrder(arguments) specifiers; // Override MappableContainer member
-  // type MapPostOrder(arguments) specifiers; // Override MappableContainer member
+  using typename MappableContainer<Data>::MapFunctor;
+  virtual void MapPreOrder(MapFunctor, void*) override;
+  virtual void MapPostOrder(MapFunctor, void*) override;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from FoldableContainer)
 
-  // using typename FoldableContainer<Data>::FoldFunctor;
-
-  // type FoldPreOrder(arguments) specifiers; // Override FoldableContainer member
-  // type FoldPostOrder(arguments) specifiers; // Override FoldableContainer member
+  using typename FoldableContainer<Data>::FoldFunctor;
+  void FoldPreOrder(FoldFunctor, const void*, void*) const override;
+  void FoldPostOrder(FoldFunctor, const void*, void*) const override;
 
 };
 
 /* ************************************************************************** */
-
 }
-
-#include "vector.cpp"
 
 #endif

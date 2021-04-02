@@ -1,6 +1,6 @@
 
 #include <iostream>
-
+#include "container.hpp"
 /* ************************************************************************** */
 
 #include "../../container/container.hpp"
@@ -9,20 +9,20 @@
 
 // Container member functions!
 
-void Empty(uint& testnum, uint& testerr, const lasd::Container& con, bool chk) {
+void Empty(unsigned int& testnum, unsigned int& testerr, const lasd::Container& con, bool chk) {
   bool tst;
   testnum++;
   std::cout << " " << testnum << " The container is " << ((tst = con.Empty()) ? "" : "not ") << "empty: ";
   std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
-void Size(uint& testnum, uint& testerr, const lasd::Container& con, bool chk, ulong siz) {
+void Size(unsigned int& testnum, unsigned int& testerr, const lasd::Container& con, bool chk, unsigned long siz) {
   bool tst;
   testnum++;
   std::cout << " " << testnum << " The container has size " << con.Size() << ": ";
   std::cout << ((tst = ((con.Size() == siz) == chk)) ? "Correct" : "Error") << "!" << std::endl;
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */

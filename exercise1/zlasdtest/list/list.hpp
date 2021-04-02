@@ -7,7 +7,7 @@
 /* ************************************************************************** */
 
 template <typename Data>
-void InsertAtFront(uint& testnum, uint& testerr, lasd::List<Data>& lst, bool chk, const Data& val) {
+void InsertAtFront(unsigned int& testnum, unsigned int& testerr, lasd::List<Data>& lst, bool chk, const Data& val) {
   bool tst;
   testnum++;
   try {
@@ -17,11 +17,11 @@ void InsertAtFront(uint& testnum, uint& testerr, lasd::List<Data>& lst, bool chk
   } catch(std::exception exc) {
     std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void RemoveFromFront(uint& testnum, uint& testerr, lasd::List<Data>& lst, bool chk) {
+void RemoveFromFront(unsigned int& testnum, unsigned int& testerr, lasd::List<Data>& lst, bool chk) {
   bool tst;
   testnum++;
   try {
@@ -31,11 +31,11 @@ void RemoveFromFront(uint& testnum, uint& testerr, lasd::List<Data>& lst, bool c
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void FrontNRemove(uint& testnum, uint& testerr, lasd::List<Data>& lst, bool chk, const Data& val) {
+void FrontNRemove(unsigned int& testnum, unsigned int& testerr, lasd::List<Data>& lst, bool chk, const Data& val) {
   bool tst;
   testnum++;
   try {
@@ -44,11 +44,11 @@ void FrontNRemove(uint& testnum, uint& testerr, lasd::List<Data>& lst, bool chk,
   } catch(std::length_error exc) {
     std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void InsertAtBack(uint& testnum, uint& testerr, lasd::List<Data>& lst, bool chk, const Data& val) {
+void InsertAtBack(unsigned int& testnum, unsigned int& testerr, lasd::List<Data>& lst, bool chk, const Data& val) {
   bool tst;
   testnum++;
   try {
@@ -58,11 +58,11 @@ void InsertAtBack(uint& testnum, uint& testerr, lasd::List<Data>& lst, bool chk,
   } catch(std::exception exc) {
     std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void EqualList(uint& testnum, uint& testerr, const lasd::List<Data>& lst1, const lasd::List<Data>& lst2, bool chk) {
+void EqualList(unsigned int& testnum, unsigned int& testerr, const lasd::List<Data>& lst1, const lasd::List<Data>& lst2, bool chk) {
   bool tst;
   testnum++;
   try {
@@ -71,11 +71,11 @@ void EqualList(uint& testnum, uint& testerr, const lasd::List<Data>& lst1, const
   } catch(std::exception exc) {
     std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void NonEqualList(uint& testnum, uint& testerr, const lasd::List<Data>& lst1, const lasd::List<Data>& lst2, bool chk) {
+void NonEqualList(unsigned int& testnum, unsigned int& testerr, const lasd::List<Data>& lst1, const lasd::List<Data>& lst2, bool chk) {
   bool tst;
   testnum++;
   try {
@@ -84,7 +84,7 @@ void NonEqualList(uint& testnum, uint& testerr, const lasd::List<Data>& lst1, co
   } catch(std::exception exc) {
     std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
