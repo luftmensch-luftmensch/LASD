@@ -50,7 +50,7 @@ public:
     }
                                   //Size: returns the Container's size
                                   //It doesn't throw exceptions
-    unsigned long Size() const noexcept{
+    virtual unsigned long Size() const noexcept{
       return dim;
     }
                                   //Clear: clears the Container
@@ -110,7 +110,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class TestableContainer : virtual public Container { // Must extend Container
+class TestableContainer : virtual public Container { 
 
 private:
 
@@ -129,7 +129,7 @@ public:
   TestableContainer& operator=(const TestableContainer&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  TestableContainer& operator=(TestableContainer&&) = delete; // Move assignment of abstract types should not be possible.
+  TestableContainer& operator=(TestableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
@@ -166,7 +166,7 @@ public:
   MappableContainer& operator=(const MappableContainer&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  MappableContainer&& operator=(const MappableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
+  MappableContainer& operator=(MappableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
@@ -193,7 +193,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class FoldableContainer: virtual public TestableContainer<Data> {
+class FoldableContainer : virtual public TestableContainer<Data> {
 
 private:
 
@@ -202,7 +202,7 @@ protected:
 public:
 
   // Destructor for the class FoldableContainer
-  virtual  ~FoldableContainer()=default;
+  virtual  ~FoldableContainer() = default;
 
   /* ************************************************************************ */
 
@@ -210,7 +210,7 @@ public:
   FoldableContainer& operator=(const FoldableContainer&) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  FoldableContainer&& operator=(const FoldableContainer&&) = delete; // Move assignment of abstract types should not be possible.
+  FoldableContainer& operator=(FoldableContainer&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
@@ -226,8 +226,8 @@ public:
                                          //it doesn't modify data, it uses an accumulator
   typedef std::function<void(const Data&, const void*, void*) noexcept> FoldFunctor;
 
-  virtual void FoldPreOrder(const FoldFunctor, const void*, void*) const=0;
-  virtual void FoldPostOrder(const FoldFunctor, const void*, void*) const=0;
+  virtual void FoldPreOrder(const FoldFunctor, const void*, void*) const = 0;
+  virtual void FoldPostOrder(const FoldFunctor, const void*, void*) const = 0;
 
   virtual bool Exists(const Data&) const noexcept override; // Override TestableContainer member
 
@@ -318,5 +318,9 @@ public:
 };
 
 /* ************************************************************************** */
+
 }
+
+#include "container.cpp"
+
 #endif

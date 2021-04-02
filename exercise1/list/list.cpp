@@ -1,5 +1,4 @@
 #include <stdexcept>
-#include "list.hpp"
 namespace lasd {
 
 /* ************************************************************************** */
@@ -294,7 +293,7 @@ Data& List<Data>::Front() const{
 template<typename Data>
 Data& List<Data>::Back() const{
   if(Last != nullptr){
-    return Last->elemento;
+    return Last->elem;
   }
   else{
     throw std::length_error("La lista e' vuota.");
@@ -327,7 +326,7 @@ void List<Data>::MapPreOrder(MapFunctor fun, void* par){
 template<typename Data>
 void List<Data>::MapPreOrder(MapFunctor fun, void* par, Node* curr){
   for(; curr != nullptr; curr = curr->next){
-    fun(curr->elemento, par);
+    fun(curr->elem, par);
   }
 }
 
@@ -342,7 +341,7 @@ template<typename Data>
 void List<Data>::MapPostOrder(MapFunctor fun, void* par, Node* curr){
   if(curr != nullptr){
     MapPostOrder(fun,par,curr->next);
-    fun(curr->elemento,par);
+    fun(curr->elem,par);
   }
 }
 /* ************************************************************************** */
@@ -363,7 +362,7 @@ void List<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc) cons
 template<typename Data>
 void List<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc, Node* curr) const{
   for(; curr != nullptr; curr = curr->next){
-    fun(curr->elemento,par,acc);
+    fun(curr->elem,par,acc);
   }
 }
 
@@ -372,7 +371,7 @@ template<typename Data>
 void List<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc, Node* curr) const{
   if(curr != nullptr){
     FoldPostOrder(fun,par,acc,curr);
-    fun(curr->elemento,par,acc);
+    fun(curr->elem,par,acc);
   }
 }
 

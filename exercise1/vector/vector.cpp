@@ -1,5 +1,4 @@
 #include <stdexcept>
-#include "vector.hpp"
 namespace lasd {
 
 /* ************************************************************************** */
@@ -27,7 +26,7 @@ Vector<Data>::Vector (const LinearContainer<Data>& con){
 template<typename Data>
 Vector<Data>::Vector (const Vector<Data>& vec){
   elem= new Data[dim];
-  std::copy(vec.elem, vec.elem+vec.size, elem);
+  std::copy(vec.elem, vec.elem+vec.dim, elem);
   dim=vec.dim;
 }
 
@@ -69,7 +68,7 @@ template<typename Data>
 bool Vector<Data>::operator==(const Vector<Data>& vec) const noexcept{
   if(dim == vec.dim){
     for(unsigned long i = 0; i < dim; ++i){
-      if(elem[i] != vec.ele[i]){
+      if(elem[i] != vec.elem[i]){
         return false;
       }
     }
