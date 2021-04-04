@@ -1,10 +1,11 @@
-#ifndef MYTEST_HPP
-#define MYTEST_HPP
+#ifndef MYLIST_HPP
+#define MYLIST_HPP
 
 /* ************************************************************************** */
 
-void TEST1();
-void TEST2();
-void TEST3();
+void ListInt();
+void ListDouble();
+void ListString();
+
 /* ************************************************************************** */
 #endif

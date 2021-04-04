@@ -1,5 +1,5 @@
-#ifndef MYTEST_HPP
-#define MYTEST_HPP
+#ifndef MYVECTOR_HPP
+#define MYVECTOR_HPP
 
 /* ************************************************************************** */
 

@@ -8,7 +8,7 @@ void menu(){
 
   std::cout<<"Seleziona il tipo di struttura\n\tVettore di interi (1)\tVettore di Double(2)\tVettore di Stringhe(3)\n"<< std::endl;
   std::cout<<"\tLista di interi (4)\tLista di Double(5)\tListe di Stringhe(6)\n"<< std::endl;
-  std::cout<<"\t\t(premi 0 per uscire)"<< std::endl;
+  std::cout<<"\t\t\t(premi 0 per uscire)"<< std::endl;
   while (!quit){
     std::cin >> opzione;
 
@@ -26,14 +26,14 @@ void menu(){
 	VectorString();
 	quit = true;
       if (opzione == 4)
-	TEST1();
+	ListInt();
 	quit = true;
-      // if (opzione == 5)
-      // 	ListDouble();
-      // quit = true;
-      // if (opzione == 6)
-      // 	ListString();
-      // quit = true;
+      if (opzione == 5)
+	ListDouble();
+      quit = true;
+      if (opzione == 6)
+	ListString();
+      quit = true;
       if (opzione ==0) 
 	std::cout<< "Goodbye!"<< std::endl;
       quit = true;
