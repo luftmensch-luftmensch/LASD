@@ -1,26 +1,25 @@
 #include <iostream>
-void Scelta(){
-  std::cout<<"Seleziona il tipo di struttura\nVettore (1)\nLista(2)"<< std::endl;
-}
+#include "vector/testvector.hpp"
+using namespace std;
 void menu(){
-  std::cout<<"#################################\nBenvenuto nel test personale!" <<std::endl;
-  Scelta();
-  char scelta;
-  while(scelta != 'q'){
-    std::cin >> scelta;
-    switch(scelta){
-    case '1':
-      std::cout<<"Vettore (1)"<< std::endl;
-      break;
-    case '2':
-      std::cout<<"Lista (1)"<< std::endl;
-      break;
-    case 'q':
-      std::cout << std::endl << "Goodbye!" << std::endl;
-    default:
-      std::cout<<"Scelta errata"<< std::endl;
-      Scelta();
-      break;
+
+  bool quit = false;
+  int opzione(0);
+
+  std::cout<<"Seleziona il tipo di struttura\n\tVettore (1)\n\tLista(2)\n (premi 8 per uscire)"<< std::endl;
+  while (!quit){
+      cin >> opzione;
+
+      if ((opzione != 1) && (opzione != 2)  && (opzione != 8)){
+	cout << "ERRORE: scelta non valida\nLe strutture valide sono i Vettori(1) e le Liste(2)\n";
+	}
+
+      if (opzione == 1)
+	SceltaSuiVettori();
+      if (opzione == 2)
+	//SceltaSulleListe(); DA IMPLEMENTARE
+      if (opzione ==8) 
+	quit = true;
     }
-  }
+
 }

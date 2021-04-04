@@ -1,6 +1,6 @@
 
 #include "zlasdtest/test.hpp"
-#include "zmytest/test.hpp"
+#include "zmytest/menu.hpp"
 
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int main() {
   }
   if(scelta == 2){
     std::cout<<""<<std::endl;
-    //miotest();
+    menu();
   }
-  system("PAUSE");
   return 0;
 }
