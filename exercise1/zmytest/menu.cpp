@@ -1,25 +1,42 @@
 #include <iostream>
 #include "vector/testvector.hpp"
-using namespace std;
+#include "list/testlist.hpp"
 void menu(){
 
   bool quit = false;
   int opzione(0);
 
-  std::cout<<"Seleziona il tipo di struttura\n\tVettore (1)\n\tLista(2)\n (premi 8 per uscire)"<< std::endl;
+  std::cout<<"Seleziona il tipo di struttura\n\tVettore di interi (1)\tVettore di Double(2)\tVettore di Stringhe(3)\n"<< std::endl;
+  std::cout<<"\tLista di interi (4)\tLista di Double(5)\tListe di Stringhe(6)\n"<< std::endl;
+  std::cout<<"\t\t(premi 0 per uscire)"<< std::endl;
   while (!quit){
-      cin >> opzione;
+    std::cin >> opzione;
 
-      if ((opzione != 1) && (opzione != 2)  && (opzione != 8)){
-	cout << "ERRORE: scelta non valida\nLe strutture valide sono i Vettori(1) e le Liste(2)\n";
+      if ((opzione != 1) && (opzione != 2)  && (opzione != 3) && (opzione !=4) && (opzione !=5) && (opzione !=6) && (opzione !=0)){
+	std::cout << "ERRORE: scelta non valida\nLe strutture valide sono i Vettori(1-2-3) e le Liste(4-5-6)\n";
 	}
 
       if (opzione == 1)
-	SceltaSuiVettori();
-      if (opzione == 2)
-	//SceltaSulleListe(); DA IMPLEMENTARE
-      if (opzione ==8) 
+	VectorInt();
 	quit = true;
+      if (opzione == 2)
+	VectorDouble();
+	quit = true;
+      if (opzione == 3)
+	VectorString();
+	quit = true;
+      if (opzione == 4)
+	TEST1();
+	quit = true;
+      // if (opzione == 5)
+      // 	ListDouble();
+      // quit = true;
+      // if (opzione == 6)
+      // 	ListString();
+      // quit = true;
+      if (opzione ==0) 
+	std::cout<< "Goodbye!"<< std::endl;
+      quit = true;
     }
 
 }
