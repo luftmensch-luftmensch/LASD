@@ -15,7 +15,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Vector: public LinearContainer<Data>, public MappableContainer<Data>, public FoldableContainer<Data> {
+class Vector: virtual  public LinearContainer<Data>, virtual public MappableContainer<Data>, virtual public FoldableContainer<Data> {
 
 private:
 
@@ -36,7 +36,7 @@ public:
 
   // Specific constructors
   Vector(const unsigned long); // A vector with a given initial dimension
-  Vector (const LinearContainer<Data>& ); // A vector obtained from a LinearContainer: list in a vector, vector in a vector etc.
+  Vector(const LinearContainer<Data>&); // A vector obtained from a LinearContainer: list in a vector, vector in a vector etc.
 
   /* ************************************************************************ */
 
@@ -84,7 +84,7 @@ public:
   Data& Front() const override;   // Override LinearContainer member (must throw std::length_error when empty)
   Data& Back() const override;    // Override LinearContainer member (must throw std::length_error when empty)
 
-  Data& operator[](const unsigned long) override;  // Override LinearContainer member (must throw std::out_of_range when out of range)
+  Data& operator[](const unsigned long) const override;  // Override LinearContainer member (must throw std::out_of_range when out of range)
 
   /* ************************************************************************ */
 

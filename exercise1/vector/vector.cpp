@@ -11,13 +11,14 @@ Vector<Data>::Vector(const unsigned long newdim){
 }
                                     //Constructor of a vector starting with a list or a vector
 template<typename Data>
-Vector<Data>::Vector (const LinearContainer<Data>& con){
+Vector<Data>::Vector(const LinearContainer<Data>& con){
   dim=con.Size();
   elem= new Data[dim];
-  for (unsigned long i=0; i< dim; i++){
+  for (unsigned long i=0; i< dim; ++i){
     elem[i]=con[i];
   }
 }
+
                                   //Copy Constructor
                                   //Uses the library function "copy" where:
                                   //    vec.elem is the pointer to the first element to copy
@@ -25,7 +26,7 @@ Vector<Data>::Vector (const LinearContainer<Data>& con){
                                   //    elem is the destination's vector
 template<typename Data>
 Vector<Data>::Vector (const Vector<Data>& vec){
-  elem= new Data[dim];
+  elem= new Data[vec.dim];
   std::copy(vec.elem, vec.elem+vec.dim, elem);
   dim=vec.dim;
 }
@@ -52,13 +53,13 @@ template <typename Data>
 Vector<Data>& Vector<Data>::operator=(const Vector<Data>& vec) {
   Vector<Data>* newvec= new Vector<Data>(vec);
   std::swap(*newvec, *this);
-  delete *newvec;
+  delete newvec;
   return *this;
 }
 
                                //Move assignment
 template<typename Data>
-Vector<Data>& Vector<Data>:: operator= (Vector<Data>&& vec) noexcept{
+Vector<Data>& Vector<Data>::operator=(Vector<Data>&& vec) noexcept{
   std::swap(elem, vec.elem);
   std::swap(dim, vec.dim);
   return *this;
@@ -96,7 +97,7 @@ void Vector<Data>::Resize(const unsigned long newdim){
   }
   else if(dim != newdim){
     unsigned long limit = (dim < newdim) ? dim : newdim;
-    Data* tmpelem = new Data[newdim];
+    Data* tmpelem = new Data[newdim] {};
     for(unsigned long i = 0; i < limit; ++i){
       std::swap(elem[i], tmpelem[i]);
     }
@@ -146,7 +147,7 @@ Data& Vector<Data>::Back() const{
                               Returns the element in a specific index if the index <= sizes
                               else it throws an out_of_range exception */
 template<typename Data>
-Data& Vector<Data>::operator[](const unsigned long i){
+Data& Vector<Data>::operator[](const unsigned long i) const{
   if(i < dim){
     return elem[i];
   }

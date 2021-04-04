@@ -15,11 +15,10 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class List : public LinearContainer<Data>, public MappableContainer<Data>, public FoldableContainer<Data>{
+class List : virtual public LinearContainer<Data>, virtual  public MappableContainer<Data>, virtual public FoldableContainer<Data>{
 
 private:
 
-  // ...
 
 protected:
 
@@ -66,11 +65,10 @@ protected:
 
     // Specific member functions
 
-    // ...
+
 
   };
 
-  // ...
 
 public:
 
@@ -134,7 +132,7 @@ public:
   Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
   Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
 
-  Data& operator[](const unsigned long) override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+  Data& operator[](const unsigned long) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
   /* ************************************************************************ */
 

@@ -103,14 +103,14 @@ public:
                                     //operator[]: returns the i-th element
                                     //throws std::out_of_range when out of out_of_range
                                     //pure virtual function, defined later
-  virtual Data& operator[](const unsigned long) = 0;
+  virtual Data& operator[](const unsigned long) const = 0;
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class TestableContainer : virtual public Container { 
+class TestableContainer : virtual public Container {
 
 private:
 

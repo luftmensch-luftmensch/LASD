@@ -66,7 +66,7 @@ List<Data>::List(const LinearContainer<Data>& con){
   dim=con.Size();
   Node* ptr = new Node;
   Node* curr = ptr;
-  for(unsigned int i=0; i < con.Size(); ++i){
+  for(unsigned long i=0; i < con.Size(); ++i){
     curr->elem = con[i];
     curr->next = nullptr;
     curr = curr->next;
@@ -121,9 +121,8 @@ List<Data>::~List(){
 // Copy assignment list
 template<typename Data>
 List<Data>& List<Data>::operator=(const List<Data>& list){
-  List<Data> *tmplist = new List<Data>(list);
-  std::swap(*tmplist, *this);
-  delete tmplist;
+  List<Data>* tmplist = new List<Data>(list);
+  std::swap(tmplist->First, First);
   return *this;
 }
 
@@ -292,7 +291,7 @@ Data& List<Data>::Front() const{
 // Back function for the list
 template<typename Data>
 Data& List<Data>::Back() const{
-  if(Last != nullptr){
+if(Last != nullptr){
     return Last->elem;
   }
   else{
@@ -302,7 +301,7 @@ Data& List<Data>::Back() const{
 
 // Operator [] function fort the list
 template<typename Data>
-Data& List<Data>::operator[](const unsigned long i){
+Data& List<Data>::operator[](const unsigned long i) const {
   if(i < dim){
     struct Node* current;
     current = First;

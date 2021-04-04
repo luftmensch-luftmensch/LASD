@@ -1,7 +1,6 @@
 
 #include <iostream>
 /* ************************************************************************** */
-
 #include "../container/container.hpp"
 
 #include "../vector/vector.hpp"
