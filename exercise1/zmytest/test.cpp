@@ -1,2 +1,4 @@
-#include "./exercise1/test.hpp"
-void miotest() {}
+#include "test.hpp"
+void miotest() {
+    menu();
+}
