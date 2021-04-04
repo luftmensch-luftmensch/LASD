@@ -291,12 +291,16 @@ Data& List<Data>::Front() const{
 // Back function for the list
 template<typename Data>
 Data& List<Data>::Back() const{
-if(Last != nullptr){
-    return Last->elem;
-  }
-  else{
-    throw std::length_error("La lista e' vuota.");
-  }
+struct Node* current;
+current = First;
+if(current == nullptr){
+  throw std::length_error("La lista e' vuota.");
+}
+while(current->next != nullptr){
+  current=current->next;
+}
+return current->elem;
+
 }
 
 // Operator [] function fort the list
