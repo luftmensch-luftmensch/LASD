@@ -17,7 +17,7 @@ void VectorInt(){
   uniform_int_distribution<unsigned int> dist(10000, 80000); // Generazione numeri casuali
 
   unsigned long dim; // Dichiariamo una variabile per la scelta della dimensione del vettore
-  int index;
+  int index, value;
 
   std::cout<< "Inserire la dimensione del vettore: ";
   std::cin >> dim;
@@ -30,10 +30,12 @@ void VectorInt(){
   std::cout << "Il Back del vettore è: "<< vec.Back() << std::endl; // Stampa del Back del Vettore
  
   // Ricerca dell'elemento di indice scelto dall'utente
-  std::cout << "Ricerca dell'elemento di indice scelto dall'utente ";
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "~~~Info sul contenuto dell'elemento di indice scelto dall'utente ~~~" << std::endl;
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cin >> index;
   while (index > dim - 1){
-    std::cout << "L'indice selezionato non è valido! Inseriscine uno valido: ";
+    std::cout << "L'indice selezionato non è valido! Inserirne uno valido: ";
     std::cin >> index;
   }
 
@@ -43,6 +45,15 @@ void VectorInt(){
     }
   }
   
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "Ricerca di un valore all'interno della struttura\n\tInserisci elemento: ";
+  std::cin>> value;
+   if (vec.Exists(value)){
+     std::cout << "Elemento trovato" << std::endl;
+  
+   }else{
+     std::cout << "Elemento non trovato" << std::endl;
+   }
 }
 
 void VectorDouble(){
@@ -51,6 +62,7 @@ void VectorDouble(){
 
   unsigned long dim;
   int index;
+  double value;
   std::cout<< "Inserire la dimensione del vettore: ";
   std::cin >> dim;
   lasd::Vector<double> vec(dim); // Inizializziamo il vettore
@@ -69,7 +81,7 @@ void VectorDouble(){
   cout << "Ricerca dell'elemento di indice scelto dall'utente ";
   cin >> index;
   while (index > dim - 1){
-    cout << "L'indice selezionato non è valido! Inseriscine uno valido: ";
+    cout << "L'indice selezionato non è valido! Inserirne uno valido: ";
     cin >> index;
   }
 
@@ -78,12 +90,22 @@ void VectorDouble(){
       cout << "L'indice scelto " << index << " contiene il valore " << vec[i] << endl;
     }
   }
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "Ricerca di un valore all'interno della struttura\n\tInserisci elemento: ";
+  std::cin>> value;
+   if (vec.Exists(value)){
+     std::cout << "Elemento trovato" << std::endl;
+  
+   }else{
+     std::cout << "Elemento non trovato" << std::endl;
+   }
   
 }
 
 void VectorString(){
   unsigned long dim;
   int index;
+  string value;
   std::cout << "Inserire la dimensione del vettore: ";
   std::cin >> dim;
   lasd::Vector<string> vec(dim); // Inizializziamo il vettore
@@ -103,7 +125,7 @@ void VectorString(){
   std::cout << "Ricerca dell'elemento di indice scelto dall'utente ";
   std::cin >> index;
   while (index > dim - 1){
-    std::cout << "L'indice selezionato non è valido! Inseriscine uno valido: ";
+    std::cout << "L'indice selezionato non è valido! Inserirne uno valido: ";
     std::cin >> index;
   }
 
@@ -112,4 +134,14 @@ void VectorString(){
       std::cout << "L'indice scelto " << index << " contiene il valore " << vec[i] << std::endl;
     }
   }
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "Ricerca di un valore all'interno della struttura\n\tInserisci elemento: ";
+  std::cin>> value;
+   if (vec.Exists(value)){
+     std::cout << "Elemento trovato" << std::endl;
+  
+   }else{
+     std::cout << "Elemento non trovato" << std::endl;
+   }
+
 }
