@@ -1,112 +1,105 @@
+
 #include <stdexcept>
-namespace lasd {
-
 /* ************************************************************************** */
-
-// Specific constructor for the Node
+namespace lasd{
+// Specific constructors Node
 template<typename Data>
 List<Data>::Node::Node(const Data& val){
-  elem = val;
+  elemento = val;
   next = nullptr;
 }
 
 // Specific constructors Node (move)
 template<typename Data>
 List<Data>::Node::Node(Data&& val) noexcept{
-  std::swap(elem, val);
+  std::swap(elemento, val);
   next = nullptr;
 }
 
-/* ************************************************************************** */
-
-// Copy constructor for the Node
+// Copy constructors Node
 template<typename Data>
 List<Data>::Node::Node(const Node& nodo){
-  this->elem = nodo.elem;
+  this->elemento = nodo.elemento;
   this->next = nodo.next;
 }
 
-// Move constructor for the Node
+// Move constructors Node
 template<typename Data>
 List<Data>::Node::Node(Node&& nodo) noexcept{
-  std::swap(elem, nodo.elem);
+  std::swap(elemento, nodo.elemento);
   std::swap(next, nodo.next);
 }
 
-/* ************************************************************************** */
-
-// first Comparison operator for the Node
+// Comparison operator Node
 template<typename Data>
 bool List<Data>::Node::operator==(const Node& nodo) const noexcept{
-  if (elem != nodo.elem){
+  if (elemento != nodo.elemento){
     return false;
   }
   return true;
 }
 
-// Second comparison operator for the Node
+// Other comparison operator Node
 template<typename Data>
 bool List<Data>::Node::operator!=(const Node& nodo) const noexcept{
   return !(*this == nodo);
 }
 
-/* ************************************************************************** */
-
-// Default constructor for the list
+// Default constructors list
 template<typename Data>
 List<Data>::List(){
   First = nullptr;
   Last = nullptr;
 }
-
 //Specific constructor for the list
 template<typename Data>
 List<Data>::List(const LinearContainer<Data>& con){
-  if (con.Size() ==0 ) return;
-  dim=con.Size();
+  if (con.Size() ==0 )
+     return;
+  else
+    dim=con.Size();
+  unsigned long i=0;
   Node* ptr = new Node;
   Node* curr = ptr;
-  for(unsigned long i=0; i < con.Size(); ++i){
-    curr->elem = con[i];
-    curr->next = nullptr;
+  while(i < con.Size() -1){
+    curr->next = new Node;
     curr = curr->next;
+    curr->elemento = con[i];
+    i++;
   }
   First = ptr;
   Last = curr;
-  delete ptr,curr;
+  delete ptr,Last;//delete Last;
 }
 
-/* ************************************************************************** */
-// Copy constructor for the List
+// Copy constructors List
 template<typename Data>
 List<Data>::List(const List<Data>& otherList){
-    if(otherList.First == nullptr) return;
+    if(otherList.First == nullptr)
+      return;
     Node* ptr = new Node;
     Node* curr = ptr;
     Node* oth = nullptr;
     for(oth = otherList.First; oth != nullptr; oth = oth->next){
       curr->next = new Node;
       curr = curr->next;
-      curr->elem = oth->elem;
+      curr->elemento = oth->elemento;
       curr->next = nullptr;
     }
     First = ptr->next;
     delete ptr;
 }
 
-// Move constructor for the list
+// Move constructors list
 template<typename Data>
 List<Data>::List(List<Data>&& otherList) noexcept{
   dim = otherList.dim;
   otherList.dim = 0;
   First = otherList.First;
   otherList.First = nullptr;
-  Last = otherList.Last;
-  otherList.Last = nullptr;
 }
 
-/* ************************************************************************** */
-// Destructor list
+// Distruttore list
 template<typename Data>
 List<Data>::~List(){
   Node* current = First;
@@ -117,12 +110,12 @@ List<Data>::~List(){
   }
 }
 
-/* ************************************************************************** */
 // Copy assignment list
 template<typename Data>
 List<Data>& List<Data>::operator=(const List<Data>& list){
-  List<Data>* tmplist = new List<Data>(list);
-  std::swap(tmplist->First, First);
+  List<Data> *tmplist = new List<Data>(list);
+  std::swap(*tmplist, *this);
+  delete tmplist;
   return *this;
 }
 
@@ -135,15 +128,14 @@ List<Data>& List<Data>::operator=(List<Data>&& list) noexcept{
   return *this;
 }
 
-/* ************************************************************************** */
-// Comparison operator for list
+// Comparison operator list
 template<typename Data>
 bool List<Data>::operator==(const List<Data>& list) const noexcept{
   if(dim == list.dim){
     struct Node* current = First;
     struct Node* Tmp = list.First;
-    for(unsigned long i = 0; i < dim; i++){
-      if(current->elem != Tmp->elem){
+    for(unsigned long index = 0; index < dim; index++){
+      if(current->elemento != Tmp->elemento){
         return false;
       }
       current = current->next;
@@ -156,13 +148,12 @@ bool List<Data>::operator==(const List<Data>& list) const noexcept{
   }
 }
 
-// Second comparison operator for list
+// Other comparison list
 template<typename Data>
 bool List<Data>::operator!=(const List<Data>& list) const noexcept{
   return !(*this == list);
 }
 
-/* ************************************************************************** */
 // RemoveFromFront functions list
 template<typename Data>
 void List<Data>::RemoveFromFront(){
@@ -192,13 +183,13 @@ Data& List<Data>::FrontNRemove(){
     current = First;
     First = nullptr;
     Last = nullptr;
-    return current->elem;
+    return current->elemento;
   }
   else{
     current = First;
     First = First->next;
     dim--;
-    return current->elem;
+    return current->elemento;
   }
 }
 
@@ -262,8 +253,7 @@ void List<Data>::InsertAtBack(Data&& value) noexcept{
   }
 }
 
-/* ************************************************************************** */
-// Clear function for the list
+// Clear functions list
 template<typename Data>
 void List<Data>::Clear(){
   struct Node* tmp;
@@ -276,12 +266,11 @@ void List<Data>::Clear(){
   First = nullptr;
 }
 
-/* ************************************************************************** */
-// Front function for the list
+// Front functions list
 template<typename Data>
 Data& List<Data>::Front() const{
   if (First != nullptr){
-    return First->elem;
+    return First->elemento;
   }
   else{
     throw std::length_error("La lista e' vuota.");
@@ -296,58 +285,39 @@ current = First;
 if(current == nullptr){
   throw std::length_error("La lista e' vuota.");
 }
-while(current->next != nullptr){
+while(current ->next != nullptr){
   current=current->next;
 }
-return current->elem;
+return current->elemento;
 
 }
-
-// Operator [] function fort the list
+// Operator [] functions list
 template<typename Data>
-Data& List<Data>::operator[](const unsigned long i) const {
-  if(i < dim){
+Data& List<Data>::operator[](const unsigned long index) const{
+  if(index < dim){
     struct Node* current;
     current = First;
-    for(unsigned long i = 0; i < i; i++){
+    for(unsigned long i = 0; i < index; i++){
       current = current->next;
     }
-    return current->elem;
+    return current->elemento;
   }
   else{
-    throw std::out_of_range("Accesso all'indice " + std::to_string(i) + ": lunghezza della lista" + std::to_string(dim) + ".");
+    throw std::out_of_range("Accesso all'indice " + std::to_string(index) + ": lunghezza della lista" + std::to_string(dim) + ".");
   }
 }
-/* ************************************************************************** */
-// Map  PreOrder list
+
+// Map functions PreOrder list
 template<typename Data>
 void List<Data>::MapPreOrder(MapFunctor fun, void* par){
   MapPreOrder(fun,par,First);
 }
 
-// Map (protected) function PreOrder list
-template<typename Data>
-void List<Data>::MapPreOrder(MapFunctor fun, void* par, Node* curr){
-  for(; curr != nullptr; curr = curr->next){
-    fun(curr->elem, par);
-  }
-}
-
-// Map function PostOrder list
+// Map functions PostOrder list
 template<typename Data>
 void List<Data>::MapPostOrder(MapFunctor fun, void* par){
   MapPostOrder(fun,par,First);
 }
-
-// Map (protected) function PostOrder list
-template<typename Data>
-void List<Data>::MapPostOrder(MapFunctor fun, void* par, Node* curr){
-  if(curr != nullptr){
-    MapPostOrder(fun,par,curr->next);
-    fun(curr->elem,par);
-  }
-}
-/* ************************************************************************** */
 
 // Fold functions PreOrder list
 template<typename Data>
@@ -361,22 +331,40 @@ void List<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc) cons
   FoldPostOrder(fun,par,acc,First);
 }
 
+// Map (protected) functions PreOrder list
+template<typename Data>
+void List<Data>::MapPreOrder(MapFunctor fun, void* par, Node* curr){
+  for(; curr != nullptr; curr = curr->next){
+    fun(curr->elemento, par);
+  }
+}
+
+// Map (protected) functions PostOrder list
+template<typename Data>
+void List<Data>::MapPostOrder(MapFunctor fun, void* par, Node* curr){
+  if(curr != nullptr){
+    MapPostOrder(fun,par,curr->next);
+    fun(curr->elemento,par);
+  }
+}
+
 // Fold (protected) functions PreOrder list
 template<typename Data>
 void List<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc, Node* curr) const{
   for(; curr != nullptr; curr = curr->next){
-    fun(curr->elem,par,acc);
+    fun(curr->elemento,par,acc);
   }
 }
 
 // Fold (protected) functions PostOrder list
 template<typename Data>
 void List<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc, Node* curr) const{
-  if(curr != nullptr){
-    FoldPostOrder(fun,par,acc,curr);
-    fun(curr->elem,par,acc);
-  }
+  unsigned long index=dim;
+  while (index > 0){
+
+    fun((*this)[index-1],par,acc);
+    index--;
+
 }
-
-
+}
 }

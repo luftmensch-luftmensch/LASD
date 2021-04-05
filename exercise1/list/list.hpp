@@ -15,10 +15,11 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class List : virtual public LinearContainer<Data>, virtual  public MappableContainer<Data>, virtual public FoldableContainer<Data>{
+class List : virtual public LinearContainer<Data>, virtual public MappableContainer<Data>,virtual public FoldableContainer<Data>{
 
 private:
 
+  // ...
 
 protected:
 
@@ -27,7 +28,7 @@ protected:
   struct Node
   {
 
-    Data elem;
+    Data elemento;
     struct Node* next;
 
     /* ********************************************************************** */
@@ -35,14 +36,12 @@ protected:
     // Default constructors node
     Node() = default;
 
-    // Specific constructor
+    // Specific constructors
     Node(const Data&);
 
-    // Specific constructors ( move )
+    // Specific constructors move
     Node(Data&&) noexcept;
 
-
-    /* ********************************************************************** */
 
     // Copy constructor
     Node(const Node&);
@@ -65,23 +64,19 @@ protected:
 
     // Specific member functions
 
-
+    // ...
 
   };
 
+  // ...
 
 public:
 
   // Default constructor
   List();
 
-  /* ************************************************************************ */
-
   // Specific constructor
   List(const LinearContainer<Data>&); // A list obtained from a LinearContainer
-
-  /* ************************************************************************ */
-
   // Copy constructor
   List(const List&);
 
@@ -111,10 +106,10 @@ public:
 
   // Specific member functions
 
-  void InsertAtFront(const Data&); // Copy of the value
+  void RemoveFromFront();
+  Data& FrontNRemove();
+  void InsertAtFront(const Data&);
   void InsertAtFront(Data&&) noexcept; // Move of the value
-  void RemoveFromFront(); // (must throw std::length_error when empty)
-  Data& FrontNRemove(); // (must throw std::length_error when empty)
 
   void InsertAtBack(const Data&); // Copy of the value
   void InsertAtBack(Data&&) noexcept; // Move of the value
@@ -129,49 +124,43 @@ public:
 
   // Specific member functions (inherited from LinearContainer)
 
-  Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
-  Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
+  Data& Front() const override;
+  Data& Back() const override;
 
-  Data& operator[](const unsigned long) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+  Data& operator[](const unsigned long)const override;
 
   /* ************************************************************************ */
 
-  // Specific member functions (inherited from MappableContainer)
+  // Specific member functions (inherited from SearchableContainer)
 
   using typename MappableContainer<Data>::MapFunctor;
-
-  virtual void MapPreOrder(MapFunctor, void*) override; // Override MappableContainer member
-  virtual void MapPostOrder(MapFunctor, void*) override; // Override MappableContainer member
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from FoldableContainer)
+  virtual void MapPreOrder(MapFunctor, void*) override;
+  virtual void MapPostOrder(MapFunctor, void*) override;
 
   using typename FoldableContainer<Data>::FoldFunctor;
+  void FoldPreOrder(FoldFunctor, const void*, void*) const override;
+  void FoldPostOrder(FoldFunctor, const void*, void*) const override;
 
-  void FoldPreOrder(FoldFunctor, const void*, void*) const override;  // Override FoldableContainer member
-  void FoldPostOrder(FoldFunctor, const void*, void*) const override; // Override FoldableContainer member
 
 protected:
 
-  // Auxiliary member functions (for MappableContainer)
+  virtual void MapPreOrder(MapFunctor, void*, Node*);
+  virtual void MapPostOrder(MapFunctor, void*, Node*);
 
-  virtual void MapPreOrder(MapFunctor, void*, Node*);  // Accessory function executing from one point of the list onwards
-  virtual void MapPostOrder(MapFunctor, void*, Node*); // Accessory function executing from one point of the list onwards
-
-  /* ************************************************************************ */
-
-  // Auxiliary member functions (for FoldableContainer)
-
-  void FoldPreOrder(FoldFunctor, const void*, void*, Node*) const;  // Accessory function executing from one point of the list onwards
-  void FoldPostOrder(FoldFunctor, const void*, void*, Node*) const; // Accessory function executing from one point of the list onwards
+  void FoldPreOrder(FoldFunctor, const void*, void*, Node*) const;
+  void FoldPostOrder(FoldFunctor, const void*, void*, Node*) const;
 
   struct Node* First;
   struct Node* Last;
 
+
+
 };
 
 /* ************************************************************************** */
+
+
+
 }
 #include "list.cpp"
 #endif

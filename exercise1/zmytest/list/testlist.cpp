@@ -57,7 +57,7 @@ void ListString(){
   std::size_t length;
   std::mt19937 mt(std::random_device{}());
   std::string characters =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   std::uniform_int_distribution<int> dist(0, characters.length() - 1);
   std::string randStr;
 
