@@ -54,23 +54,32 @@ List<Data>::List(){
 //Specific constructor for the list
 template<typename Data>
 List<Data>::List(const LinearContainer<Data>& con){
-  if (con.Size() ==0 )
-     return;
-  else
-    dim=con.Size();
-  unsigned long i=0;
-  Node* ptr = new Node;
-  Node* curr = ptr;
-  while(i < con.Size() -1){
-    curr->next = new Node;
-    curr = curr->next;
-    curr->elemento = con[i];
-    i++;
+
+  //dim=con.Size();
+  //struct Node* ptr;
+  //Node* current=ptr;
+  //List<Data> listhead;
+
+  if(con.Size()==0)
+   return;
+  else{
+    First= nullptr;
+    Last= nullptr;
+    dim=0;
+    for (unsigned long i=0; i < con.Size(); i++){
+    // struct Node* newnode= new Node(con[i]);
+    //newnode->elemento= con[i];
+    //newnode->next= First;
+    //Last= First;
+    //First= newnode;
+    //dim++;
+    InsertAtBack(con[i]);
+     }
   }
-  First = ptr;
-  Last = curr;
-  delete ptr,Last;//delete Last;
+  //First = ptr;
+  //Last = current;
 }
+
 
 // Copy constructors List
 template<typename Data>
@@ -79,15 +88,22 @@ List<Data>::List(const List<Data>& otherList){
       return;
     Node* ptr = new Node;
     Node* curr = ptr;
-    Node* oth = nullptr;
-    for(oth = otherList.First; oth != nullptr; oth = oth->next){
+    Node* oth = otherList.First;
+    for(; oth != nullptr; oth = oth->next){
       curr->next = new Node;
       curr = curr->next;
       curr->elemento = oth->elemento;
       curr->next = nullptr;
     }
+
     First = ptr->next;
-    delete ptr;
+    /*Node* node = otherList.First;
+    while (node != nullptr)
+    {
+        InsertAtBack(node->elemento);
+        node = node->next;
+    }*/
+    //delete ptr;
 }
 
 // Move constructors list
@@ -131,7 +147,8 @@ List<Data>& List<Data>::operator=(List<Data>&& list) noexcept{
 // Comparison operator list
 template<typename Data>
 bool List<Data>::operator==(const List<Data>& list) const noexcept{
-  if(dim == list.dim){
+
+  if(dim == list.Size()){
     struct Node* current = First;
     struct Node* Tmp = list.First;
     for(unsigned long index = 0; index < dim; index++){
@@ -146,12 +163,44 @@ bool List<Data>::operator==(const List<Data>& list) const noexcept{
   else{
     return false;
   }
+  /*if(dim != list.Size()){
+    return false;
+  }
+  else if(dim == list.Size()){
+    struct Node* current = First;
+    struct Node* Tmp = list.First;
+    for(unsigned long index = 0; index < dim; index++){
+      if(current->elemento != Tmp->elemento){
+        return false;
+      }
+      current = current->next;
+      Tmp = Tmp->next;
+    }
+    return true;
+  }
+  else{
+    return false;
+  }*/
 }
-
 // Other comparison list
 template<typename Data>
 bool List<Data>::operator!=(const List<Data>& list) const noexcept{
   return !(*this == list);
+/*  if(dim != list.dim){
+    return true;
+  }
+  else{
+    struct Node* current = First;
+    struct Node* Tmp = list.First;
+    for(unsigned long index = 0; index < dim; index++){
+      if(current->elemento != Tmp->elemento){
+        return true;
+      }
+      current = current->next;
+      Tmp = Tmp->next;
+    }
+    return false;
+  }*/
 }
 
 // RemoveFromFront functions list
@@ -196,6 +245,7 @@ Data& List<Data>::FrontNRemove(){
 // InsertAtFront functions list
 template<typename Data>
 void List<Data>::InsertAtFront(const Data& value){
+
   struct Node* newNode;
   newNode = new Node(value);
   newNode->next = First;
@@ -232,6 +282,7 @@ void List<Data>::InsertAtBack(const Data& value){
     while(tmp->next) tmp = tmp->next;
     tmp->next = newNode;
     dim++;
+    Last= tmp->next;
   }
 }
 
@@ -365,6 +416,6 @@ void List<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc, Node
     fun((*this)[index-1],par,acc);
     index--;
 
-}
-}
+    }
+  }
 }
