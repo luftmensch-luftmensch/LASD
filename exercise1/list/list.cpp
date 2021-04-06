@@ -246,6 +246,7 @@ Data& List<Data>::FrontNRemove(){
 template<typename Data>
 void List<Data>::InsertAtFront(const Data& value){
 
+  std::cout<< "CIAO" << std::endl;
   struct Node* newNode;
   newNode = new Node(value);
   newNode->next = First;
@@ -253,6 +254,7 @@ void List<Data>::InsertAtFront(const Data& value){
   dim++;
   if (Last == nullptr)
     Last = newNode;
+  // Cancella la riga successiva
 }
 
 // InsertAtFront (move) functions list

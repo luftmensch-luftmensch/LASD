@@ -30,9 +30,10 @@ void VectorInt(){
   std::cout << "Il Back del vettore è: "<< vec.Back() << std::endl; // Stampa del Back del Vettore
  
   // Ricerca dell'elemento di indice scelto dall'utente
-  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~Info sul contenuto dell'elemento di indice scelto dall'utente ~~~" << std::endl;
-  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
+  std::cout << "Inserisci la posizione dell'elemento di cui ti interessa conoscere il valore: ";
   std::cin >> index;
   while (index > dim - 1){
     std::cout << "L'indice selezionato non è valido! Inserirne uno valido: ";
@@ -45,8 +46,8 @@ void VectorInt(){
     }
   }
   
-  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  std::cout << "Ricerca di un valore all'interno della struttura\n\tInserisci elemento: ";
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
    if (vec.Exists(value)){
      std::cout << "Elemento trovato" << std::endl;
@@ -54,6 +55,7 @@ void VectorInt(){
    }else{
      std::cout << "Elemento non trovato" << std::endl;
    }
+   std::cout << "Goodbye!" << std::endl;
 }
 
 void VectorDouble(){
@@ -73,12 +75,11 @@ void VectorDouble(){
   std::cout << "Il Front del vettore è: "<< vec.Front() << std::endl; // Stampa del Front del Vettore
   std::cout << "Il Back del vettore è: "<< vec.Back() << std::endl; // Stampa del Back del Vettore
 
-  for(unsigned long i = 0; i < dim; i++) {
-    cout << "VEC:" << vec[i] << endl;
-  }
- 
   // Ricerca dell'elemento di indice scelto dall'utente
-  cout << "Ricerca dell'elemento di indice scelto dall'utente ";
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "~~~Info sul contenuto dell'elemento di indice scelto dall'utente ~~~" << std::endl;
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
+  std::cout << "Inserisci la posizione dell'elemento di cui ti interessa conoscere il valore: ";
   cin >> index;
   while (index > dim - 1){
     cout << "L'indice selezionato non è valido! Inserirne uno valido: ";
@@ -90,8 +91,8 @@ void VectorDouble(){
       cout << "L'indice scelto " << index << " contiene il valore " << vec[i] << endl;
     }
   }
-  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  std::cout << "Ricerca di un valore all'interno della struttura\n\tInserisci elemento: ";
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
    if (vec.Exists(value)){
      std::cout << "Elemento trovato" << std::endl;
@@ -99,7 +100,7 @@ void VectorDouble(){
    }else{
      std::cout << "Elemento non trovato" << std::endl;
    }
-  
+   std::cout << "Goodbye!" << std::endl;
 }
 
 void VectorString(){
@@ -122,7 +123,12 @@ void VectorString(){
   }
   std::cout << "Il Front del vettore è: "<< vec.Front() << endl; // Stampa del Front del Vettore
   std::cout << "Il Back del vettore è: "<< vec.Back() << endl; // Stampa del Back del Vettore
-  std::cout << "Ricerca dell'elemento di indice scelto dall'utente ";
+
+  // Ricerca dell'elemento di indice scelto dall'utente
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "~~~Info sul contenuto dell'elemento di indice scelto dall'utente ~~~" << std::endl;
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
+  std::cout << "Inserisci la posizione dell'elemento di cui ti interessa conoscere il valore: ";
   std::cin >> index;
   while (index > dim - 1){
     std::cout << "L'indice selezionato non è valido! Inserirne uno valido: ";
@@ -134,8 +140,8 @@ void VectorString(){
       std::cout << "L'indice scelto " << index << " contiene il valore " << vec[i] << std::endl;
     }
   }
-  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  std::cout << "Ricerca di un valore all'interno della struttura\n\tInserisci elemento: ";
+  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
    if (vec.Exists(value)){
      std::cout << "Elemento trovato" << std::endl;
@@ -143,5 +149,5 @@ void VectorString(){
    }else{
      std::cout << "Elemento non trovato" << std::endl;
    }
-
+   std::cout << "Goodbye!" << std::endl;
 }

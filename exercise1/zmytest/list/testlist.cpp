@@ -6,12 +6,10 @@
 #include "../menu.hpp"
 #include <random>
 
-using namespace std;
-
 /* Prototipi */
 void ListInt(){
-  default_random_engine gen(random_device{}()); 
-  uniform_int_distribution<unsigned int> dist(10000, 80000); // Generazione numeri casuali
+  std::default_random_engine gen(std::random_device{}()); 
+  std::uniform_int_distribution<unsigned int> dist(10000, 80000); // Generazione numeri casuali
 
   unsigned long dim; // Dichiariamo una variabile per la scelta della dimensione della lista
   std::cout<< "Inserire la dimensione della lista: ";
@@ -28,8 +26,8 @@ void ListInt(){
 }
 
 void ListDouble(){
-  default_random_engine gen(random_device{}()); 
-  uniform_real_distribution<double> dist(10000, 80000); // Generazione numeri casuali
+  std::default_random_engine gen(std::random_device{}()); 
+  std::uniform_real_distribution<double> dist(10000, 80000); // Generazione numeri casuali
 
   unsigned long dim; // Dichiariamo una variabile per la scelta della dimensione della lista
   std::cout<< "Inserire la dimensione della lista: ";
@@ -50,10 +48,10 @@ void ListString(){
   
   unsigned long dim;
   int index;
-  string value;
+  std::string value;
   std::cout << "Inserire la dimensione del vettore: ";
   std::cin >> dim;
-  lasd::List<string> list;// Inizializziamo la lista
+  lasd::List<std::string> list;// Inizializziamo la lista
   std::size_t length;
   std::mt19937 mt(std::random_device{}());
   std::string characters =
@@ -65,6 +63,6 @@ void ListString(){
     randStr = characters[dist(mt)];
     list.InsertAtFront(randStr);
   }
-  std::cout << "Il Front del vettore è: "<< list.Front() << endl; // Stampa del Front del Vettore
-  std::cout << "Il Back del vettore è: "<< list.Back() << endl; // Stampa del Back del Vettore
+  std::cout << "Il Front del vettore è: "<< list.Front() << std::endl; // Stampa del Front del Vettore
+  std::cout << "Il Back del vettore è: "<< list.Back() << std::endl; // Stampa del Back del Vettore
 }

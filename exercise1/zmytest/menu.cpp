@@ -16,27 +16,40 @@ void menu(){
 	std::cout << "ERRORE: scelta non valida\nLe strutture valide sono i Vettori(1-2-3) e le Liste(4-5-6)\n";
 	}
 
-      if (opzione == 1)
+      if (opzione == 1){
+	std::system("clear");
 	VectorInt();
 	quit = true;
-      if (opzione == 2)
+      }
+      if (opzione == 2){
+	std::system("clear");
 	VectorDouble();
 	quit = true;
-      if (opzione == 3)
+      }
+      if (opzione == 3){
+	std::system("clear");
 	VectorString();
 	quit = true;
-      if (opzione == 4)
+      }
+      if (opzione == 4){
+	std::system("clear");
 	ListInt();
 	quit = true;
-      if (opzione == 5)
+      }
+      if (opzione == 5){
+	std::system("clear");
 	ListDouble();
-      quit = true;
-      if (opzione == 6)
+	quit = true;
+      }
+      if (opzione == 6){
+	std::system("clear");
 	ListString();
-      quit = true;
-      if (opzione ==0) 
+	quit = true;
+      }
+      if (opzione ==0){
 	std::cout<< "Goodbye!"<< std::endl;
-      quit = true;
+	quit = true;
+      }
     }
 
 }
