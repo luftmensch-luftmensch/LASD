@@ -22,7 +22,8 @@ void ListInt(){
   lasd::List<int> list;// Inizializziamo la lista
   
   for (unsigned long i = 0 ; i < dim; i ++){
-    list.InsertAtFront(dist(gen));
+    //list.InsertAtFront(dist(gen));
+    list.InsertAtFront(i);
     
   }
   
@@ -45,10 +46,13 @@ void ListInt(){
   Exists(list, value);
 
   std::cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "\nEsecuzione della MapFunction In PreOrder: \n"<< std::endl;
   MapPreOrder(list, &MapPrint<int>, 0);
 
   std::cout << "\n" << std::endl;
 
+  std::cout << "\nEsecuzione della FoldFunction In PreOrder: \n"<< std::endl;
+  FoldPreOrder(list, &FoldAdd<int>, 0, 0,0);
   RecapMenuList();
   
 }

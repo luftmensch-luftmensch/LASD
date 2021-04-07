@@ -146,20 +146,16 @@ void MapStringAppend(std::string&, void*);
 // FoldableContainer member functions!
 
 template <typename Data, typename Parameter, typename Value>
-void FoldPreOrder(unsigned int& testnum, unsigned int& testerr, const lasd::FoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval) {
-  bool tst;
-  testnum++;
+void FoldPreOrder(const lasd::FoldableContainer<Data>& con, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval) {
   Parameter par = {inipar};
   Value val = inival;
   try {
-    std::cout << " " << testnum << " Executing fold in pre order - ";
+    std::cout << " Executing fold in pre order - ";
     con.FoldPreOrder(fun, &par, &val);
     std::cout << "obtained value is \"" << val << "\": ";
-    std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
+    std::cout << exc.what() << std::endl;
   }
-  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data, typename Parameter, typename Value>
@@ -193,46 +189,5 @@ void FoldParity(const int&, const void*, void*);
 
 void FoldStringConcatenate(const std::string&, const void*, void*);
 
-/* ************************************************************************** */
-
-// BreadthMappableContainer member functions!
-
-template <typename Data, typename Parameter>
-void MapBreadth(unsigned int& testnum, unsigned int& testerr, lasd::BreadthMappableContainer<Data>& con, bool chk, typename lasd::BreadthMappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
-  bool tst = true;
-  testnum++;
-  Parameter par = {inipar};
-  try {
-    std::cout << " " << testnum << " Executing map in pre order - ";
-    con.MapBreadth(fun, &par);
-    std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
-  } catch(std::exception exc) {
-    std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
-  }
-  testerr += (1 - (unsigned int) tst);
-}
-
-/* ************************************************************************** */
-
-// BreadthFoldableContainer member functions!
-
-template <typename Data, typename Parameter, typename Value>
-void FoldBreadth(unsigned int& testnum, unsigned int& testerr, const lasd::BreadthFoldableContainer<Data>& con, bool chk, typename lasd::BreadthFoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval) {
-  bool tst;
-  testnum++;
-  Parameter par = {inipar};
-  Value val = inival;
-  try {
-    std::cout << " " << testnum << " Executing fold in post order - ";
-    con.FoldBreadth(fun, &par, &val);
-    std::cout << "obtained value is \"" << val << "\": ";
-    std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
-  } catch(std::exception exc) {
-    std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
-  }
-  testerr += (1 - (unsigned int) tst);
-}
-
-/* ************************************************************************** */
 
 #endif
