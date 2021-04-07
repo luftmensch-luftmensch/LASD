@@ -147,6 +147,7 @@ void MapStringAppend(std::string&, void*);
 
 template <typename Data, typename Parameter, typename Value>
 void FoldPreOrder(const lasd::FoldableContainer<Data>& con, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval) {
+  unsigned int index=0;
   Parameter par = {inipar};
   Value val = inival;
   try {
@@ -156,23 +157,6 @@ void FoldPreOrder(const lasd::FoldableContainer<Data>& con, typename lasd::Folda
   } catch(std::exception exc) {
     std::cout << exc.what() << std::endl;
   }
-}
-
-template <typename Data, typename Parameter, typename Value>
-void FoldPostOrder(unsigned int& testnum, unsigned int& testerr, const lasd::FoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval) {
-  bool tst;
-  testnum++;
-  Parameter par = {inipar};
-  Value val = inival;
-  try {
-    std::cout << " " << testnum << " Executing fold in post order - ";
-    con.FoldPostOrder(fun, &par, &val);
-    std::cout << "obtained value is \"" << val << "\": ";
-    std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
-  } catch(std::exception exc) {
-    std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
-  }
-  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
