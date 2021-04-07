@@ -65,16 +65,19 @@ List<Data>::List(const LinearContainer<Data>& con){
   else{
     First= nullptr;
     Last= nullptr;
-    dim=0;
+    //Node* headptr=First;
+    //Node* curr=First;
     for (unsigned long i=0; i < con.Size(); i++){
-    // struct Node* newnode= new Node(con[i]);
-    //newnode->elemento= con[i];
-    //newnode->next= First;
-    //Last= First;
-    //First= newnode;
+    //struct Node* newnode= new Node(con[i]);
+    //curr->next=newnode;//First->elemento= con[i];
+    //curr=curr->next;//newnode->next= First;
+                       //Last= First;
+                        //First= newnode;
     //dim++;
     InsertAtBack(con[i]);
      }
+    //First=headptr;
+    //Last=curr;
   }
   //First = ptr;
   //Last = current;
@@ -84,12 +87,25 @@ List<Data>::List(const LinearContainer<Data>& con){
 // Copy constructors List
 template<typename Data>
 List<Data>::List(const List<Data>& otherList){
-    if(otherList.First == nullptr)
-      return;
-    Node* ptr = new Node;
+  if (otherList.First == nullptr) {
+        First = nullptr;
+    }
+    else {
+        First = new Node(otherList.First->elemento);
+        Node *current = First;
+        Node *objHead = otherList.First;
+        Node *currentObj = objHead;
+        while (currentObj->next != nullptr) {
+            current->next = new Node(currentObj->next->elemento);
+            currentObj = currentObj->next;
+            current = current->next;
+        }
+    }
+    /*if(otherList.First == nullptr) return;
+    struct Node* ptr = new Node;
     Node* curr = ptr;
     Node* oth = otherList.First;
-    for(; oth != nullptr; oth = oth->next){
+    for(unsigned long i=0; oth.Size(); i++){
       curr->next = new Node;
       curr = curr->next;
       curr->elemento = oth->elemento;
@@ -97,13 +113,15 @@ List<Data>::List(const List<Data>& otherList){
     }
 
     First = ptr->next;
+    delete ptr;*/
+
+
     /*Node* node = otherList.First;
     while (node != nullptr)
     {
         InsertAtBack(node->elemento);
         node = node->next;
     }*/
-    //delete ptr;
 }
 
 // Move constructors list
@@ -148,7 +166,7 @@ List<Data>& List<Data>::operator=(List<Data>&& list) noexcept{
 template<typename Data>
 bool List<Data>::operator==(const List<Data>& list) const noexcept{
 
-  if(dim == list.Size()){
+  if(dim == list.dim){
     struct Node* current = First;
     struct Node* Tmp = list.First;
     for(unsigned long index = 0; index < dim; index++){
@@ -246,15 +264,14 @@ Data& List<Data>::FrontNRemove(){
 template<typename Data>
 void List<Data>::InsertAtFront(const Data& value){
 
-  std::cout<< "CIAO" << std::endl;
   struct Node* newNode;
   newNode = new Node(value);
   newNode->next = First;
+  //Last= First;
   First = newNode;
   dim++;
   if (Last == nullptr)
     Last = newNode;
-  // Cancella la riga successiva
 }
 
 // InsertAtFront (move) functions list
@@ -303,6 +320,7 @@ void List<Data>::InsertAtBack(Data&& value) noexcept{
     while(tmp->next) tmp = tmp->next;
     tmp->next = newNode;
     dim++;
+    Last= tmp->next;
   }
 }
 
@@ -333,7 +351,7 @@ Data& List<Data>::Front() const{
 // Back function for the list
 template<typename Data>
 Data& List<Data>::Back() const{
-struct Node* current;
+/*struct Node* current;
 current = First;
 if(current == nullptr){
   throw std::length_error("La lista e' vuota.");
@@ -341,7 +359,13 @@ if(current == nullptr){
 while(current ->next != nullptr){
   current=current->next;
 }
-return current->elemento;
+return current->elemento;*/
+if(dim != 0){
+  return Last->elemento;
+}
+else{
+  throw std::length_error("Accesso ad un array vuoto.");
+}
 
 }
 // Operator [] functions list
