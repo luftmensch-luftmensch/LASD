@@ -12,6 +12,7 @@
 using namespace std;
 
 /* Prototipi */
+void RecapMenu();
 void VectorInt(){
   default_random_engine gen(random_device{}()); 
   uniform_int_distribution<unsigned int> dist(10000, 80000); // Generazione numeri casuali
@@ -21,6 +22,7 @@ void VectorInt(){
 
   std::cout<< "Inserire la dimensione del vettore: ";
   std::cin >> dim;
+  std::cout<< "\n";
   lasd::Vector<int> vec(dim); // Inizializziamo il vettore
   
   for(unsigned long i = 0; i < dim; i++) { // Riempimento del vettore
@@ -30,9 +32,9 @@ void VectorInt(){
   std::cout << "Il Back del vettore è: "<< vec.Back() << std::endl; // Stampa del Back del Vettore
  
   // Ricerca dell'elemento di indice scelto dall'utente
-  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~Info sul contenuto dell'elemento di indice scelto dall'utente ~~~" << std::endl;
-  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n" << std::endl;
   std::cout << "Inserisci la posizione dell'elemento di cui ti interessa conoscere il valore: ";
   std::cin >> index;
   while (index > dim - 1){
@@ -46,7 +48,7 @@ void VectorInt(){
     }
   }
   
-  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
    if (vec.Exists(value)){
@@ -56,6 +58,7 @@ void VectorInt(){
      std::cout << "Elemento non trovato" << std::endl;
    }
    std::cout << "Goodbye!" << std::endl;
+   RecapMenu();
 }
 
 void VectorDouble(){
@@ -67,6 +70,7 @@ void VectorDouble(){
   double value;
   std::cout<< "Inserire la dimensione del vettore: ";
   std::cin >> dim;
+  std::cout<< "\n";
   lasd::Vector<double> vec(dim); // Inizializziamo il vettore
   
   for(unsigned long i = 0; i < dim; i++) { // Riempimento del vettore
@@ -76,9 +80,9 @@ void VectorDouble(){
   std::cout << "Il Back del vettore è: "<< vec.Back() << std::endl; // Stampa del Back del Vettore
 
   // Ricerca dell'elemento di indice scelto dall'utente
-  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~Info sul contenuto dell'elemento di indice scelto dall'utente ~~~" << std::endl;
-  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n" << std::endl;
   std::cout << "Inserisci la posizione dell'elemento di cui ti interessa conoscere il valore: ";
   cin >> index;
   while (index > dim - 1){
@@ -91,7 +95,7 @@ void VectorDouble(){
       cout << "L'indice scelto " << index << " contiene il valore " << vec[i] << endl;
     }
   }
-  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
    if (vec.Exists(value)){
@@ -101,6 +105,7 @@ void VectorDouble(){
      std::cout << "Elemento non trovato" << std::endl;
    }
    std::cout << "Goodbye!" << std::endl;
+   RecapMenu();
 }
 
 void VectorString(){
@@ -109,6 +114,7 @@ void VectorString(){
   string value;
   std::cout << "Inserire la dimensione del vettore: ";
   std::cin >> dim;
+  std::cout<< "\n";
   lasd::Vector<string> vec(dim); // Inizializziamo il vettore
   std::size_t length;
   std::mt19937 mt(std::random_device{}());
@@ -125,9 +131,9 @@ void VectorString(){
   std::cout << "Il Back del vettore è: "<< vec.Back() << endl; // Stampa del Back del Vettore
 
   // Ricerca dell'elemento di indice scelto dall'utente
-  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~Info sul contenuto dell'elemento di indice scelto dall'utente ~~~" << std::endl;
-  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
+  std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n" << std::endl;
   std::cout << "Inserisci la posizione dell'elemento di cui ti interessa conoscere il valore: ";
   std::cin >> index;
   while (index > dim - 1){
@@ -140,7 +146,7 @@ void VectorString(){
       std::cout << "L'indice scelto " << index << " contiene il valore " << vec[i] << std::endl;
     }
   }
-  std::cout << "\n\n\n\n\n\n\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
    if (vec.Exists(value)){
@@ -150,4 +156,11 @@ void VectorString(){
      std::cout << "Elemento non trovato" << std::endl;
    }
    std::cout << "Goodbye!" << std::endl;
+   RecapMenu();
+}
+
+void RecapMenu(){
+  std::cout<<"Seleziona il tipo di struttura\n\tVettore di interi (1)\tVettore di Double(2)\tVettore di Stringhe(3)\n"<< std::endl;
+  std::cout<<"\tLista di interi (4)\tLista di Double(5)\tListe di Stringhe(6)\n"<< std::endl;
+  std::cout<<"\t\t\t(premi q per uscire)"<< std::endl;
 }
