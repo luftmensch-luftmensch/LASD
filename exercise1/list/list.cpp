@@ -60,68 +60,52 @@ List<Data>::List(const LinearContainer<Data>& con){
   //Node* current=ptr;
   //List<Data> listhead;
 
-  if(con.Size()==0)
-   return;
+  if(con.Size()==0){
+    First= nullptr;
+    Last= nullptr;
+  }
   else{
     First= nullptr;
     Last= nullptr;
-    //Node* headptr=First;
-    //Node* curr=First;
+
     for (unsigned long i=0; i < con.Size(); i++){
-    //struct Node* newnode= new Node(con[i]);
-    //curr->next=newnode;//First->elemento= con[i];
-    //curr=curr->next;//newnode->next= First;
-                       //Last= First;
-                        //First= newnode;
-    //dim++;
+
     InsertAtBack(con[i]);
      }
-    //First=headptr;
-    //Last=curr;
   }
-  //First = ptr;
-  //Last = current;
+
 }
 
 
 // Copy constructors List
 template<typename Data>
 List<Data>::List(const List<Data>& otherList){
-  if (otherList.First == nullptr) {
-        First = nullptr;
+    if(this != &otherList){
+    /*while(First !=nullptr){
+      RemoveFromFront();
+    }*/
+    if(otherList.First==nullptr){
+      First=nullptr;
+      Last=nullptr;
+      dim=0;
     }
     else {
-        First = new Node(otherList.First->elemento);
-        Node *current = First;
-        Node *objHead = otherList.First;
-        Node *currentObj = objHead;
-        while (currentObj->next != nullptr) {
-            current->next = new Node(currentObj->next->elemento);
-            currentObj = currentObj->next;
-            current = current->next;
-        }
+      struct Node* current;
+      current=otherList.First;
+      struct Node* node=new Node(current->elemento);
+      First=node;
+      Last=First;
+
+      current=current->next;
+      while(current != nullptr){
+        struct Node* newnode=new Node(current->elemento);
+        Last->next=newnode;
+        Last=newnode;
+        current=current->next;
+      }
+      dim=otherList.dim;
     }
-    /*if(otherList.First == nullptr) return;
-    struct Node* ptr = new Node;
-    Node* curr = ptr;
-    Node* oth = otherList.First;
-    for(unsigned long i=0; oth.Size(); i++){
-      curr->next = new Node;
-      curr = curr->next;
-      curr->elemento = oth->elemento;
-      curr->next = nullptr;
-    }
-
-    First = ptr->next;
-    delete ptr;*/
-
-
-    /*Node* node = otherList.First;
-    while (node != nullptr)
-    {
-        InsertAtBack(node->elemento);
-        node = node->next;
-    }*/
+  }
 }
 
 // Move constructors list
