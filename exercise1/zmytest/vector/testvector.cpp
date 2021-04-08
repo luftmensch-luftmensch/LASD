@@ -1,6 +1,7 @@
 /* INCLUSIONI */
 #include <iostream>
 #include "../../container/container.hpp"
+#include "../container/container.hpp"
 #include "../../vector/vector.hpp"
 #include "../menu.hpp"
 #include <random>
@@ -28,8 +29,8 @@ void VectorInt(){
   for(unsigned long i = 0; i < dim; i++) { // Riempimento del vettore
     vec[i] = dist(gen);
   }
-  std::cout << "Il Front del vettore è: "<< vec.Front() << std::endl; // Stampa del Front del Vettore
-  std::cout << "Il Back del vettore è: "<< vec.Back() << std::endl; // Stampa del Back del Vettore
+  GetFront(vec);
+  GetBack(vec);
  
   // Ricerca dell'elemento di indice scelto dall'utente
   std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
@@ -51,14 +52,12 @@ void VectorInt(){
   std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
-   if (vec.Exists(value)){
-     std::cout << "Elemento trovato" << std::endl;
-  
-   }else{
-     std::cout << "Elemento non trovato" << std::endl;
-   }
-   std::cout << "Goodbye!" << std::endl;
-   RecapMenu();
+  Exists(vec, value);
+  std::cout << "\n" << std::endl;
+  MapPreOrder(vec, &MapPrint<int>, 0);
+  std::cout << "\n" << std::endl;
+  std::cout << "Fine!" << std::endl;
+  RecapMenu();
 }
 
 void VectorDouble(){
@@ -76,8 +75,9 @@ void VectorDouble(){
   for(unsigned long i = 0; i < dim; i++) { // Riempimento del vettore
     vec[i] = dist(gen);
   }
-  std::cout << "Il Front del vettore è: "<< vec.Front() << std::endl; // Stampa del Front del Vettore
-  std::cout << "Il Back del vettore è: "<< vec.Back() << std::endl; // Stampa del Back del Vettore
+
+  GetFront(vec);
+  GetBack(vec);
 
   // Ricerca dell'elemento di indice scelto dall'utente
   std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
@@ -98,14 +98,12 @@ void VectorDouble(){
   std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
-   if (vec.Exists(value)){
-     std::cout << "Elemento trovato" << std::endl;
-  
-   }else{
-     std::cout << "Elemento non trovato" << std::endl;
-   }
-   std::cout << "Goodbye!" << std::endl;
-   RecapMenu();
+  Exists(vec, value);
+  std::cout << "\n" << std::endl;
+  MapPreOrder(vec, &MapPrint<int>, 0);
+  std::cout << "\n" << std::endl;
+  std::cout << "Fine!" << std::endl;
+  RecapMenu();
 }
 
 void VectorString(){
@@ -119,7 +117,7 @@ void VectorString(){
   std::size_t length;
   std::mt19937 mt(std::random_device{}());
   std::string characters =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   std::uniform_int_distribution<int> dist(0, characters.length() - 1);
   std::string randStr;
 
@@ -127,8 +125,9 @@ void VectorString(){
     randStr = characters[dist(mt)];
     vec[i] = randStr;
   }
-  std::cout << "Il Front del vettore è: "<< vec.Front() << endl; // Stampa del Front del Vettore
-  std::cout << "Il Back del vettore è: "<< vec.Back() << endl; // Stampa del Back del Vettore
+
+  GetFront(vec);
+  GetBack(vec);
 
   // Ricerca dell'elemento di indice scelto dall'utente
   std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
@@ -149,14 +148,13 @@ void VectorString(){
   std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
-   if (vec.Exists(value)){
-     std::cout << "Elemento trovato" << std::endl;
-  
-   }else{
-     std::cout << "Elemento non trovato" << std::endl;
-   }
-   std::cout << "Goodbye!" << std::endl;
-   RecapMenu();
+
+  ExistsString(vec, value);
+  std::cout << "\n" << std::endl;
+  MapPreOrder(vec, &MapPrint<std::string>, 0);
+  std::cout << "\n" << std::endl;
+  std::cout << "Fine!" << std::endl;
+  RecapMenu();
 }
 
 void RecapMenu(){
