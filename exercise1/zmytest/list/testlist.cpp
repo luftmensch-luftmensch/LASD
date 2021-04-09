@@ -12,7 +12,7 @@ void RecapMenuList();
 void ListInt(){
   typedef lasd::MappableContainer<int>::MapFunctor fun;
   unsigned long index, dim;
-  unsigned int value;
+  unsigned int value,sum, n;
   std::default_random_engine gen(std::random_device{}()); 
   std::uniform_int_distribution<unsigned int> dist(1, 800); // Generazione numeri casuali
 
@@ -51,8 +51,16 @@ void ListInt(){
 
   std::cout << "\n" << std::endl;
 
-  std::cout << "\nEsecuzione della FoldFunction In PreOrder: \n"<< std::endl;
-  FoldPreOrder(list, &FoldAdd<int>, 0, 0,0);
+  std::cout << "\nInserisci un valore per cui calcolare la somma degli elementi minori del valore dato: \n"<< std::endl;
+  std::cin>> n;
+  list.FoldPreOrder([](const int& dat, const void* n, void* sum)
+	      {
+                if (dat < *((int*)n))
+                {
+                  *((int*)sum) += dat;
+                }
+              }, &n, &sum);
+  std::cout << sum << std::endl;
   RecapMenuList();
   
 }
@@ -60,6 +68,8 @@ void ListInt(){
 void ListDouble(){
   unsigned long index, dim;
   double value;
+  double prod = 1;
+  unsigned int n;
   std::default_random_engine gen(std::random_device{}()); 
   std::uniform_real_distribution<double> dist(1, 800); // Generazione numeri casuali
 
@@ -88,21 +98,32 @@ void ListDouble(){
   std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~ Ricerca di un valore all'interno della struttura~~~\n\tInserisci elemento: ";
   std::cin>> value;
-  Exists(list, value);
+  std::cout << value << std::endl;
+  std::cout << list.Exists(value) << std::endl;
 
   std::cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-  MapPreOrder(list, &MapPrint<int>, 0);
+  MapPreOrder(list, &MapPrint<double>, 0);
 
   std::cout << "\n" << std::endl;
 
+  std::cout << "\nInserisci un valore per cui calcolare il prodotto degli elementi maggiori del valore dato: \n"<< std::endl;
+  std::cin>> n;
+  list.FoldPreOrder([](const double& dat, const void* n, void* prod)
+	      {
+                if (dat > *((double*)n))
+                {
+                  *((double*)prod) += dat;
+                }
+              }, &n, &prod);
+  std::cout << prod << std::endl;
   RecapMenuList();
 }
 
 void ListString(){
-  
   unsigned long dim;
+  unsigned int n;
   int index;
-  std::string value;
+  std::string value, StringaConcatenata;
   std::cout << "Inserire la dimensione del vettore: ";
   std::cin >> dim;
   lasd::List<std::string> list;// Inizializziamo la lista
@@ -140,6 +161,16 @@ void ListString(){
   MapPreOrder(list, &MapPrint<std::string>, 0);
 
   std::cout << "\n" << std::endl;
+  std::cout << "\nCalcolo della concatenazione di stringhe dato un valore n: \n"<< std::endl;
+  std::cin>> n;
+  list.FoldPreOrder([](const std::string& dat, const void* n, void* StringaConcatenata)
+	      {
+                if (dat.length() < *((int*)n))
+                {
+                  *((std::string*)StringaConcatenata) += dat;
+                }
+              }, &n, &StringaConcatenata);
+  std::cout << StringaConcatenata << std::endl;
   RecapMenuList();
 }
 

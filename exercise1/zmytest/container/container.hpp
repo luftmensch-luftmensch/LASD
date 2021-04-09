@@ -60,6 +60,17 @@ void Exists(const lasd::TestableContainer<Data>& con, const unsigned long& val) 
      std::cout << "Elemento non trovato" << std::endl;
    }
 }
+
+template <typename Data>
+void ExistsFloat(const lasd::TestableContainer<Data>& con, double& val) {
+  if (con.Exists(val)){
+     std::cout << "Elemento trovato" << std::endl;
+   }else{
+     std::cout << "Elemento non trovato" << std::endl;
+   }
+}
+
+
 template <typename Data>
 void ExistsString(const lasd::TestableContainer<Data>& con, const std::string val) {
   if (con.Exists(val)){
