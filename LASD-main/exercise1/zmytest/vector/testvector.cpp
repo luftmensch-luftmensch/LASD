@@ -8,7 +8,8 @@
 #include <string>
 #include <ctime>
 #include <unistd.h>
-#include <bits/stdc++.h>
+#include <bits/stdc++.h> //?
+
 
 using namespace std;
 
@@ -123,18 +124,19 @@ void VectorFloat(){
   std::cout << "\n" << std::endl;
   std::cout << "\nInserisci un valore per cui calcolare il prodotto degli elementi maggiori del valore dato: \n"<< std::endl;
   std::cin>> n;
-  vec.FoldPreOrder([](const float& dat, const void* n, void* prod)
-	    {
-        if (dat > *((float*)n)) {
-          *((float*)prod) *= dat;
-        }
-}, &n, &prod);
-if (prod!=1.0){
-  std::cout << "Il prodotto e' "<<prod << std::endl;
-}
-else{
-  std::cout << "Non vi sono elementi maggiori dell'elemento scelto" << std::endl;
-}
+  vec.FoldPreOrder(
+      [](const float &dat, const void *n, void *prod) {
+	if (dat > *((float *)n)) {
+	  *((float *)prod) *= dat;
+	}
+      },
+      &n, &prod);
+  if (prod != 1.0) {
+    std::cout << "Il prodotto e' " << prod << std::endl;
+  } else {
+    std::cout << "Non vi sono elementi maggiori dell'elemento scelto"
+              << std::endl;
+  }
   std::cout << "\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
   std::cout << "~~~ Applicazione della funzione (N)^2 agli elementi del vettore~~~\n\t"<<std::endl;
   MapPreOrder(vec, &MapNxN<float>,0);
@@ -147,7 +149,7 @@ else{
 void VectorString(){
   unsigned long dim;
   int index;
-  std::string value, StringaConcatenata;
+  std::string value, StringaConcatenata, StringaToUpper;
   int n;
   std::cout << "Inserire la dimensione del vettore: ";
   std::cin >> dim;
@@ -203,6 +205,17 @@ void VectorString(){
               }, &n, &StringaConcatenata);
   std::cout << StringaConcatenata << std::endl;
 
+  std::cout << "Stampa del contenuto del vettore in Upper Case"<< std::endl;
+
+  for (int j = 0; j < dim; j ++){
+    StringaToUpper = vec[j];
+    transform(StringaToUpper.begin(), StringaToUpper.end(), StringaToUpper.begin(), ::toupper); // CONTROLLA SE SIA VALIDO SOLO CON L'std::
+    StringaToUpper =  StringaToUpper + " ";
+    std::cout << StringaToUpper ;
+
+  }
+ 
+  std::cout << "\n";
   RecapMenu();
 }
 

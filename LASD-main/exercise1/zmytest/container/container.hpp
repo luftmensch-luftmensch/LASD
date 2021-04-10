@@ -82,6 +82,8 @@ void MapPrint(const Data& dat, void* _) {
   std::cout << dat << " ";
 }
 
+
+
 template <typename Data>
 void MapIncrement(Data& dat, void* _) {
   dat++;

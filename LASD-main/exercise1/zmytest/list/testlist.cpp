@@ -6,6 +6,7 @@
 #include "../container/container.hpp"
 #include "../menu.hpp"
 #include <random>
+#include <bits/stdc++.h>
 
 /* Prototipi */
 void RecapMenuList();
@@ -138,7 +139,7 @@ void ListString(){
   unsigned long dim;
   unsigned int n;
   int index;
-  std::string value, StringaConcatenata;
+  std::string value, StringaConcatenata, StringaToUpper;
   std::cout << "Inserire la dimensione del vettore: ";
   std::cin >> dim;
   lasd::List<std::string> list;// Inizializziamo la lista
@@ -186,6 +187,17 @@ void ListString(){
                 }
               }, &n, &StringaConcatenata);
   std::cout << StringaConcatenata << std::endl;
+
+  std::cout << "Stampa del contenuto della lista in Upper Case"<< std::endl;
+  for (int j = 0; j < dim; j ++){
+    StringaToUpper = list[j];
+    transform(StringaToUpper.begin(), StringaToUpper.end(), StringaToUpper.begin(), ::toupper);
+    StringaToUpper =  StringaToUpper + " ";
+    std::cout << StringaToUpper ;
+
+  }
+
+  std::cout << "\n";
   RecapMenuList();
 }
 
