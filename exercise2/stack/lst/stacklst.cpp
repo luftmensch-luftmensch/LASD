@@ -31,19 +31,12 @@ StackLst<Data>::StackLst(const LinearContainer<Data>&){
      }
                                   //else, i create a new node into the new list with the element from the other list
      else{
-       struct Node* current;
-       current=otherStackLst.First;
-       struct Node* node=new Node(current->elemento);
-                                 //here i can refresh the pointers with the correct values
-       First=node;
-       top=First;
-       Last=First;
+       Node* current = otherStackLst.First;
+       List<Data>::InsertAtBack(otherStackLst.First->elemento);
                                  //i can proceed with the copy until the last one element of the other list
        current=current->next;
        while(current != nullptr){
-         struct Node* newnode=new Node(current->elemento);
-         Last->next=newnode;
-         Last=newnode;
+         List<Data>::InsertAtBack(current->elemento);
          current=current->next;
        }
                                  //at the end, i refresh the size of the new list with the size from the other list
