@@ -21,12 +21,12 @@ private:
 
 protected:
 
-  // ...
+  using Container::dim;
 
 public:
 
   // Destructor
-  virtual ~Stack()=default;
+  virtual ~Stack() =default;
 
   /* ************************************************************************ */
 
@@ -48,9 +48,9 @@ public:
 
   virtual void Push(const Data&) = 0; // Copy of the value
   virtual void Push(Data&&) = 0; // Move of the value
-  virtual void Top()=0; // (concrete function must throw std::length_error when empty)
+  virtual Data& Top() const=0; // (concrete function must throw std::length_error when empty)
   virtual void Pop() = 0; // (concrete function must throw std::length_error when empty)
-  Data& TopNPop()=0; // (concrete function must throw std::length_error when empty)
+  virtual Data TopNPop()=0; // (concrete function must throw std::length_error when empty)
 
 };
 

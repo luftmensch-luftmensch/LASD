@@ -18,7 +18,6 @@ class StackLst : virtual public Stack<Data>, virtual protected List<Data> { // M
 
 private:
 
-  StackNode<Data>* top;
 
 protected:
 
@@ -28,10 +27,8 @@ protected:
 public:
 
   // Default constructor
-   StackLst() {
-     top=nullptr;
-     size=0;
-   }
+   StackLst();
+
 
   /* ************************************************************************ */
 
@@ -44,12 +41,12 @@ public:
    StackLst(const StackLst&);
 
   // Move constructor
-    StackLst(StackLst&&);
+    StackLst(StackLst&&) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-    ~StackLst();
+    ~StackLst()=default;
 
   /* ************************************************************************ */
 
@@ -57,7 +54,7 @@ public:
      StackLst& operator=(const StackLst&);
 
   // Move assignment
-     StackLst& operator=(StackLst&&);
+     StackLst& operator=(StackLst&&) noexcept;
 
   /* ************************************************************************ */
 
@@ -71,15 +68,16 @@ public:
 
      void Push(const Data&) override; // Override Stack member (copy of the value)
      void Push(Data&&) override; // Override Stack member (move of the value)
-     void Top() override; // Override Stack member (must throw std::length_error when empty)
+     Data& Top() const override; // Override Stack member (must throw std::length_error when empty)
      void Pop() override; // Override Stack member (must throw std::length_error when empty)
-     Data& TopNPop() override; // Override Stack member (must throw std::length_error when empty)
+     Data TopNPop() override; // Override Stack member (must throw std::length_error when empty)
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
-
-     void Clear() override; // Override Container member
+     using List<Data>::Empty;
+     using List<Data>::Size;
+     using List<Data>::Clear;
 
 };
 

@@ -2,76 +2,83 @@
 namespace lasd {
 
 /* ************************************************************************** */
+                         //Default Constructor
+template <typename Data>
+StackLst<Data>::StackLst(): List<Data>::List() {}
+
 
 // Specific constructor
 template <typename Data>
-StackLst<Data>::StackLst(const LinearContainer<Data>&){
-                           //if size =0, the list's pointers are nullptr because the container is empty
-  if(con.Size()==0){
-     top= nullptr;
-  }
-                           //else, i can insert at back of the list the elements from the container
-  else{
-     top= nullptr;
-     for (unsigned long i=0; i < con.Size(); i++){
-       InsertAtBack(con[i]);
-     }
-  }
-}
+StackLst<Data>::StackLst(const LinearContainer<Data>& con): List<Data>::List(con) {}
 
 // Copy constructor
  template<typename Data>
- StackLst<Data>::StackLst(const StackLst<Data>& otherStackLst){
-                                   //if the two lists are different i can proceed with comparisons (i can't copy the same list into a list)
-   if(this != &otherList){
-                                   //if the list to copy is empty, i have nothing to copy
-     if(otherStackLst.First==nullptr){
-       top=nullptr;
-       dim=0;
-     }
-                                  //else, i create a new node into the new list with the element from the other list
-     else{
-       Node* current = otherStackLst.First;
-       List<Data>::InsertAtBack(otherStackLst.First->elemento);
-                                 //i can proceed with the copy until the last one element of the other list
-       current=current->next;
-       while(current != nullptr){
-         List<Data>::InsertAtBack(current->elemento);
-         current=current->next;
-       }
-                                 //at the end, i refresh the size of the new list with the size from the other list
-     dim=otherStackLst.dim;
-    }
-  }
+ StackLst<Data>::StackLst(const StackLst<Data>& otherStackLst): List<Data>::List(otherStackLst){}
+
+                     //Move constructor list
+template<typename Data>
+StackLst<Data>::StackLst(StackLst<Data>&& otherStackLst) noexcept: List<Data>::List(std::move(otherStackLst)){}
+                    //Copy assignment
+template <typename Data>
+StackLst<Data>& StackLst<Data>::operator=(const StackLst& s){
+  List<Data>::operator=(s);
+  return *this;
+}
+                    //Move assignment
+template <typename Data>
+StackLst<Data>& StackLst<Data>::operator=(StackLst&& s) noexcept {
+  List<Data>::operator=(std::move(s));
+  return *this;
 }
 
+
+                           //Comparison operator
+template <typename Data>
+bool StackLst<Data>::operator==(const StackLst& s) const noexcept{
+  return List<Data>::operator==(s);
+}
+                          //Other Comparison operator
+template <typename Data>
+bool StackLst<Data>::operator!=(const StackLst& s) const noexcept{
+  return List<Data>::operator!=(s);
+}
 
 //Push function (copy)
 template <typename Data>
-void Push(const Data& value){
-  List<Data>::InsertAtFront(value);
+void StackLst<Data>::Push(const Data& d){
+  List<Data>::InsertAtFront(d);
 }
+
 
 //Push function (move)
 template <typename Data>
-void Push(Data&& value){
-  List<Data>::InsertAtFront(value);
+void StackLst<Data>::Push(Data&& d){
+  List<Data>::InsertAtFront(std::move(d));
 }
 
-//Top function
-void Top(){
-  List<Data>::Front();
-}
+                          //Top function
+template <typename Data>
+Data& StackLst<Data>::Top() const {
+  if(Empty())
+  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
 
-//Pop function
-void Pop(){
+  return List<Data>::Front();
+}
+                          //Pop function
+template <typename Data>
+void StackLst<Data>::Pop(){
+  if(Empty())
+  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
+
   List<Data>::RemoveFromFront();
 }
-
-//TopNPop function
+                         //TopNPop function
 template <typename Data>
-Data& TopNPop(){
-  List<Data>::FrontNRemove();
+Data StackLst<Data>::TopNPop(){
+  if(Empty())
+  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
+
+  return List<Data>::FrontNRemove();
 }
 
 /* ************************************************************************** */
