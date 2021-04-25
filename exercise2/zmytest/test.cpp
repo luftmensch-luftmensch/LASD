@@ -78,12 +78,12 @@ void testpersonale(){
     }
     if (scelta == 'e') {
       std::system("clear");
-      //QueueVecDouble();
+      QueueListDouble();
       quit = true;
     }
     if (scelta == 'f') {
       std::system("clear");
-      //QueueVecString();
+      QueueListString();
       quit = true;
     }
   }

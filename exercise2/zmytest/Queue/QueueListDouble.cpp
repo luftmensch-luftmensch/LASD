@@ -2,10 +2,10 @@
 #include <random>
 #include "../../container/container.hpp"
 #include "../../queue/queue.hpp"
-#include "../../queue/vec/queuevec.hpp"
+#include "../../queue/lst/queuelst.hpp"
 #include "Queue.hpp"
 
-void QueueVecDouble(){
+void QueueListDouble(){
   uint dim, elemento;
   uint j = 0;
   char opzione;
@@ -16,9 +16,9 @@ void QueueVecDouble(){
 
   std::default_random_engine gen(std::random_device{}());
   std::uniform_real_distribution<double> dist(1.0, 100.0);
-  lasd::QueueVec<double> QueueVecDouble;
+  lasd::QueueLst<double> QueueListDouble;
   while (j < dim){
-    QueueVecDouble.Enqueue(dist(gen));
+    QueueListDouble.Enqueue(dist(gen));
     j++;
   }
 
@@ -35,25 +35,25 @@ void QueueVecDouble(){
       std::system("clear");
       std::cout<< "Digita l'elemento da inserire nella struttura"<< std::endl;
       std::cin >> elemento;
-      QueueVecDouble.Enqueue(elemento);
+      QueueListDouble.Enqueue(elemento);
       OperazioniQueue();
     }
     if (opzione == '2') { // Rimozione
       std::system("clear");
-      QueueVecDouble.Dequeue();
+      QueueListDouble.Dequeue();
       quit = true;
       OperazioniQueue();
     }
 
     if (opzione == '3') { // Rimozione con lettura
       std::system("clear");
-      QueueVecDouble.HeadNDequeue();
+      QueueListDouble.HeadNDequeue();
       quit = true;
       OperazioniQueue();
     }
     if (opzione == '4') { // Lettura non distruttiva
       std::system("clear");
-      elemento = QueueVecDouble.Head();
+      elemento = QueueListDouble.Head();
       std::cout<< "L'elemento in lettura è: " << elemento << std::endl;
       quit = true;
       OperazioniQueue();
@@ -61,7 +61,7 @@ void QueueVecDouble(){
 
     if (opzione == '5') { // Controllo sulla vuotezza della struttura
       std::system("clear");
-      if (QueueVecDouble.Empty()) {
+      if (QueueListDouble.Empty()) {
 	std::cout<< "Lo stack è vuoto"<< std::endl;
 
       } else {
@@ -72,7 +72,7 @@ void QueueVecDouble(){
     }
     if (opzione == '6') { // Informazione sulla dimensione della struttura
       std::system("clear");
-      elemento = QueueVecDouble.Size();
+      elemento = QueueListDouble.Size();
       std::cout<< "La dimensione dello Stack è " << elemento << std::endl;
       quit = true;
       OperazioniQueue();
@@ -80,7 +80,7 @@ void QueueVecDouble(){
     if (opzione == '7') { // Svuotamento
       std::system("clear");
       quit = true;
-      QueueVecDouble.Clear();
+      QueueListDouble.Clear();
       std::cout<< "Struttura svuotata" << std::endl;
       OperazioniQueue();
     }

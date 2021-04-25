@@ -8,6 +8,6 @@ void QueueVecString();
 void OperazioniQueue();
 
 void QueueListInt();
-//void QueueListDouble();
-//void QueueListString();
+void QueueListDouble();
+void QueueListString();
 #endif

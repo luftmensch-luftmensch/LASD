@@ -10,6 +10,6 @@ g++ -O3 -o main \
     zmytest/Stack/StackListInt.cpp zmytest/Stack/StackListDouble.cpp \
     zmytest/Stack/StackListString.cpp zmytest/Queue/QueueVecInt.cpp \
     zmytest/Queue/OperazioniQueue.cpp zmytest/Queue/QueueVecDouble.cpp \
-    zmytest/Queue/QueueVecString.cpp  zmytest/Queue/QueueListInt.cpp  main.cpp
-    #zmytest/Queue/QueueVecInt.cpp zmytest/Queue/QueueVecDouble.cpp \
-    #zmytest/Queue/QueueVecString.cpp zmytest/Stack/OperazioniQueue.cpp \
+    zmytest/Queue/QueueVecString.cpp  zmytest/Queue/QueueListInt.cpp  \
+    zmytest/Queue/QueueListDouble.cpp zmytest/Queue/QueueListString.cpp \
+    main.cpp
