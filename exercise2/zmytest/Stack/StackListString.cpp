@@ -53,7 +53,7 @@ void StackListString(){
 
     if (opzione == '3') { // Rimozione con lettura
       std::system("clear");
-      StackListString.TopNPop();
+      std::cout<< "L'elemento rimosso è " << StackListString.TopNPop() << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }

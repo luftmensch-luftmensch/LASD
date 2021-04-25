@@ -53,7 +53,7 @@ void StackVecString(){
 
     if (opzione == '3') { // Rimozione con lettura
       std::system("clear");
-      StackVecString.TopNPop();
+      std::cout<< "L'elemento rimosso è " << StackVecString.TopNPop() << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }

@@ -47,7 +47,7 @@ void StackListDouble(){
 
     if (opzione == '3') { // Rimozione con lettura
       std::system("clear");
-      StackListDouble.TopNPop();
+      std::cout<< "L'elemento rimosso è " << StackListDouble.TopNPop() << std::endl;
       quit = true;
       OperazioniDaEseguire();
     }

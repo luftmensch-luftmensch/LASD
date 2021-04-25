@@ -6,11 +6,11 @@ template <typename Data>
 QueueVec<Data>::QueueVec(): Vector<Data>(2) {} // Costruttore di default
 
 template <typename Data>
-QueueVec<Data>::QueueVec(const LinearContainer<Data>& con): Vector<Data>::Vector(con) { // Costruttore specifico
-    dimensione = con.Size();
+QueueVec<Data>::QueueVec(const LinearContainer<Data>& Container): Vector<Data>::Vector(Container) { // Costruttore specifico
+    dimensione = Container.Size();
     elemento = new Data[dimensione];
-    for (ulong i = 0; i < con.Size(); ++i) {
-      Enqueue(con[i]);
+    for (ulong i = 0; i < Container.Size(); ++i) {
+      Enqueue(Container[i]);
     }
 }
 template <typename Data>

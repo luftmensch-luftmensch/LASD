@@ -47,7 +47,7 @@ void QueueListInt(){
 
     if (opzione == '3') { // Rimozione con lettura
       std::system("clear");
-      QueueListInt.HeadNDequeue();
+      std::cout<< "L'elemento rimosso è " << QueueListInt.HeadNDequeue() << std::endl;
       quit = true;
       OperazioniQueue();
     }
