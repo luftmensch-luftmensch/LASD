@@ -22,7 +22,7 @@ private:
 protected:
 
 
-  using List<Data>::dim;
+  using List<Data>::dimensione;
 
 public:
 

@@ -23,7 +23,7 @@ private:
 
 protected:
 
-  using LinearContainer<Data>::dim;
+  using LinearContainer<Data>::dimensione;
 
   struct Node
   {
@@ -127,7 +127,7 @@ public:
   Data& Front() const override;
   Data& Back() const override;
 
-  Data& operator[](const unsigned long)const override;
+  Data& operator[](const ulong)const override;
 
   /* ************************************************************************ */
 

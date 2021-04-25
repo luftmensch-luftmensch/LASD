@@ -8,14 +8,14 @@ namespace lasd {
 template<typename Data>
 Vector<Data>::Vector(const unsigned long newdim){
   elem = new Data[newdim] {};
-  dim = newdim;
+  dimensione = newdim;
 }
                                     //Constructor of a vector starting with a list or a vector
 template<typename Data>
 Vector<Data>::Vector(const LinearContainer<Data>& con){
-  dim=con.Size();
-  elem= new Data[dim];
-  for (unsigned long i=0; i< dim; ++i){
+  dimensione=con.Size();
+  elem= new Data[dimensione];
+  for (ulong i=0; i< dimensione; ++i){
     elem[i]=con[i];
   }
 }
@@ -27,9 +27,9 @@ Vector<Data>::Vector(const LinearContainer<Data>& con){
                                   //    elem is the destination's vector
 template<typename Data>
 Vector<Data>::Vector (const Vector<Data>& vec){
-  elem= new Data[vec.dim];
-  std::copy(vec.elem, vec.elem+vec.dim, elem);
-  dim=vec.dim;
+  elem= new Data[vec.dimensione];
+  std::copy(vec.elem, vec.elem+vec.dimensione, elem);
+  dimensione=vec.dimensione;
 }
 
                                  //Move Constructor
@@ -38,7 +38,7 @@ Vector<Data>::Vector (const Vector<Data>& vec){
 template<typename Data>
 Vector<Data>::Vector (Vector<Data>&& vec) noexcept{
   std::swap(elem, vec.elem);
-  std::swap(dim, vec.dim);
+  std::swap(dimensione, vec.dimensione);
 }
 
                                  //Destructor
@@ -62,14 +62,14 @@ Vector<Data>& Vector<Data>::operator=(const Vector<Data>& vec) {
 template<typename Data>
 Vector<Data>& Vector<Data>::operator=(Vector<Data>&& vec) noexcept{
   std::swap(elem, vec.elem);
-  std::swap(dim, vec.dim);
+  std::swap(dimensione, vec.dimensione);
   return *this;
 }
                               //Comparison operators
 template<typename Data>
 bool Vector<Data>::operator==(const Vector<Data>& vec) const noexcept{
-  if(dim == vec.dim){
-    for(unsigned long i = 0; i < dim; ++i){
+  if(dimensione == vec.dimensione){
+    for(ulong i = 0; i < dimensione; ++i){
       if(elem[i] != vec.elem[i]){
         return false;
       }
@@ -96,14 +96,14 @@ void Vector<Data>::Resize(const unsigned long newdim){
   if(newdim == 0){
     Clear();
   }
-  else if(dim != newdim){
-    unsigned long limit = (dim < newdim) ? dim : newdim;
+  else if(dimensione != newdim){
+    unsigned long limit = (dimensione < newdim) ? dimensione : newdim;
     Data* tmpelem = new Data[newdim] {};
     for(unsigned long i = 0; i < limit; ++i){
       std::swap(elem[i], tmpelem[i]);
     }
     std::swap(elem,tmpelem);
-    dim = newdim;
+    dimensione = newdim;
     delete[] tmpelem;
   }
 }
@@ -113,7 +113,7 @@ template<typename Data>
 void Vector<Data>::Clear(){
   delete[] elem;
   elem = nullptr;
-  dim = 0;
+  dimensione = 0;
 }
 
                           /* Front function
@@ -122,7 +122,7 @@ void Vector<Data>::Clear(){
                           */
 template<typename Data>
 Data& Vector<Data>::Front() const{
-  if(dim != 0){
+  if(dimensione != 0){
     return elem[0];
   }
   else{
@@ -136,8 +136,8 @@ Data& Vector<Data>::Front() const{
                             */
 template<typename Data>
 Data& Vector<Data>::Back() const{
-  if(dim != 0){
-    return elem[dim - 1];
+  if(dimensione != 0){
+    return elem[dimensione - 1];
   }
   else{
     throw std::length_error("Accesso ad un array vuoto.");
@@ -149,11 +149,11 @@ Data& Vector<Data>::Back() const{
                               else it throws an out_of_range exception */
 template<typename Data>
 Data& Vector<Data>::operator[](const unsigned long i) const{
-  if(i < dim){
+  if(i < dimensione){
     return elem[i];
   }
   else{
-    throw std::out_of_range("Accesso all'indice: " + std::to_string(i) + ": lunghezza del vettore: " + std::to_string(dim) + ".");
+    throw std::out_of_range("Accesso all'indice: " + std::to_string(i) + ": lunghezza del vettore: " + std::to_string(dimensione) + ".");
   }
 }
 
@@ -162,7 +162,7 @@ Data& Vector<Data>::operator[](const unsigned long i) const{
                                Can modify data who have been visited*/
 template<typename Data>
 void Vector<Data>::MapPreOrder(MapFunctor fun, void* par){
-  for(unsigned long i = 0; i < dim; ++i){
+  for(unsigned long i = 0; i < dimensione; ++i){
     fun(elem[i],par);
   }
 }
@@ -172,7 +172,7 @@ void Vector<Data>::MapPreOrder(MapFunctor fun, void* par){
                               Can modify data who have been visited*/
 template<typename Data>
 void Vector<Data>::MapPostOrder(MapFunctor fun, void* par){
-  unsigned long i = dim;
+  unsigned long i = dimensione;
   while(i > 0){
     fun(elem[--i],par);
   }
@@ -183,7 +183,7 @@ void Vector<Data>::MapPostOrder(MapFunctor fun, void* par){
                             Can't modify data who have been visited but remembers the data*/
 template<typename Data>
 void Vector<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc) const{
-  for(unsigned long i = 0; i < dim; ++i){
+  for(unsigned long i = 0; i < dimensione; ++i){
     fun(elem[i],par,acc);
   }
 }
@@ -193,7 +193,7 @@ void Vector<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc) con
                             Can't modify data who have been visited but remembers the data */
 template<typename Data>
 void Vector<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc) const{
-  unsigned long i = dim;
+  unsigned long i = dimensione;
   while(i > 0){
     fun(elem[--i],par,acc);
   }

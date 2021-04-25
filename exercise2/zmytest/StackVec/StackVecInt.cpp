@@ -8,7 +8,7 @@
 #include "../../queue/lst/queuelst.hpp"
 #include "StackVec.hpp"
 void StackVecInt(){
-  unsigned int dim;
+  uint dim;
   std::cout << "Inserire la dimensione dello stack di interi" << std::endl;
   std::cin >> dim;
 }

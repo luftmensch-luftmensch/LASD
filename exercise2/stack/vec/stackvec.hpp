@@ -22,9 +22,9 @@ private:
 
 protected:
 
-  using Container::dim;
+  using Container::dimensione;
   using Vector<Data>::elem;
-  unsigned long top = 0;
+  ulong top = 0;
 
 
 public:
@@ -80,7 +80,7 @@ public:
 
   virtual bool Empty() const noexcept override; // Override Container member
 
-  virtual unsigned long Size() const noexcept override; // Override Container member
+  virtual ulong Size() const noexcept override; // Override Container member
 
   virtual void Clear() noexcept override; // Override Container member
 

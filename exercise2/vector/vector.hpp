@@ -23,7 +23,7 @@ private:
 
 protected:
 
-  using LinearContainer<Data>::dim;
+  using LinearContainer<Data>::dimensione;
 
   Data* elem=nullptr;
 

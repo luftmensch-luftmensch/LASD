@@ -21,7 +21,7 @@ private:
 
 protected:
 
-  using Container::dim;
+  using Container::dimensione;
 
 public:
 

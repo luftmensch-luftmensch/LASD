@@ -11,9 +11,9 @@ StackVec<Data>::StackVec(): Vector<Data>::Vector(1){}
                    //Specific Constructor
 template<typename Data>
 StackVec<Data>::StackVec(const LinearContainer<Data>& con){
-  dim=con.Size();
-  elem= new Data[dim];
-  for (unsigned long i=0; i<con.Size(); ++i){
+  dimensione=con.Size();
+  elem= new Data[dimensione];
+  for (ulong i=0; i<con.Size(); ++i){
     Push(con[i]);
   }
 }
@@ -55,7 +55,7 @@ bool StackVec<Data>::operator==(const StackVec& s) const noexcept{
   if(top != s.top)
     return false;
 
-  unsigned long index = 0;
+  ulong index = 0;
   while(index < top && Vector<Data>::operator[](index) == s.Vector<Data>::operator[](index))
     index++;
 
@@ -84,7 +84,7 @@ void StackVec<Data>::Pop(){
   Data deleted = std::move(Vector<Data>::operator[](--top));
   (void)deleted;
 
-  if(top < dim/4)
+  if(top < dimensione/4)
     Reduce();
 }
                        //TopNPop function
@@ -95,7 +95,7 @@ Data StackVec<Data>::TopNPop(){
 
   Data ret = std::move(Vector<Data>::operator[](--top));
 
-  if(top < dim/4)
+  if(top < dimensione/4)
     Reduce();
 
   return ret;
@@ -105,14 +105,14 @@ Data StackVec<Data>::TopNPop(){
 template <typename Data>
 void StackVec<Data>::Push(const Data& d){
   Vector<Data>::operator[](top++) = d;
-  if(top == dim)
+  if(top == dimensione)
     Expand();
 }
                     //Push function (move)
 template <typename Data>
 void StackVec<Data>::Push(Data&& d){
   Vector<Data>::operator[](top++) = std::move(d);
-  if(top == dim)
+  if(top == dimensione)
     Expand();
 }
                   //Empty function
@@ -122,7 +122,7 @@ bool StackVec<Data>::Empty() const noexcept {
 }
                  //Size function
 template <typename Data>
-unsigned long StackVec<Data>::Size() const noexcept {
+ulong StackVec<Data>::Size() const noexcept {
   return top;
 }
                 //Clear function
@@ -134,12 +134,12 @@ void StackVec<Data>::Clear() noexcept {
                  //Expand function
 template <typename Data>
 void StackVec<Data>::Expand(){
-  Vector<Data>::Resize(dim*2);
+  Vector<Data>::Resize(dimensione*2);
 }
                 //Reduce function
 template <typename Data>
 void StackVec<Data>::Reduce(){
-  Vector<Data>::Resize(dim/2);
+  Vector<Data>::Resize(dimensione/2);
 }
 
 /* ************************************************************************** */

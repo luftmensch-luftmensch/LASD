@@ -19,7 +19,7 @@ private:
 
 protected:
 
-  unsigned long dim=0;
+  ulong dimensione=0;
 
 public:
 
@@ -42,19 +42,10 @@ public:
 
   /* ************************************************************************ */
 
-  // Specific member functions
-                                  //Empty: returns true if Container is empty, false otherwise
-                                  //It doesn't throw exceptions
     virtual bool Empty() const noexcept{
-      return (dim==0);
+      return (dimensione==0);
     }
-                                  //Size: returns the Container's size
-                                  //It doesn't throw exceptions
-    virtual unsigned long Size() const noexcept{
-      return dim;
-    }
-                                  //Clear: clears the Container
-                                  //Pure virtual function, defined later
+    virtual ulong Size() const noexcept { return dimensione; }
     virtual void Clear()=0;
 
 };
@@ -91,19 +82,9 @@ public:
 
   /* ************************************************************************ */
 
-  // Specific member functions
-                                    //Front: returns the first element
-                                    //throws std::length_error when empty
-                                    //pure virtual function, defined later
   virtual Data& Front() const = 0;
-                                    //Back(): returns the last element
-                                    //throws std::length_error when empty
-                                    //pure virtual function, defined later
   virtual Data& Back() const = 0;
-                                    //operator[]: returns the i-th element
-                                    //throws std::out_of_range when out of out_of_range
-                                    //pure virtual function, defined later
-  virtual Data& operator[](const unsigned long) const = 0;
+  virtual Data& operator[](const ulong) const = 0;
 
 };
 
@@ -139,11 +120,7 @@ public:
 
   /* ************************************************************************ */
 
-  // Specific member functions
-                                                     //Exists(): returns true if the container exists, false otherwise
-                                                     //pure virtual function, defined later
-  virtual bool Exists(const Data&) const noexcept = 0;
-
+  virtual bool Exists(const Data &) const noexcept = 0;
 };
 
 /* ************************************************************************** */
@@ -176,16 +153,8 @@ public:
 
   /* ************************************************************************ */
 
-  // Specific member functions
-                                          //Function pointer to the function MapFunctor
-                                          //Used for the scan of elements in MapPreOrder and MapPostOrder
-                                          //it modifies data
   typedef std::function<void(Data&, void*)> MapFunctor;
-                                          //MapPreOrder: returns the elements of the container from the first to the last element
-                                          //pure virtual function, defined later
   virtual void MapPreOrder(MapFunctor, void*)=0;
-                                          //MapPostOrder: returns the elements of the container from the last to the first element
-                                          //pure virtual function, defined later
   virtual void MapPostOrder(MapFunctor, void*)=0;
 
 };
@@ -220,10 +189,6 @@ public:
 
   /* ************************************************************************ */
 
-  // Specific member functions
-                                         //Function pointer to the function FoldFunctor
-                                         //Used for the scan of elements in FoldPreOrder and FoldPostOrder
-                                         //it doesn't modify data, it uses an accumulator
   typedef std::function<void(const Data&, const void*, void*) noexcept> FoldFunctor;
 
   virtual void FoldPreOrder(const FoldFunctor, const void*, void*) const = 0;
