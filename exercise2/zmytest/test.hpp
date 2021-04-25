@@ -1,10 +1,9 @@
-
-#ifndef MYTEST_HPP
-#define MYTEST_HPP
+#ifndef TESTPERSONALE_HPP
+#define TESTPERSONALE_HPP
 
 /* ************************************************************************** */
 
-void mytest();
+void testpersonale();
 /* ************************************************************************** */
 
 #endif

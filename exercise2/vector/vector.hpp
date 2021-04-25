@@ -25,7 +25,7 @@ protected:
 
   using LinearContainer<Data>::dimensione;
 
-  Data* elem=nullptr;
+  Data* elemento=nullptr;
 
 public:
 

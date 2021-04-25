@@ -4,5 +4,6 @@
 void StackVecInt();
 void StackVecDouble();
 void StackVecString();
+void OperazioniDaEseguire();
 
 #endif

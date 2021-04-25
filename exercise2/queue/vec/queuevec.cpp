@@ -8,7 +8,7 @@ QueueVec<Data>::QueueVec(): Vector<Data>(2) {} // Costruttore di default
 template <typename Data>
 QueueVec<Data>::QueueVec(const LinearContainer<Data>& con): Vector<Data>::Vector(con) { // Costruttore specifico
     dimensione = con.Size();
-    elem = new Data[dimensione];
+    elemento = new Data[dimensione];
     for (ulong i = 0; i < con.Size(); ++i) {
       Enqueue(con[i]);
     }

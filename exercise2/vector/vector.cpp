@@ -3,48 +3,44 @@
 namespace lasd {
 
 /* ************************************************************************** */
-                                     //Constructor of a vector with a given dimension
 
 template<typename Data>
-Vector<Data>::Vector(const unsigned long newdim){
-  elem = new Data[newdim] {};
-  dimensione = newdim;
+Vector<Data>::Vector(const ulong DimensioneN){
+  elemento = new Data[DimensioneN] {};
+  dimensione = DimensioneN;
 }
                                     //Constructor of a vector starting with a list or a vector
 template<typename Data>
-Vector<Data>::Vector(const LinearContainer<Data>& con){
-  dimensione=con.Size();
-  elem= new Data[dimensione];
+Vector<Data>::Vector(const LinearContainer<Data>& Container){
+  dimensione=Container.Size();
+  elemento= new Data[dimensione];
   for (ulong i=0; i< dimensione; ++i){
-    elem[i]=con[i];
+    elemento[i]=Container[i];
   }
 }
 
                                   //Copy Constructor
                                   //Uses the library function "copy" where:
-                                  //    vec.elem is the pointer to the first element to copy
-                                  //    vec.elem+vec.size is the pointer to the last element to copy
-                                  //    elem is the destination's vector
+                                  //    vec.elemento is the pointer to the first elementoent to copy
+                                  //    vec.elemento+vec.size is the pointer to the last elementoent to copy
+                                  //    elemento is the destination's vector
 template<typename Data>
 Vector<Data>::Vector (const Vector<Data>& vec){
-  elem= new Data[vec.dimensione];
-  std::copy(vec.elem, vec.elem+vec.dimensione, elem);
+  elemento= new Data[vec.dimensione];
+  std::copy(vec.elemento, vec.elemento+vec.dimensione, elemento);
   dimensione=vec.dimensione;
 }
 
-                                 //Move Constructor
-                                 //Uses the library function "swap" to swap the elements of the two vectors first,
-                                 //and then the sizes of the two vectors
 template<typename Data>
 Vector<Data>::Vector (Vector<Data>&& vec) noexcept{
-  std::swap(elem, vec.elem);
+  std::swap(elemento, vec.elemento);
   std::swap(dimensione, vec.dimensione);
 }
 
                                  //Destructor
 template<typename Data>
 Vector<Data>::~Vector() {
-  delete[] elem;
+  delete[] elemento;
 }
 
                                 //Copy assignment
@@ -61,7 +57,7 @@ Vector<Data>& Vector<Data>::operator=(const Vector<Data>& vec) {
                                //Move assignment
 template<typename Data>
 Vector<Data>& Vector<Data>::operator=(Vector<Data>&& vec) noexcept{
-  std::swap(elem, vec.elem);
+  std::swap(elemento, vec.elemento);
   std::swap(dimensione, vec.dimensione);
   return *this;
 }
@@ -70,7 +66,7 @@ template<typename Data>
 bool Vector<Data>::operator==(const Vector<Data>& vec) const noexcept{
   if(dimensione == vec.dimensione){
     for(ulong i = 0; i < dimensione; ++i){
-      if(elem[i] != vec.elem[i]){
+      if(elemento[i] != vec.elemento[i]){
         return false;
       }
     }
@@ -86,117 +82,92 @@ bool Vector<Data>::operator!=(const Vector<Data>& vec) const noexcept{
   return !(*this == vec);
 }
 
-                            /* Resize function
-                               If newsize=0 then call the function Clear()
-                               else if the new size is different from the old one then create a tmparray and fill it until all the elements have been moved
-                                and then swap the two pointers and the sizes
-                            */
 template<typename Data>
-void Vector<Data>::Resize(const unsigned long newdim){
-  if(newdim == 0){
+void Vector<Data>::Resize(const unsigned long DimensioneN){
+  if(DimensioneN == 0){
     Clear();
   }
-  else if(dimensione != newdim){
-    unsigned long limit = (dimensione < newdim) ? dimensione : newdim;
-    Data* tmpelem = new Data[newdim] {};
-    for(unsigned long i = 0; i < limit; ++i){
-      std::swap(elem[i], tmpelem[i]);
+  else if(dimensione != DimensioneN){
+    ulong elemDaCopiare = (dimensione < DimensioneN) ? dimensione : DimensioneN;
+    ulong i = 0;
+
+    Data* TempArray = new Data[DimensioneN] {};
+
+    while (i < elemDaCopiare){
+      std::swap(elemento[i], TempArray[i]);
+      ++i;
     }
-    std::swap(elem,tmpelem);
-    dimensione = newdim;
-    delete[] tmpelem;
+    std::swap(elemento,TempArray);
+    dimensione = DimensioneN;
+    delete[] TempArray;
   }
 }
 
-                           // Clear function
 template<typename Data>
 void Vector<Data>::Clear(){
-  delete[] elem;
-  elem = nullptr;
+  delete[] elemento;
+  elemento = nullptr;
   dimensione = 0;
 }
-
-                          /* Front function
-                             If size=0, returns the first element
-                             else it throws a lenght_error;
-                          */
 template<typename Data>
 Data& Vector<Data>::Front() const{
   if(dimensione != 0){
-    return elem[0];
+    return elemento[0];
   }
   else{
-    throw std::length_error("Accesso ad un array vuoto.");
+    throw std::length_error("Array vuoto!");
   }
 }
-
-                            /* Back function
-                               If size=0, returns the last elemento
-                               else it throws a lenght_error
-                            */
 template<typename Data>
 Data& Vector<Data>::Back() const{
   if(dimensione != 0){
-    return elem[dimensione - 1];
+    return elemento[dimensione - 1];
   }
   else{
-    throw std::length_error("Accesso ad un array vuoto.");
+    throw std::length_error("Array vuoto");
   }
 }
 
-                            /* Access ( [] ) operator
-                              Returns the element in a specific index if the index <= sizes
-                              else it throws an out_of_range exception */
 template<typename Data>
-Data& Vector<Data>::operator[](const unsigned long i) const{
-  if(i < dimensione){
-    return elem[i];
+Data& Vector<Data>::operator[](const ulong j) const{
+  if(j < dimensione){
+    return elemento[j];
   }
   else{
-    throw std::out_of_range("Accesso all'indice: " + std::to_string(i) + ": lunghezza del vettore: " + std::to_string(dimensione) + ".");
+    throw std::out_of_range("Accesso ad un indice non valido");
   }
 }
 
-                            /* Map function PreOrder
-                               Array visit from the first to the last element
-                               Can modify data who have been visited*/
 template<typename Data>
 void Vector<Data>::MapPreOrder(MapFunctor fun, void* par){
-  for(unsigned long i = 0; i < dimensione; ++i){
-    fun(elem[i],par);
+  ulong j = 0;
+  while (j < dimensione){
+    fun(elemento[j],par);
+    j++;
   }
 }
-
-                           /* Map function PostOrder
-                              Array visit from the last to the first element
-                              Can modify data who have been visited*/
 template<typename Data>
 void Vector<Data>::MapPostOrder(MapFunctor fun, void* par){
-  unsigned long i = dimensione;
-  while(i > 0){
-    fun(elem[--i],par);
+  ulong j = dimensione;
+  while (j > 0){
+    fun(elemento[j],par);
+    --j;
   }
 }
 
-                          /*Fold function PreOrder
-                            Array visit from the first to the last element
-                            Can't modify data who have been visited but remembers the data*/
 template<typename Data>
 void Vector<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc) const{
-  for(unsigned long i = 0; i < dimensione; ++i){
-    fun(elem[i],par,acc);
+  ulong j = 0;
+  while (j < dimensione){
+    fun(elemento[j],par,acc);
+    j++;
   }
 }
 
-                         /* Fold function PostOrder
-                            Array visit from the last to the first element
-                            Can't modify data who have been visited but remembers the data */
 template<typename Data>
 void Vector<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc) const{
-  unsigned long i = dimensione;
-  while(i > 0){
-    fun(elem[--i],par,acc);
+  for (ulong i = dimensione; i > 0; --i){
+    fun(elemento[i-1],par,acc);
   }
 }
-/* ************************************************************************** */
 }

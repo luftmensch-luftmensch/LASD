@@ -2,85 +2,73 @@
 namespace lasd {
 
 /* ************************************************************************** */
-                         //Default Constructor
 template <typename Data>
-StackLst<Data>::StackLst(): List<Data>::List() {}
+StackLst<Data>::StackLst(): List<Data>::List() {} // Costruttore di default
 
 
-// Specific constructor
 template <typename Data>
-StackLst<Data>::StackLst(const LinearContainer<Data>& con): List<Data>::List(con) {}
+StackLst<Data>::StackLst(const LinearContainer<Data>& Container): List<Data>::List(Container) {} // Costruttore specifico
 
-// Copy constructor
- template<typename Data>
- StackLst<Data>::StackLst(const StackLst<Data>& otherStackLst): List<Data>::List(otherStackLst){}
-
-                     //Move constructor list
 template<typename Data>
-StackLst<Data>::StackLst(StackLst<Data>&& otherStackLst) noexcept: List<Data>::List(std::move(otherStackLst)){}
-                    //Copy assignment
+StackLst<Data>::StackLst(const StackLst<Data>& StackList): List<Data>::List(StackList){} // Costruttore di copia
+
+
 template <typename Data>
-StackLst<Data>& StackLst<Data>::operator=(const StackLst& s){
-  List<Data>::operator=(s);
+StackLst<Data>& StackLst<Data>::operator=(const StackLst& ListaDaCopiare){ // Assegnamento (copia)
+  List<Data>::operator=(ListaDaCopiare);
   return *this;
 }
-                    //Move assignment
+template<typename Data>
+StackLst<Data>::StackLst(StackLst<Data>&& StackList) noexcept: List<Data>::List(std::move(StackList)){} // Costruttore di spostamento
+
 template <typename Data>
-StackLst<Data>& StackLst<Data>::operator=(StackLst&& s) noexcept {
-  List<Data>::operator=(std::move(s));
+StackLst<Data>& StackLst<Data>::operator=(StackLst&& ListaDaSpostare) noexcept { // Assegnamento (spostamento)
+  List<Data>::operator=(std::move(ListaDaSpostare));
   return *this;
 }
 
 
-                           //Comparison operator
 template <typename Data>
-bool StackLst<Data>::operator==(const StackLst& s) const noexcept{
-  return List<Data>::operator==(s);
+bool StackLst<Data>::operator==(const StackLst& ListaDaConfrontare) const noexcept{ // Operatori di confronto
+  return List<Data>::operator==(ListaDaConfrontare);
 }
-                          //Other Comparison operator
 template <typename Data>
-bool StackLst<Data>::operator!=(const StackLst& s) const noexcept{
-  return List<Data>::operator!=(s);
+bool StackLst<Data>::operator!=(const StackLst& ListaDaConfrontare) const noexcept{
+  return List<Data>::operator!=(ListaDaConfrontare);
 }
 
-//Push function (copy)
 template <typename Data>
-void StackLst<Data>::Push(const Data& d){
+void StackLst<Data>::Push(const Data& d){ // Funzione Push (copia)
   List<Data>::InsertAtFront(d);
 }
 
 
-//Push function (move)
 template <typename Data>
-void StackLst<Data>::Push(Data&& d){
+void StackLst<Data>::Push(Data&& d){ // Funzione Push (spostamento)
   List<Data>::InsertAtFront(std::move(d));
 }
 
-                          //Top function
 template <typename Data>
-Data& StackLst<Data>::Top() const {
+Data& StackLst<Data>::Top() const { // Funzione Top
   if(Empty())
-  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
   return List<Data>::Front();
 }
-                          //Pop function
 template <typename Data>
-void StackLst<Data>::Pop(){
+void StackLst<Data>::Pop(){ // Funzione Pop
   if(Empty())
-  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
   List<Data>::RemoveFromFront();
 }
-                         //TopNPop function
 template <typename Data>
-Data StackLst<Data>::TopNPop(){
+Data StackLst<Data>::TopNPop(){ // Funzione TopNPop
   if(Empty())
-  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
   return List<Data>::FrontNRemove();
 }
 
-/* ************************************************************************** */
 
 }

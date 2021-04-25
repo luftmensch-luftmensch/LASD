@@ -3,145 +3,126 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-                          //Default constructor
-template <typename Data>
-StackVec<Data>::StackVec(): Vector<Data>::Vector(1){}
+    template <typename Data>
+    StackVec<Data>::StackVec(): Vector<Data>::Vector(1){} // Costruttore di default
 
 
-                   //Specific Constructor
-template<typename Data>
-StackVec<Data>::StackVec(const LinearContainer<Data>& con){
-  dimensione=con.Size();
-  elem= new Data[dimensione];
-  for (ulong i=0; i<con.Size(); ++i){
-    Push(con[i]);
-  }
-}
-                   //Copy Constructor
-template<typename Data>
-StackVec<Data>::StackVec(const StackVec<Data>& stackvec): Vector<Data>::Vector(stackvec){
-  top= stackvec.top;
-}
+    template<typename Data>
+    StackVec<Data>::StackVec(const LinearContainer<Data>& Container){ // Costruttore specifico
+      dimensione=Container.Size();
+      elemento= new Data[dimensione];
+      for (ulong i=0; i<Container.Size(); ++i){
+	Push(Container[i]);
+      }
+    }
+    template<typename Data>
+    StackVec<Data>::StackVec(const StackVec<Data>& stackvec): Vector<Data>::Vector(stackvec){ // Costruttore di copia
+      top= stackvec.top;
 
-                  // Move constructor
-template<typename Data>
-StackVec<Data>::StackVec(StackVec<Data>&& stackvec) : Vector<Data>::Vector(std::move(stackvec)){
-  top=stackvec.top;
-  stackvec.Clear();
+    }
 
-}
+    template<typename Data>
+    StackVec<Data>& StackVec<Data>::operator=(const StackVec<Data>& stackvec){ // Assegnamento (copia)
+	Vector<Data>::operator=(stackvec);
+	top=stackvec.top;
+	return *this;
+    }
 
+    template<typename Data>
+    StackVec<Data>::StackVec(StackVec<Data>&& stackvec) : Vector<Data>::Vector(std::move(stackvec)){ // Costruttore di spostamento
+      top=stackvec.top;
+      stackvec.Clear();
 
-                  //Copy assignment
-template<typename Data>
-StackVec<Data>& StackVec<Data>::operator=(const StackVec<Data>& stackvec){
-    Vector<Data>::operator=(stackvec);
-    top=stackvec.top;
-    return *this;
-}
-                 //Move assignment
-template<typename Data>
-StackVec<Data>& StackVec<Data>::operator=(StackVec<Data>&& stackvec) noexcept{
-  Vector<Data>::operator=(std::move(stackvec));
-  std::swap(top, stackvec.top);
-  return *this;
-}
-                 //Comparison operator
-template <typename Data>
-bool StackVec<Data>::operator==(const StackVec& s) const noexcept{
-  if(this == &s)
-    return true;
+    }
 
-  if(top != s.top)
-    return false;
+    template<typename Data>
+    StackVec<Data>& StackVec<Data>::operator=(StackVec<Data>&& stackvec) noexcept{ // Assegnamento (spostamento)
+      Vector<Data>::operator=(std::move(stackvec));
+      std::swap(top, stackvec.top);
+      return *this;
+    }
 
-  ulong index = 0;
-  while(index < top && Vector<Data>::operator[](index) == s.Vector<Data>::operator[](index))
-    index++;
+    template <typename Data>
+    bool StackVec<Data>::operator==(const StackVec& s) const noexcept{ // Operatori di confronto
+      if(this == &s)
+	return true;
+
+      if(top != s.top)
+	return false;
+
+      ulong index = 0;
+      while(index < top && Vector<Data>::operator[](index) == s.Vector<Data>::operator[](index))
+	index++;
 
 
-  return index == top;
-}
-                //Other comparison operator
-template <typename Data>
-bool StackVec<Data>::operator!=(const StackVec& s) const noexcept{
-  return !(*this == s);
-}
-               //Top function
-template <typename Data>
-Data& StackVec<Data>::Top() const {
-  if(Empty())
-  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
+      return index == top;
+    }
+    template <typename Data>
+    bool StackVec<Data>::operator!=(const StackVec& s) const noexcept{
+      return !(*this == s);
+    }
+    template <typename Data>
+    Data& StackVec<Data>::Top() const { // Funzione Top
+      if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
-  return Vector<Data>::operator[](top-1);
-}
-              //Pop function
-template <typename Data>
-void StackVec<Data>::Pop(){
-  if(Empty())
-  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
+      return Vector<Data>::operator[](top-1);
+    }
+    template <typename Data>
+    void StackVec<Data>::Pop(){ // Funzione Pop
+      if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
-  Data deleted = std::move(Vector<Data>::operator[](--top));
-  (void)deleted;
+      Data eliminato = std::move(Vector<Data>::operator[](--top));
+      (void)eliminato;
 
-  if(top < dimensione/4)
-    Reduce();
-}
-                       //TopNPop function
-template <typename Data>
-Data StackVec<Data>::TopNPop(){
-  if(Empty())
-  	throw std::length_error("Could not remove from the Stack: Stack size is 0!");
+      if(top < dimensione/4)
+	Reduce();
+    }
+    template <typename Data>
+    Data StackVec<Data>::TopNPop(){ // Funzione TooNPop
+      if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
-  Data ret = std::move(Vector<Data>::operator[](--top));
+      Data ret = std::move(Vector<Data>::operator[](--top));
 
-  if(top < dimensione/4)
-    Reduce();
+      if(top < dimensione/4)
+	Reduce();
 
-  return ret;
-}
+      return ret;
+    }
 
-                      //Push function (copy)
-template <typename Data>
-void StackVec<Data>::Push(const Data& d){
-  Vector<Data>::operator[](top++) = d;
-  if(top == dimensione)
-    Expand();
-}
-                    //Push function (move)
-template <typename Data>
-void StackVec<Data>::Push(Data&& d){
-  Vector<Data>::operator[](top++) = std::move(d);
-  if(top == dimensione)
-    Expand();
-}
-                  //Empty function
-template <typename Data>
-bool StackVec<Data>::Empty() const noexcept {
-  return top == 0;
-}
-                 //Size function
-template <typename Data>
-ulong StackVec<Data>::Size() const noexcept {
-  return top;
-}
-                //Clear function
-template <typename Data>
-void StackVec<Data>::Clear() noexcept {
-  Vector<Data>::Resize(1);
-  top = 0;
-}
-                 //Expand function
-template <typename Data>
-void StackVec<Data>::Expand(){
-  Vector<Data>::Resize(dimensione*2);
-}
-                //Reduce function
-template <typename Data>
-void StackVec<Data>::Reduce(){
-  Vector<Data>::Resize(dimensione/2);
-}
-
-/* ************************************************************************** */
-
+    template <typename Data>
+    void StackVec<Data>::Push(const Data& d){ // Funzione di Push (copia)
+      Vector<Data>::operator[](top++) = d;
+      if(top == dimensione)
+	Expand();
+    }
+    template <typename Data>
+    void StackVec<Data>::Push(Data&& d){ // Funzione di Push (spostamento)
+      Vector<Data>::operator[](top++) = std::move(d);
+      if(top == dimensione)
+	Expand();
+    }
+    template <typename Data>
+    bool StackVec<Data>::Empty() const noexcept { // Funzione Empty
+      return top == 0;
+    }
+    template <typename Data>
+    ulong StackVec<Data>::Size() const noexcept { // Funzione size
+      return top;
+    }
+    template <typename Data>
+    void StackVec<Data>::Clear() noexcept { // Funzione Clear
+      Vector<Data>::Resize(1);
+      top = 0;
+    }
+    template <typename Data>
+    void StackVec<Data>::Expand(){ // Funzione Expand
+      Vector<Data>::Resize(dimensione*2);
+    }
+    template <typename Data>
+    void StackVec<Data>::Reduce(){ // Funzione Reduce
+      Vector<Data>::Resize(dimensione/2);
+    }
 }

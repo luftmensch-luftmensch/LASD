@@ -20,7 +20,7 @@ private:
 
 protected:
 
-  using Vector<Data>::elem;
+  using Vector<Data>::elemento;
   using Container::dimensione;
   ulong testa = 0, coda = 0;
 

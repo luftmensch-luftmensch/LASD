@@ -388,7 +388,7 @@ void List<Data>::MapPreOrder(MapFunctor fun, void* par, Node* curr){
 template<typename Data>
 void List<Data>::MapPostOrder(MapFunctor fun, void* par, Node* curr){
   for (ulong j = dimensione; j > 0; --j){
-    fun((*this)[j],par);
+    fun((*this)[j-1],par);
   }
 }
 

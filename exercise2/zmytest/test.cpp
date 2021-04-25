@@ -1,15 +1,11 @@
+#include <iostream>
 #include "../zlasdtest/test.hpp"
 
 #include "test.hpp"
-#include "StackVec/StackVec.hpp"
+#include "Stack/Stack.hpp"
+#include "Queue/Queue.hpp"
 
-/* ************************************************************************** */
-
-#include <iostream>
-
-/* ************************************************************************** */
-
-void mytest(){
+void testpersonale(){
   bool quit = false;
   char scelta;
   std::cout << "Scegli il tipo di struttura: "<< std::endl;
@@ -46,39 +42,48 @@ void mytest(){
     }
     if (scelta == '4') {
       std::system("clear");
+      StackListInt();
       quit = true;
     }
 
     if (scelta == '5') {
       std::system("clear");
+      StackListDouble();
       quit = true;
     }
     if (scelta == '6') {
       std::system("clear");
+      StackListString();
       quit = true;
     }
     if (scelta == 'a') {
       std::system("clear");
+      QueueVecInt();
       quit = true;
     }
     if (scelta == 'b') {
       std::system("clear");
+      QueueVecDouble();
       quit = true;
     }
     if (scelta == 'c') {
       std::system("clear");
+      QueueVecString();
       quit = true;
     }
     if (scelta == 'd') {
       std::system("clear");
+      QueueListInt();
       quit = true;
     }
     if (scelta == 'e') {
       std::system("clear");
+      //QueueVecDouble();
       quit = true;
     }
     if (scelta == 'f') {
       std::system("clear");
+      //QueueVecString();
       quit = true;
     }
   }

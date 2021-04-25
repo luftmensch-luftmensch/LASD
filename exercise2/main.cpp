@@ -21,7 +21,7 @@ int main() {
   if(scelta == 2){
     std::system("clear");
     std::cout<<""<<std::endl;
-    mytest();
+    testpersonale();
   }
   return 0;
 }
