@@ -10,7 +10,18 @@
 /* ************************************************************************** */
 
 int main() {
-  std::cout << "Lasd Libraries 2020" << std::endl;
-  lasdtest(); // To call in the menu of your library test!
+  std::cout << "Lasd Libraries 2021" << std::endl;
+  int scelta;
+  std::cout<<"Seleziona il tipo di test da eseguire:"<<std::endl;
+  std::cout<<"\tTest professore (1)\tTest Studente(2)"<<std::endl;
+  std::cin>>scelta;
+  if(scelta == 1){
+    std::cout<<""<<std::endl;
+    lasdtest(); // To call in the menu of your library test!
+  }
+  if(scelta == 2){
+    std::cout<<""<<std::endl;
+    mytest();
+  }
   return 0;
 }

@@ -12,6 +12,10 @@
 #include "../queue/vec/queuevec.hpp"
 #include "../queue/lst/queuelst.hpp"
 
+#include "../stack/stack.hpp"
+#include "../stack/vec/stackvec.hpp"
+#include "../stack/lst/stacklst.hpp"
+
 /* ************************************************************************** */
 
 namespace lasd {
@@ -19,7 +23,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTree : virtual public BreadthMappableContainer<Data>, virtual public BreadthFoldableContainer<Data>{ // Must extend InOrder/BreadthMappableContainer<Data> and InOrder/BreadthFoldableContainer<Data>
+class BinaryTree : virtual public InOrderMappableContainer<Data>,virtual public InOrderFoldableContainer<Data>, virtual public BreadthMappableContainer<Data>, virtual public BreadthFoldableContainer<Data>{ // Must extend InOrder/BreadthMappableContainer<Data> and InOrder/BreadthFoldableContainer<Data>
 
 private:
 
@@ -39,7 +43,7 @@ public:
   private:
 
   protected:
-    Data Nodevalue;
+
 
     // Comparison operators
        bool operator==(const Node&) const noexcept;// Comparison of abstract types is possible, but should not be visible.
@@ -48,7 +52,7 @@ public:
 
   public:
 
-       friend class BinaryTree<Data>;
+    //   friend class BinaryTree<Data>;
 
 
 
@@ -75,14 +79,16 @@ public:
        virtual Data& Element() noexcept =0; // Mutable access to the element (concrete function should not throw exceptions)
        virtual const Data& Element() const noexcept =0; // Immutable access to the element (concrete function should not throw exceptions)
 
-       virtual bool isLeaf() noexcept=0; // (concrete function should not throw exceptions)
-       virtual bool HasLeftChild() noexcept = 0; // (concrete function should not throw exceptions)
-       virtual bool HasRightChild() noexcept = 0; // (concrete function should not throw exceptions)
+       virtual bool isLeaf() noexcept; // (concrete function should not throw exceptions)
+       virtual bool HasLeftChild() const  noexcept = 0; // (concrete function should not throw exceptions)
+       virtual bool HasRightChild() const noexcept = 0; // (concrete function should not throw exceptions)
 
        virtual Node& LeftChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
        virtual Node& RightChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
 
   };
+
+protected:
 
   /* ************************************************************************ */
 
@@ -201,7 +207,10 @@ class BTPreOrderIterator : virtual public ForwardIterator<Data>{ // Must extend 
 private:
 
 protected:
-  using BinaryTree<Data>::Node;
+
+  typename BinaryTree<Data>::Node* current=nullptr;
+
+  StackLst<BinaryTree<Data>::Node*> stack;
 
 public:
 
@@ -219,7 +228,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-     virtual ~BTPreOrderIterator()= default;
+     virtual ~BTPreOrderIterator();
 
   /* ************************************************************************ */
 
@@ -259,6 +268,12 @@ class BTPostOrderIterator: virtual public ForwardIterator<Data> { // Must extend
 private:
 
 protected:
+  typename BinaryTree<Data>::Node* current=nullptr;
+
+  StackLst<BinaryTree<Data>::Node*> stack;
+
+  typename BinaryTree<Data>::Node& LeftMostLeaf(const BinaryTree<Data>&);
+
 
 public:
 
@@ -316,6 +331,14 @@ class BTInOrderIterator: virtual public ForwardIterator<Data> { // Must extend F
 private:
 
 protected:
+  typename BinaryTree<Data>::Node* current=nullptr;
+
+  StackLst<BinaryTree<Data>::Node*> stack;
+
+
+  typename BinaryTree<Data>::Node& LeftMostNode(const typename BinaryTree<Data>::Node& nodevalue );
+
+
 
 public:
 
@@ -333,7 +356,7 @@ public:
   /* ************************************************************************ */
 
   // Destructor
-     virtual ~BTInOrderIterator() = default;
+     virtual ~BTInOrderIterator();
 
   /* ************************************************************************ */
 
@@ -374,6 +397,13 @@ private:
 
 protected:
 
+  typename BinaryTree<Data>::Node* current=nullptr;
+
+  QueueLst<BinaryTree<Data>::Node*> queue;
+
+
+
+
 public:
 
   // Specific constructors
@@ -403,8 +433,8 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-     BTBreadthIterator& operator==(const BTBreadthIterator&) const noexcept;
-     BTBreadthIterator& operator!=(const BTBreadthIterator&) const noexcept;
+     bool operator==(const BTBreadthIterator&) const noexcept;
+     bool operator!=(const BTBreadthIterator&) const noexcept;
 
   /* ************************************************************************ */
 
