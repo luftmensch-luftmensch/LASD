@@ -109,7 +109,7 @@ void BinaryTreeVec<Data>::UpdateReferences() noexcept{
       mycontainer[i]->reference = &mycontainer;
   }
 }
-
+//Auxiliary funtion to delete the treevec
 template <typename Data>
 void BinaryTreeVec<Data>::DeleteTree(typename BinaryTreeVec<Data>::NodeVec*& from) noexcept{
   if(from->HasLeftChild())
@@ -124,7 +124,7 @@ void BinaryTreeVec<Data>::DeleteTree(typename BinaryTreeVec<Data>::NodeVec*& fro
   dim--;
 }
 
-
+//Reduce function
 template <typename Data>
 void BinaryTreeVec<Data>::Reduce(){
   unsigned long int i = nodeperlevel.Size() - 1;
@@ -137,7 +137,7 @@ void BinaryTreeVec<Data>::Reduce(){
   mycontainer.Resize(newSize);
   nodeperlevel.Resize(i + 1);
 }
-
+//Expand function
 template <typename Data>
 void BinaryTreeVec<Data>::Expand(){
   const unsigned long int oldSize = mycontainer.Size();
@@ -185,7 +185,7 @@ bool BinaryTreeVec<Data>::operator==(const BinaryTreeVec<Data>& bT) const noexce
 
   return true;
 }
-
+//Other comparison operator
 template <typename Data>
 bool BinaryTreeVec<Data>::operator!=(const BinaryTreeVec<Data>& bT) const noexcept{
   return !(*this == bT);
@@ -198,6 +198,12 @@ typename BinaryTreeVec<Data>::NodeVec const& BinaryTreeVec<Data>::Root() const {
     throw std::out_of_range("Could not access to the root, tree is empty!");
   return *mycontainer[0];
 }
+//ROOT
+template <typename Data>
+typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::Root(){
+  return const_cast<NodeVec&>(const_cast<const BinaryTreeVec<Data>*>(this)->Root());
+}
+
 //Clear
 template <typename Data>
 void BinaryTreeVec<Data>::Clear() noexcept {

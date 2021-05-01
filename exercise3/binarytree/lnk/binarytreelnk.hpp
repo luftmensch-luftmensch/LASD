@@ -20,7 +20,7 @@ private:
 protected:
 
   using Container::dim;
-  Node* root=nullptr;
+
 
 
 
@@ -39,7 +39,6 @@ protected:
     NodeLnk* right = nullptr;
 
   public:
-    using BinaryTree<Data>::Node;
 
     ~NodeLnk() = default;
 
@@ -51,13 +50,14 @@ protected:
     virtual bool HasRightChild() const noexcept override;
 
     using BinaryTree<Data>::Node::isLeaf;
-    virtual NodeLnk& LeftChild() override;
-    virtual NodeLnk& RightChild() override;
+    virtual NodeLnk& LeftChild() const override;
+    virtual NodeLnk& RightChild() const override;
 
 
   };
 
 protected:
+    NodeLnk* root=nullptr;
     void RecursiveCopy(NodeLnk**, const NodeLnk*);
     NodeLnk* Copy(const BinaryTreeLnk<Data>&);
     void DeleteTree(NodeLnk*&) noexcept;
@@ -102,8 +102,9 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BinaryTree)
+     virtual NodeLnk& Root() override;
 
-     virtual NodeLnk& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
+     virtual NodeLnk const& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 
   /* ************************************************************************ */
 

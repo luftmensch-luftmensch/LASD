@@ -21,7 +21,7 @@ using namespace std;
 
 /* ************************************************************************** */
 
-/*void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, uint& testnum, uint& testerr) {
+void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
   try {
     MapPreOrder(loctestnum, loctesterr, bt, true, &MapPrint<int>, 0);

@@ -30,13 +30,14 @@ protected:
                                        //auxiliary vector
   lasd::Vector<unsigned long int> nodeperlevel = lasd::Vector<unsigned long int>(0);
 
-  struct NodeVec: BinaryTree<Data>::Node { // Must extend Node
+  struct NodeVec: virtual public BinaryTree<Data>::Node { // Must extend Node
 
   private:
 
     // ...
 
   protected:
+    friend class BinaryTreeVec<Data>;
     Data value;
            //index for the array
     unsigned long int index = 0;
@@ -45,7 +46,7 @@ protected:
 
   public:
 
-    friend class BinaryTreeVec<Data>;
+
 
     virtual Data& Element() noexcept;
     virtual const Data& Element() const noexcept;
@@ -102,6 +103,7 @@ public:
   /* ************************************************************************ */
 
   // Specific member functions (inherited from BinaryTree)
+     virtual NodeVec& Root() override;
 
      virtual NodeVec const& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 

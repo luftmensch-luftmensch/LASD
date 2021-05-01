@@ -36,19 +36,19 @@ bool BinaryTreeLnk<Data>::NodeLnk::HasRightChild() const noexcept {
 
 
 template <typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild() {
+typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild() const {
   if (left == nullptr)
     throw std::out_of_range("Could not access to the left node, its pointer is null!");
 
-  return left;
+  return &left;
 }
 
 template <typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::RightChild(){
+typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::RightChild() const{
   if (right == nullptr)
     throw std::out_of_range("Could not access to the right node, its pointer is null!");
 
-  return right;
+  return &right;
 }
 
 
@@ -140,13 +140,19 @@ bool BinaryTreeLnk<Data>::operator!=(const BinaryTreeLnk<Data>& bT) const noexce
   return BinaryTree<Data>::operator!=(bT);
 }
 
-//ROOT
+//ROOT (const)
 template <typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::Root() const {
+typename BinaryTreeLnk<Data>::NodeLnk const& BinaryTreeLnk<Data>::Root() const {
   if (root == nullptr)
     throw std::out_of_range("L'albero e' vuoto!");
   return *root;
 }
+//ROOT
+template <typename Data>
+typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::Root(){
+  return const_cast<NodeLnk&>(const_cast<const BinaryTreeLnk<Data>*>(this)->Root());
+}
+
 
 //Clear function
 template <typename Data>

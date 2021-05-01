@@ -113,7 +113,8 @@ protected:
 
   // Specific member functions
 
-     virtual Node& Root() const = 0; // (concrete function must throw std::length_error when empty)
+     virtual Node const& Root() const = 0;
+     virtual Node& Root() = 0; // (concrete function must throw std::length_error when empty)
 
   /* ************************************************************************ */
 
@@ -210,7 +211,7 @@ protected:
 
   typename BinaryTree<Data>::Node* current=nullptr;
 
-  StackLst<BinaryTree<Data>::Node*> stack;
+  StackLst<typename BinaryTree<Data>::Node*> stack;
 
 public:
 
@@ -270,7 +271,7 @@ private:
 protected:
   typename BinaryTree<Data>::Node* current=nullptr;
 
-  StackLst<BinaryTree<Data>::Node*> stack;
+  StackLst<typename BinaryTree<Data>::Node*> stack;
 
   typename BinaryTree<Data>::Node& LeftMostLeaf(const BinaryTree<Data>&);
 
@@ -333,7 +334,7 @@ private:
 protected:
   typename BinaryTree<Data>::Node* current=nullptr;
 
-  StackLst<BinaryTree<Data>::Node*> stack;
+  StackLst<typename BinaryTree<Data>::Node*> stack;
 
 
   typename BinaryTree<Data>::Node& LeftMostNode(const typename BinaryTree<Data>::Node& nodevalue );
@@ -399,7 +400,7 @@ protected:
 
   typename BinaryTree<Data>::Node* current=nullptr;
 
-  QueueLst<BinaryTree<Data>::Node*> queue;
+  QueueLst<typename BinaryTree<Data>::Node*> queue;
 
 
 

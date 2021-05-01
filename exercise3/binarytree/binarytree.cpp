@@ -302,7 +302,7 @@ typename BinaryTree<Data>::Node& BTInOrderIterator<Data>::LeftMostNode(const typ
   }
   else{
     current =root;
-    if(current->HasLeftChild()){
+    if(current.HasLeftChild()){
       stack.Push(current->LeftChild());
       LeftMostNode(current->LeftChild());
     }
@@ -382,7 +382,7 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
     stack.Push(current);
 
     if(current->HasRightChild){
-      current=current.RightChild;
+      current=current->RightChild;
       stack.Push(current);
     }
     else  if (current->HasLeftChild()){
@@ -396,6 +396,7 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
 
     }
   }
+  return *this;
 }
 /* ************************************************************************** */
 //BTBreadthIterator class functions (Ampiezza)
