@@ -51,6 +51,8 @@ protected:
   public:
 
 
+    NodeVec& operator=(const NodeVec&);
+    NodeVec& operator=(NodeVec&&) noexcept;
 
     virtual Data& Element() noexcept;
     virtual const Data& Element() const noexcept;

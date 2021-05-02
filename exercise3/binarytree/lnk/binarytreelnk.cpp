@@ -40,7 +40,7 @@ typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild()
   if (left == nullptr)
     throw std::out_of_range("Could not access to the left node, its pointer is null!");
 
-  return left;
+  return *left;
 }
 
 template <typename Data>
@@ -48,7 +48,7 @@ typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::RightChild(
   if (right == nullptr)
     throw std::out_of_range("Could not access to the right node, its pointer is null!");
 
-  return right;
+  return *right;
 }
 
 
@@ -57,7 +57,7 @@ template<typename Data>
 BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk <Data> &bT) {
 
     //Visit the entire tree
-    if (bT.Root() != nullptr) {
+    if (bT.root != nullptr) {
         root = Copy(bT);
         dim = bT.Size();
     }

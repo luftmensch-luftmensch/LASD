@@ -40,7 +40,7 @@ bool AreEqual(const typename BinaryTree<Data>::Node& first,const typename Binary
 
                      //Recursive call to the right subtree if subLeft is still true
   if(left && first.HasRightChild() && second.HasRightChild())
-    right = AreEqual(first.RightChild(), second.RightChild());
+    right = AreEqual<Data>(first.RightChild(), second.RightChild());
 
   return left && right;
 }
@@ -56,7 +56,7 @@ bool BinaryTree<Data>::operator==(const BinaryTree<Data>& binarytree) const noex
     return true;
 
                         //If the two sizes are equal, i proceed with recursive calls to the left or right child
-  return dim == binarytree.dim && AreEqual(Root(), binarytree.Root());
+  return dim == binarytree.dim && AreEqual<Data>(Root(), binarytree.Root());
 }
 
 template <typename Data>
@@ -210,7 +210,7 @@ BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& binarytree)
 template <typename Data>
 BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator<Data>& iterator){
   current=iterator.current;
-  stack=iterator.queue;
+  stack=iterator.stack;
 
 }
 
@@ -219,6 +219,8 @@ template <typename Data>
 BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator<Data>&& iterator) noexcept {
   current=iterator.current;
   iterator.current=nullptr;
+  stack=iterator.stack;
+  iterator.stack.Clear();
 }
 
 //Destructor
@@ -226,6 +228,66 @@ template <typename Data>
 BTPreOrderIterator<Data>::~BTPreOrderIterator(){
   current=nullptr;
   stack.Clear();
+}
+
+//Copy assignment
+template <typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(const BTPreOrderIterator& iterator){
+    if(this == &iterator){
+        return *this;
+    }
+    BTPreOrderIterator<Data> *tmp=new BTPreOrderIterator<Data>(iterator);
+    std::swap(*tmp, *this);
+    delete tmp;
+    return *this;
+}
+
+//Move assignment
+template <typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(BTPreOrderIterator<Data>&& iterator) noexcept{
+std::swap(current, iterator.current);
+return *this;
+}
+
+//Comparison operator
+template <typename  Data>
+bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator<Data>& iterator) const noexcept{
+if(current != iterator.current){
+return false;
+}
+if(stack.Size() != iterator.stack.Size()){
+return false;
+}
+int count=0;
+for(unsigned int i=0; i<stack.Size();i++) {
+if (stack[i] == iterator.stack[i]) {
+count++;
+}
+}
+return count==stack.Size();
+}
+
+//Other comparison operator
+template <typename  Data>
+bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data>& iterator) const noexcept{
+return !(*this == iterator);
+}
+//DA FARE
+template <typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++(){
+  return *this;
+}
+
+//*operator
+template <typename Data>
+Data& BTPreOrderIterator<Data>::operator*() const{
+  return current->Element();
+}
+
+//Terminated function
+template <typename Data>
+bool BTPreOrderIterator<Data>::Terminated() noexcept{
+  return (current == nullptr);
 }
 
 
@@ -244,11 +306,11 @@ BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& binarytre
 template <typename Data>
 typename BinaryTree<Data>::Node& BTPostOrderIterator<Data>::LeftMostLeaf(const BinaryTree<Data>& binarytree){
   struct BinaryTree<Data>::Node* current;
-  if(binarytree->Root() == nullptr) {
+  if(binarytree.Root() == nullptr) {
     current = nullptr;
   }
   else{
-    current=binarytree->Root();
+    current=binarytree.Root();
     while(current !=nullptr) {
       if(current->HasLeftChild()){
         current=current->LeftChild();
@@ -261,20 +323,89 @@ typename BinaryTree<Data>::Node& BTPostOrderIterator<Data>::LeftMostLeaf(const B
       }
     }
   }
-  return current;
+  return *current;
 }
 
+//Copy constructor
+template<typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(const BTPostOrderIterator<Data>& iterator){
+    current=iterator.current;
+    stack=iterator.stack;
+}
 
+//Move constructor
+template <typename  Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(BTPostOrderIterator<Data>&& iterator) noexcept{
+    current=iterator.current;
+    iterator.current=nullptr;
+    stack=iterator.stack;
+    iterator.stack.Clear();
+}
+
+//Destructor
 template <typename Data>
-Data& BTPostOrderIterator<Data>::operator*() const {
+BTPostOrderIterator<Data>::~BTPostOrderIterator(){
+    current=nullptr;
+    stack.Clear();
+
+}
+
+//Copy assignment
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(const BTPostOrderIterator& iterator){
+    if(this == &iterator){
+        return *this;
+    }
+    BTPostOrderIterator<Data> *tmp=new BTPostOrderIterator<Data>(iterator);
+    std::swap(*tmp, *this);
+    delete tmp;
+    return *this;
+}
+
+//Move assignment
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator<Data>&& iterator) noexcept{
+std::swap(current, iterator.current);
+return *this;
+}
+
+//Comparison operator
+template <typename  Data>
+bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator<Data>& iterator) const noexcept{
+if(current != iterator.current){
+return false;
+}
+if(stack.Size() != iterator.stack.Size()){
+return false;
+}
+int count=0;
+for(unsigned int i=0; i<stack.Size();i++) {
+if (stack[i] == iterator.stack[i]) {
+count++;
+}
+}
+return count==stack.Size();
+}
+
+//Other comparison operator
+template <typename  Data>
+bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator<Data>& iterator) const noexcept{
+return !(*this == iterator);
+}
+
+//DA FARE
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++(){
+  return *this;
+}
+
+//*operator
+template <typename Data>
+Data& BTPostOrderIterator<Data>::operator*() const{
   return current->Element();
 }
 
-/*template <typename Data>
-BTPostOrderIterator& BTBreadthIterator<Data>::operator++(){
-
-}*/
-
+//Terminated function
 template <typename Data>
 bool BTPostOrderIterator<Data>::Terminated() noexcept{
   return (current == nullptr);
@@ -297,13 +428,13 @@ typename BinaryTree<Data>::Node& BTInOrderIterator<Data>::LeftMostNode(const typ
     current = nullptr;
   }
   else{
-    current =root;
+    current = root;
     if(current->HasLeftChild()){
       stack.Push(current->LeftChild());
       LeftMostNode(current->LeftChild());
     }
   }
-  return current;
+  return *current;
 }
 //Copy constructor
 template<typename Data>
@@ -335,7 +466,7 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(const BTInOrderItera
     if(this == &iterator){
         return *this;
     }
-    BTBreadthIterator<Data> *tmp=new BTBreadthIterator<Data>(iterator);
+    BTInOrderIterator<Data> *tmp=new BTInOrderIterator<Data>(iterator);
     std::swap(*tmp, *this);
     delete tmp;
     return *this;
@@ -377,8 +508,8 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
   while(current !=nullptr){
     stack.Push(current);
 
-    if(current->HasRightChild){
-      current= current->RightChild;
+    if(current->HasRightChild()){
+      current= current->RightChild();
       stack.Push(current);
     }
     else  if (current->HasLeftChild()){
@@ -394,6 +525,19 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
   }
   return *this;
 }
+
+//*operator
+template <typename Data>
+Data& BTInOrderIterator<Data>::operator*() const{
+  return current->Element();
+}
+
+//Terminated function
+template <typename Data>
+bool BTInOrderIterator<Data>::Terminated() noexcept{
+  return (current == nullptr);
+}
+
 /* ************************************************************************** */
 //BTBreadthIterator class functions (Ampiezza)
 

@@ -15,6 +15,7 @@ index(p), reference(c){
   value = std::move(k);
 }
 
+
 template <typename Data>
 Data const& BinaryTreeVec<Data>::NodeVec::Element() const noexcept{
   return value;
