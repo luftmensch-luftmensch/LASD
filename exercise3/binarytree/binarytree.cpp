@@ -201,7 +201,7 @@ void BinaryTree<Data>::AuxFoldBreadth(FoldFunctor foldFunctor, const void* par, 
 //Specific constructor
 template <typename Data>
 BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& binarytree){
-  current= &(binarytree.Root());
+  current = &(binarytree.Root());
 }
 
 
@@ -305,20 +305,27 @@ BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& binarytre
 //Auxiliary for specific constructor
 template <typename Data>
 typename BinaryTree<Data>::Node& BTPostOrderIterator<Data>::LeftMostLeaf(const BinaryTree<Data>& binarytree){
-  struct BinaryTree<Data>::Node* current;
-  if(binarytree.Root() == nullptr) {
+  if(binarytree.Empty()) {
     current = nullptr;
   }
   else{
-    current=binarytree.Root();
+
+  //  current=binarytree.Root();
     while(current !=nullptr) {
       if(current->HasLeftChild()){
-        current=current->LeftChild();
+        typename BinaryTree<Data>::Node* tmp2=&(current->LeftChild());
+        current=tmp2;
+        delete tmp2;
+
       }
       else if(current->HasRightChild()){
-        current=current->RightChild();
+        typename BinaryTree<Data>::Node* tmp1=&(current->RightChild());
+        current=tmp1;
+        delete tmp1;
         if(current->HasLeftChild()){
-          current=current->LeftChild();
+          typename BinaryTree<Data>::Node* tmp=&(current->LeftChild());
+          current=tmp;
+          delete tmp;
         }
       }
     }
@@ -423,15 +430,16 @@ BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& binarytree){
 
 //Auxialiary for specific constructor
 template <typename Data>
-typename BinaryTree<Data>::Node& BTInOrderIterator<Data>::LeftMostNode(const typename BinaryTree<Data>::Node& root){
-  if(root == nullptr) {
+typename BinaryTree<Data>::Node& BTInOrderIterator<Data>::LeftMostNode(const BinaryTree<Data>& binarytree){
+  if(binarytree.Empty()) {
     current = nullptr;
   }
   else{
-    current = root;
+    current = binarytree.Root();
     if(current->HasLeftChild()){
-      stack.Push(current->LeftChild());
-      LeftMostNode(current->LeftChild());
+      current=current->LeftChild();
+      stack.Push(current);
+      LeftMostNode(binarytree);
     }
   }
   return *current;
@@ -626,10 +634,12 @@ while(current !=nullptr){
    queue.Enqueue(current);
 
    if(current->HasLeftChild()){
-     queue.Enqueue(current->LeftChild());
+     current=current->LeftChild();
+     queue.Enqueue(current);
    }
    if(current->HasRightChild()){
-     queue.Enqueue(current->RightChild());
+     current=current->RightChild();
+     queue.Enqueue(current);
    }
    if(!queue.Empty()){
      queue.HeadNDequeue();

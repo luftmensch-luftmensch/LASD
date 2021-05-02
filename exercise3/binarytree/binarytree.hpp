@@ -337,7 +337,7 @@ protected:
   StackLst<typename BinaryTree<Data>::Node*> stack;
 
 
-  typename BinaryTree<Data>::Node& LeftMostNode(const typename BinaryTree<Data>::Node& nodevalue );
+  typename BinaryTree<Data>::Node& LeftMostNode(const BinaryTree<Data>& );
 
 
 
