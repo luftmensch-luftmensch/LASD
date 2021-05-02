@@ -15,13 +15,13 @@ BinaryTreeLnk<Data>::NodeLnk::NodeLnk(Data&& d) noexcept{
 }
 
 template <typename Data>
-Data const& BinaryTree<Data>::Node::Element() const noexcept{
-  return BinaryTreeLnk<Data>::NodeLnk->value;
+Data const& BinaryTreeLnk<Data>::NodeLnk::Element() const noexcept{
+  return value;
 }
 
 template <typename Data>
-Data& BinaryTree<Data>::Node::Element() noexcept{
-  return BinaryTreeLnk<Data>::NodeLnk->value;
+Data& BinaryTreeLnk<Data>::NodeLnk::Element() noexcept{
+  return value;
 }
 
 template <typename Data>
@@ -40,7 +40,7 @@ typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild()
   if (left == nullptr)
     throw std::out_of_range("Could not access to the left node, its pointer is null!");
 
-  return &left;
+  return left;
 }
 
 template <typename Data>
@@ -48,7 +48,7 @@ typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::RightChild(
   if (right == nullptr)
     throw std::out_of_range("Could not access to the right node, its pointer is null!");
 
-  return &right;
+  return right;
 }
 
 
@@ -157,8 +157,8 @@ typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::Root(){
 //Clear function
 template <typename Data>
 void BinaryTreeLnk<Data>::Clear() {
-  if(this->Root() != nullptr)
-    DeleteTree(this->Root());
+  if(root != nullptr)
+    DeleteTree(root);
 }
 //Auxiliary function for clear the tree
 template <typename Data>

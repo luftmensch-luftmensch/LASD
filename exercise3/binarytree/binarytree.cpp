@@ -201,8 +201,7 @@ void BinaryTree<Data>::AuxFoldBreadth(FoldFunctor foldFunctor, const void* par, 
 //Specific constructor
 template <typename Data>
 BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& binarytree){
-  current= &binarytree.Root();
-  stack=nullptr;
+  current= &(binarytree.Root());
 }
 
 
@@ -239,7 +238,6 @@ BTPreOrderIterator<Data>::~BTPreOrderIterator(){
 template <typename Data>
 BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& binarytree){
   current= LeftMostLeaf(binarytree);
-  stack=nullptr;
 }
 
 //Auxiliary for specific constructor
@@ -289,20 +287,18 @@ bool BTPostOrderIterator<Data>::Terminated() noexcept{
 
 template <typename Data>
 BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& binarytree){
-  current= LeftMostNode(&binarytree.Root());
-  stack=nullptr;
+  current= LeftMostNode(&(binarytree.Root()));
 }
 
 //Auxialiary for specific constructor
 template <typename Data>
 typename BinaryTree<Data>::Node& BTInOrderIterator<Data>::LeftMostNode(const typename BinaryTree<Data>::Node& root){
-  struct BinaryTree<Data>::Node current;
   if(root == nullptr) {
     current = nullptr;
   }
   else{
     current =root;
-    if(current.HasLeftChild()){
+    if(current->HasLeftChild()){
       stack.Push(current->LeftChild());
       LeftMostNode(current->LeftChild());
     }
@@ -382,7 +378,7 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
     stack.Push(current);
 
     if(current->HasRightChild){
-      current=current->RightChild;
+      current= current->RightChild;
       stack.Push(current);
     }
     else  if (current->HasLeftChild()){
@@ -405,8 +401,7 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
 
 template <typename Data>
 BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& binarytree){
-  current= &binarytree.Root();
-  queue=nullptr;
+  current= &(binarytree.Root());
 }
 
 //Copy constuctor
@@ -477,7 +472,7 @@ bool BTBreadthIterator<Data>::operator!=(const BTBreadthIterator<Data>& iterator
 
 //*operator
 template <typename Data>
-Data& BTBreadthIterator<Data>::operator*(){
+Data& BTBreadthIterator<Data>::operator*() const{
   return current->Element();
 }
 //++ operator
@@ -500,7 +495,7 @@ while(current !=nullptr){
 
 //Terminated function
 template <typename Data>
-bool BTBreadthIterator<Data>::Terminated(){
+bool BTBreadthIterator<Data>::Terminated() noexcept{
   return (current == nullptr);
 }
 

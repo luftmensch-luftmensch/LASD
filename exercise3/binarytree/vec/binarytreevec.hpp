@@ -21,9 +21,9 @@ private:
   // ...
 
 protected:
-  using Container::dim;
-  // using BinaryTree<Data>::???;
 
+  // using BinaryTree<Data>::???;
+  using Container::dim;
   void Expand();
   void Reduce();
   void UpdateReferences() noexcept;
@@ -38,11 +38,15 @@ protected:
 
   protected:
     friend class BinaryTreeVec<Data>;
+
     Data value;
            //index for the array
-    unsigned long int index = 0;
+    unsigned int index = 0;
            //pointer reference to the array
     lasd::Vector<NodeVec*>* reference;
+
+    NodeVec(const Data& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p);
+    NodeVec(const Data&& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p);
 
   public:
 
@@ -63,6 +67,7 @@ protected:
   lasd::Vector<NodeVec*> mycontainer = lasd::Vector<NodeVec*>(0);
   void DeleteTree(NodeVec*&) noexcept;
 
+
 public:
 
   // Default constructor
@@ -71,7 +76,7 @@ public:
   /* ************************************************************************ */
 
   // Specific constructors
-  // BinaryTreeVec(argument) specifiers; // A binary tree obtained from a LinearContainer
+     BinaryTreeVec(const LinearContainer<Data>&); // A binary tree obtained from a LinearContainer
 
   /* ************************************************************************ */
 

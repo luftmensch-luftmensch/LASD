@@ -33,7 +33,6 @@ protected:
     friend class BinaryTreeLnk<Data>;
 
 
-    NodeLnk* current=nullptr;
     Data value;
     NodeLnk* left = nullptr;
     NodeLnk* right = nullptr;

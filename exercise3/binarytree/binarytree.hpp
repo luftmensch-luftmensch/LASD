@@ -379,7 +379,7 @@ public:
 
      Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-     bool Terminated() override; // (should not throw exceptions)
+     virtual bool Terminated() noexcept override; // (should not throw exceptions)
 
   /* ************************************************************************ */
 
@@ -441,9 +441,9 @@ public:
 
   // Specific member functions (inherited from Iterator)
 
-     Data& operator*(); // (throw std::out_of_range when terminated)
+     Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-     bool Terminated(); // (should not throw exceptions)
+     virtual bool Terminated() noexcept override; // (should not throw exceptions)
 
   /* ************************************************************************ */
 

@@ -2,6 +2,18 @@
 namespace lasd {
 
 /* ************************************************************************** */
+//NodeVec constructors
+template <typename Data>
+BinaryTreeVec<Data>::NodeVec::NodeVec(const Data& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p):
+index(p), reference(c){
+  value = k;
+}
+
+template <typename Data>
+BinaryTreeVec<Data>::NodeVec::NodeVec(const Data&& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p):
+index(p), reference(c){
+  value = std::move(k);
+}
 
 template <typename Data>
 Data const& BinaryTreeVec<Data>::NodeVec::Element() const noexcept{
@@ -39,6 +51,15 @@ typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild(
   return *(*reference)[index*2+2];
 }
 /* ************************************************************************** */
+//Specific Constructor
+template <typename Data>
+BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data>& con){
+  dim= con.Size();
+  for(unsigned int i=0; i< dim; i++){
+    mycontainer[i]= new NodeVec(con[i],&mycontainer,i);
+  }
+}
+
 //Copy constructor
 
 template <typename Data>
@@ -49,7 +70,7 @@ BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& bT){
   mycontainer.Resize(bT.mycontainer.Size());
   for(unsigned long int i = 0; i < mycontainer.Size(); i++){
     if(bT.mycontainer[i] != nullptr)
-      mycontainer[i] = new NodeVec(i, &mycontainer, bT.mycontainer[i]->Element());
+      mycontainer[i] = new NodeVec(bT.mycontainer[i]->Element(),&mycontainer,i );
     else mycontainer[i] = nullptr;
   }
 
