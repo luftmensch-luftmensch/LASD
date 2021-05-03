@@ -51,6 +51,12 @@ typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::RightChild(
   return *right;
 }
 
+//Specific constructor: DA FARE ***
+template <typename Data>
+BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& con){
+  root=nullptr;
+}
+
 
 //Copy constructor
 template<typename Data>
@@ -162,13 +168,13 @@ void BinaryTreeLnk<Data>::Clear() {
 }
 //Auxiliary function for clear the tree
 template <typename Data>
-void DeleteTree(typename BinaryTreeLnk<Data>::NodeLnk*& from) noexcept{
+void BinaryTreeLnk<Data>::DeleteTree(typename BinaryTreeLnk<Data>::NodeLnk*& from) noexcept{
   if(from->HasLeftChild())
-    DeleteTree(from.left);
+    DeleteTree(from->left);
 
 
   if(from->HasRightChild())
-    DeleteTree(from.right);
+    DeleteTree(from->right);
 
   delete from;
   from = nullptr;

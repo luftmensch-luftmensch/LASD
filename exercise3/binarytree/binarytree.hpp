@@ -9,11 +9,9 @@
 #include "../iterator/iterator.hpp"
 
 #include "../queue/queue.hpp"
-#include "../queue/vec/queuevec.hpp"
 #include "../queue/lst/queuelst.hpp"
 
 #include "../stack/stack.hpp"
-#include "../stack/vec/stackvec.hpp"
 #include "../stack/lst/stacklst.hpp"
 
 /* ************************************************************************** */
@@ -113,7 +111,7 @@ public:
 
   // Specific member functions
 
-     virtual Node const& Root() const = 0;
+     virtual const Node& Root() const = 0;
      virtual Node& Root() = 0; // (concrete function must throw std::length_error when empty)
 
   /* ************************************************************************ */
@@ -251,7 +249,7 @@ public:
 
      virtual Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-     virtual bool Terminated() noexcept override; // (should not throw exceptions)
+     virtual bool Terminated() const noexcept override; // (should not throw exceptions)
 
   /* ************************************************************************ */
 
@@ -314,7 +312,7 @@ public:
 
      virtual Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-     virtual bool Terminated() noexcept override; // (should not throw exceptions)
+     virtual bool Terminated() const noexcept override; // (should not throw exceptions)
 
   /* ************************************************************************ */
 
@@ -377,9 +375,9 @@ public:
 
   // Specific member functions (inherited from Iterator)
 
-     Data& operator*() const override; // (throw std::out_of_range when terminated)
+     virtual Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-     virtual bool Terminated() noexcept override; // (should not throw exceptions)
+     virtual bool Terminated() const noexcept override; // (should not throw exceptions)
 
   /* ************************************************************************ */
 
@@ -443,7 +441,7 @@ public:
 
      Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-     virtual bool Terminated() noexcept override; // (should not throw exceptions)
+     virtual bool Terminated() const noexcept override; // (should not throw exceptions)
 
   /* ************************************************************************ */
 

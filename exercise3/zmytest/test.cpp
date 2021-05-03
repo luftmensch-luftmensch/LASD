@@ -1,6 +1,2 @@
-#include <iostream>
 
-void mytest(){
-
-
-}
+// ...

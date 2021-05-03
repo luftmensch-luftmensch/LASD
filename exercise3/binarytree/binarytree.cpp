@@ -124,6 +124,56 @@ void BinaryTree<Data>::FoldBreadth(FoldFunctor foldFunctor, const void* par, voi
     AuxFoldBreadth(foldFunctor, par, acc, &Root());
 }
 
+// Auxiliary member functions (for PreOrderMappableContainer)
+template <typename Data>
+void BinaryTree<Data>::AuxMapPreOrder(MapFunctor mapFunctor, void* par, Node* n) noexcept{
+    //center, sx, dx
+  mapFunctor(n->Element(), par);
+
+  if(n->HasLeftChild())
+    AuxMapPreOrder(mapFunctor, par, &n->LeftChild());
+
+  if(n->HasRightChild())
+    AuxMapPreOrder(mapFunctor, par, &n->RightChild());
+}
+
+// Auxiliary member functions (for PreOrderFoldableContainer)
+template <typename Data>
+void BinaryTree<Data>::AuxFoldPreOrder(FoldFunctor foldFunctor, const void* par, void* acc, const Node* n) const noexcept{
+  //center, sx, dx
+  foldFunctor(n->Element(), par, acc);
+
+  if(n->HasLeftChild())
+    AuxFoldPreOrder(foldFunctor, par, acc, &n->LeftChild());
+
+  if(n->HasRightChild())
+    AuxFoldPreOrder(foldFunctor, par, acc, &n->RightChild());
+}
+// Auxiliary member functions (for PostOrderMappableContainer)
+template <typename Data>
+void BinaryTree<Data>::AuxMapPostOrder(MapFunctor mapFunctor, void* par, Node* n) noexcept{
+  //sx, dx, center
+  if(n->HasLeftChild())
+    AuxMapPostOrder(mapFunctor, par, &n->LeftChild());
+
+  if(n->HasRightChild())
+    AuxMapPostOrder(mapFunctor, par, &n->RightChild());
+
+  mapFunctor(n->Element(), par);
+}
+// Auxiliary member functions (for PostOrderFoldableContainer)
+template <typename Data>
+void BinaryTree<Data>::AuxFoldPostOrder(FoldFunctor foldFunctor, const void* par, void* acc, const Node* n) const noexcept{
+  //dx, sx, center
+  if(n->HasRightChild())
+    AuxFoldPostOrder(foldFunctor, par, acc, &n->RightChild());
+
+  if(n->HasLeftChild())
+    AuxFoldPostOrder(foldFunctor, par, acc, &n->LeftChild());
+
+  foldFunctor(n->Element(), par, acc);
+}
+
 // Auxiliary member functions (for InOrderMappableContainer)
 
 template <typename Data>
@@ -156,7 +206,7 @@ void BinaryTree<Data>::AuxFoldInOrder(FoldFunctor foldFunctor, const void* par, 
 
 template <typename Data>
 void BinaryTree<Data>::AuxMapBreadth(MapFunctor mapFunctor, void* par, Node* node) noexcept{
-  QueueVec<BinaryTree<Data>::Node*> queue;
+  QueueLst<BinaryTree<Data>::Node*> queue;
 
   if(node != nullptr)
     queue.Enqueue(node);
@@ -178,7 +228,7 @@ void BinaryTree<Data>::AuxMapBreadth(MapFunctor mapFunctor, void* par, Node* nod
 
 template <typename Data>
 void BinaryTree<Data>::AuxFoldBreadth(FoldFunctor foldFunctor, const void* par, void* acc, const Node* node) const noexcept{
-  QueueVec<const BinaryTree<Data>::Node*> queue;
+  QueueLst<const BinaryTree<Data>::Node*> queue;
 
   if(node != nullptr)
     queue.Enqueue(node);
@@ -201,7 +251,13 @@ void BinaryTree<Data>::AuxFoldBreadth(FoldFunctor foldFunctor, const void* par, 
 //Specific constructor
 template <typename Data>
 BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& binarytree){
-  current = &(binarytree.Root());
+  if(binarytree.Empty()){
+    current=nullptr;
+  }
+  else{
+    current = const_cast<typename BinaryTree<Data>::Node*>(&(binarytree.Root()));
+  }
+
 }
 
 
@@ -286,7 +342,7 @@ Data& BTPreOrderIterator<Data>::operator*() const{
 
 //Terminated function
 template <typename Data>
-bool BTPreOrderIterator<Data>::Terminated() noexcept{
+bool BTPreOrderIterator<Data>::Terminated() const noexcept{
   return (current == nullptr);
 }
 
@@ -299,7 +355,7 @@ bool BTPreOrderIterator<Data>::Terminated() noexcept{
 
 template <typename Data>
 BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& binarytree){
-  current= LeftMostLeaf(binarytree);
+  current= static_cast<typename  BinaryTree<Data>::Node*>(&(LeftMostLeaf(binarytree)));
 }
 
 //Auxiliary for specific constructor
@@ -310,22 +366,19 @@ typename BinaryTree<Data>::Node& BTPostOrderIterator<Data>::LeftMostLeaf(const B
   }
   else{
 
-  //  current=binarytree.Root();
+    current=const_cast<typename BinaryTree<Data>::Node*>(&(binarytree.Root()));
     while(current !=nullptr) {
       if(current->HasLeftChild()){
-        typename BinaryTree<Data>::Node* tmp2=&(current->LeftChild());
-        current=tmp2;
-        delete tmp2;
-
+        current=static_cast<typename  BinaryTree<Data>::Node*>(&(current->LeftChild()));
       }
       else if(current->HasRightChild()){
-        typename BinaryTree<Data>::Node* tmp1=&(current->RightChild());
-        current=tmp1;
-        delete tmp1;
+
+        current=static_cast<typename  BinaryTree<Data>::Node*>(&(current->RightChild()));
+
         if(current->HasLeftChild()){
-          typename BinaryTree<Data>::Node* tmp=&(current->LeftChild());
-          current=tmp;
-          delete tmp;
+
+          current=static_cast<typename  BinaryTree<Data>::Node*>(&(current->LeftChild()));
+
         }
       }
     }
@@ -414,7 +467,7 @@ Data& BTPostOrderIterator<Data>::operator*() const{
 
 //Terminated function
 template <typename Data>
-bool BTPostOrderIterator<Data>::Terminated() noexcept{
+bool BTPostOrderIterator<Data>::Terminated() const noexcept{
   return (current == nullptr);
 }
 
@@ -425,7 +478,7 @@ bool BTPostOrderIterator<Data>::Terminated() noexcept{
 
 template <typename Data>
 BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& binarytree){
-  current= LeftMostNode(&(binarytree.Root()));
+  current= static_cast<typename  BinaryTree<Data>::Node*>(&(LeftMostNode(binarytree)));
 }
 
 //Auxialiary for specific constructor
@@ -435,9 +488,9 @@ typename BinaryTree<Data>::Node& BTInOrderIterator<Data>::LeftMostNode(const Bin
     current = nullptr;
   }
   else{
-    current = binarytree.Root();
+    current = const_cast<typename BinaryTree<Data>::Node*>(&(binarytree.Root()));
     if(current->HasLeftChild()){
-      current=current->LeftChild();
+      current=static_cast<typename  BinaryTree<Data>::Node*>(&(current->LeftChild()));
       stack.Push(current);
       LeftMostNode(binarytree);
     }
@@ -517,12 +570,12 @@ BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
     stack.Push(current);
 
     if(current->HasRightChild()){
-      current= current->RightChild();
+      current=static_cast<typename  BinaryTree<Data>::Node*>(&(current->RightChild()));
       stack.Push(current);
     }
     else  if (current->HasLeftChild()){
       while (current->HasLeftChild()) {
-        current=current->LeftChild();
+        current=static_cast<typename  BinaryTree<Data>::Node*>(&(current->LeftChild()));
         stack.Push(current);
       }
     }
@@ -542,7 +595,7 @@ Data& BTInOrderIterator<Data>::operator*() const{
 
 //Terminated function
 template <typename Data>
-bool BTInOrderIterator<Data>::Terminated() noexcept{
+bool BTInOrderIterator<Data>::Terminated() const noexcept{
   return (current == nullptr);
 }
 
@@ -553,7 +606,13 @@ bool BTInOrderIterator<Data>::Terminated() noexcept{
 
 template <typename Data>
 BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& binarytree){
-  current= &(binarytree.Root());
+  if (binarytree.Empty()){
+    current=nullptr;
+  }
+  else{
+    current = const_cast<typename BinaryTree<Data>::Node*>(&(binarytree.Root()));
+  }
+
 }
 
 //Copy constuctor
@@ -634,22 +693,23 @@ while(current !=nullptr){
    queue.Enqueue(current);
 
    if(current->HasLeftChild()){
-     current=current->LeftChild();
+     current=static_cast<typename  BinaryTree<Data>::Node*>(&(current->LeftChild()));
      queue.Enqueue(current);
    }
    if(current->HasRightChild()){
-     current=current->RightChild();
+     current=static_cast<typename  BinaryTree<Data>::Node*>(&(current->RightChild()));
      queue.Enqueue(current);
    }
    if(!queue.Empty()){
      queue.HeadNDequeue();
    }
  }
+ return *this;
 }
 
 //Terminated function
 template <typename Data>
-bool BTBreadthIterator<Data>::Terminated() noexcept{
+bool BTBreadthIterator<Data>::Terminated() const noexcept{
   return (current == nullptr);
 }
 

@@ -244,7 +244,7 @@ protected:
 public:
 
   // Destructor
-     virtual ~InOrderMappableContainer() = default;
+     virtual ~InOrderMappableContainer() noexcept= default;
 
   /* ************************************************************************ */
 
@@ -282,7 +282,7 @@ protected:
 public:
 
   // Destructor
-     virtual ~InOrderFoldableContainer();
+     virtual ~InOrderFoldableContainer() noexcept=default;
 
   /* ************************************************************************ */
 
