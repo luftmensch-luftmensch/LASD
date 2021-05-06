@@ -4,6 +4,8 @@
 #include <iostream>
 #include "../../container/container.hpp"
 
+#include "../../binarytree/binarytree.hpp"
+#include "../../binarytree/vec/binarytreevec.hpp"
 /* ************************************************************************** */
 
 // Container member functions!
@@ -133,27 +135,21 @@ void Exists(uint& testnum, uint& testerr, const lasd::TestableContainer<Data>& c
 // MappableContainer member functions!
 
 template <typename Data, typename Parameter>
-void MapPreOrder(lasd::MappableContainer<Data>& con, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
-  Parameter par = {inipar};
-  try {
-    con.MapPreOrder(fun, &par);
-  } catch(std::exception exc) {
-  }
-}
+void MapPreOrder(lasd::BinaryTree<Data>& con, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
+   Parameter par = {inipar};
+   try {
+     con.MapPreOrder(fun, &par);
+   } catch(std::exception exc) {
+   }
+ }
 
 template <typename Data, typename Parameter>
-void MapPostOrder(uint& testnum, uint& testerr, lasd::MappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
-  bool tst = true;
-  testnum++;
+void MapPostOrder(lasd::BinaryTree<Data>& con, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
   Parameter par = {inipar};
   try {
-    std::cout << " " << testnum << " Executing map in post order - ";
     con.MapPostOrder(fun, &par);
-    std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
 }
 
 template <typename Data>
@@ -265,18 +261,12 @@ void FoldStringConcatenate(const std::string&, const void*, void*);
 // InOrderMappableContainer member functions!
 
 template <typename Data, typename Parameter>
-void MapInOrder(uint& testnum, uint& testerr, lasd::InOrderMappableContainer<Data>& con, bool chk, typename lasd::InOrderMappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
-  bool tst = true;
-  testnum++;
+void MapInOrder(lasd::BinaryTree<Data>& con, typename lasd::InOrderMappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
   Parameter par = {inipar};
   try {
-    std::cout << " " << testnum << " Executing map in order - ";
     con.MapInOrder(fun, &par);
-    std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
 }
 
 /* ************************************************************************** */
@@ -305,18 +295,12 @@ void FoldInOrder(uint& testnum, uint& testerr, const lasd::InOrderFoldableContai
 // BreadthMappableContainer member functions!
 
 template <typename Data, typename Parameter>
-void MapBreadth(uint& testnum, uint& testerr, lasd::BreadthMappableContainer<Data>& con, bool chk, typename lasd::BreadthMappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
-  bool tst = true;
-  testnum++;
+void MapBreadth(lasd::BinaryTree<Data>& con, typename lasd::BreadthMappableContainer<Data>::MapFunctor fun, const Parameter& inipar) {
   Parameter par = {inipar};
   try {
-    std::cout << " " << testnum << " Executing map in breadth - ";
     con.MapBreadth(fun, &par);
-    std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
   } catch(std::exception exc) {
-    std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
 }
 
 /* ************************************************************************** */

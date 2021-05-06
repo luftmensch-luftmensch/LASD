@@ -5,6 +5,7 @@
 void BinaryTreeVecInt();
 void BinaryTreeVecFloat();
 void BinaryTreeVecString();
+void OperazioniDaEseguire();
 /* ************************************************************************** */
 
 #endif

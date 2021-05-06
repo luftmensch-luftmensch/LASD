@@ -9,6 +9,7 @@ g++ -O3 -o main \
   zmytest/BinaryTree/BinaryTreeVec/BinaryTreeVecInt.cpp \
   zmytest/BinaryTree/BinaryTreeVec/BinaryTreeVecFloat.cpp \
   zmytest/BinaryTree/BinaryTreeVec/BinaryTreeVecString.cpp \
+  zmytest/BinaryTree/BinaryTreeVec/OperazioniDaEseguire.cpp \
   zmytest/BinaryTree/BinaryTreeList/BinaryTreeListInt.cpp \
   zmytest/BinaryTree/BinaryTreeList/BinaryTreeListFloat.cpp \
   zmytest/BinaryTree/BinaryTreeList/BinaryTreeListString.cpp \
