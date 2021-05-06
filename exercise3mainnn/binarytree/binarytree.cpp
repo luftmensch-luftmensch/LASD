@@ -671,6 +671,7 @@ BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(const BTBreadthItera
 template <typename Data>
 BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(BTBreadthIterator<Data>&& iterator) noexcept{
   std::swap(current, iterator.current);
+  std::swap(queue,iterator.queue);
   return *this;
 }
 

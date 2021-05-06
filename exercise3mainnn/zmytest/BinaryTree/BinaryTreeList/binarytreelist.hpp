@@ -1,9 +1,11 @@
-#ifndef MYTEST_HPP
-#define MYTEST_HPP
+#ifndef MYBINARYTREELIST_HPP
+#define MYBINARYTREELIST_HPP
 
 /* ************************************************************************** */
-void mytest();
 
+void BinaryTreeListInt();
+void BinaryTreeListFloat();
+void BinaryTreeListString();
 /* ************************************************************************** */
 
 #endif

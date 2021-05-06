@@ -1,31 +1,59 @@
+#include <iostream>
 #include "test.hpp"
+#include "BinaryTree/BinaryTreeVec/binarytreevec.hpp"
+#include "BinaryTree/BinaryTreeList/binarytreelist.hpp"
 #include "../vector/vector.hpp"
 #include "../list/list.hpp"
 #include "../binarytree/lnk/binarytreelnk.hpp"
-#include <iostream>
 #include "../zmytest/container/container.hpp"
 #include "../container/container.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
 
 void mytest(){
-  lasd::Vector<int> vec(5);
-  vec[0]=1;
-  vec[1]=2;
-  vec[2]=3;
-  vec[3]=4;
-  vec[4]=5;
-  lasd::BinaryTreeVec<int> bt(vec);
-  //std::cout 
-  lasd::BTInOrderIterator<int> itr(bt);
-  std::cout<< *itr <<std::endl;
-  ++itr;
-  std::cout<< *itr <<std::endl;
-  ++itr;
-  std::cout<< *itr <<std::endl;
-  ++itr;
-  std::cout<< *itr <<std::endl;
-  ++itr;
-  std::cout<< *itr <<std::endl;
-  ++itr;
+  std::cout<< "TEST" << std::endl;
 
+  bool quit = false;
+  char scelta;
+
+  std::cout << "Scegli il tipo di struttura: "<< std::endl;
+  std::cout<<"Binarytree implementato con vettori (1 -> int; 2 -> float; 3 -> string)"<< std::endl;
+  std::cout<<"Binarytree implementato con lista (4 -> int; 5 -> float; 6 -> string)"<< std::endl;
+
+  while (scelta != 'q') {
+    std::cin >> scelta;
+
+    if ((scelta != '1') && (scelta != '2') && (scelta != '3') &&
+	(scelta != '4') && (scelta != '5') && (scelta != '6') &&
+	(scelta != 'q')) {
+      std::cout << "ERRORE: scelta non valida\n";
+    }
+
+    if (scelta == '1') {
+      BinaryTreeVecInt(); 
+    }
+    if (scelta == '2') {
+      BinaryTreeVecFloat();
+      quit = true;
+    }
+
+    if (scelta == '3') {
+      BinaryTreeVecString();
+      quit = true;
+    }
+    if (scelta == '4') {
+      BinaryTreeListInt();
+      quit = true;
+    }
+
+    if (scelta == '5') {
+      BinaryTreeListFloat();
+      quit = true;
+    }
+    if (scelta == '6') {
+      BinaryTreeListString();
+      quit = true;
+    }
+
+
+  }
 }

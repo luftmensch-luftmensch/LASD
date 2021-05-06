@@ -1,9 +1,10 @@
-#ifndef MYTEST_HPP
-#define MYTEST_HPP
+#ifndef MYBINARYTREEVEC_HPP
+#define MYBINARYTREEVEC_HPP
 
 /* ************************************************************************** */
-void mytest();
-
+void BinaryTreeVecInt();
+void BinaryTreeVecFloat();
+void BinaryTreeVecString();
 /* ************************************************************************** */
 
 #endif
