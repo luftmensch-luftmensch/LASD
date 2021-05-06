@@ -25,6 +25,9 @@ void BinaryTreeVecInt(){
   lasd::BinaryTreeVec<int> BinaryTreeInt(VettoreInt);
 
   OperazioniDaEseguire();
+  std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+  std::cout<< "\tCalcolo della funzione 3n(a)\n";
+  std::cout<< "\tUscita(q)\n";
   while (opzione != 'q') {
     std::cin >> opzione;
 
@@ -37,28 +40,53 @@ void BinaryTreeVecInt(){
     }
     if (opzione == '1'){ // Visualizzazione in Pre-Order
       MapPreOrder(BinaryTreeInt, &MapPrint<int> , 0);
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
     }
 
     if (opzione == '2'){ // Visualizzazione in Post-Order
       MapPostOrder(BinaryTreeInt, &MapPrint<int> , 0);
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
     }
 
     if (opzione == '3'){ // Visualizzazione Inorder
       MapInOrder(BinaryTreeInt, &MapPrint<int> , 0);
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
     }
 
     if (opzione == '4'){ // Visualizzazione in Ampiezza
       MapBreadth(BinaryTreeInt, &MapPrint<int> , 0);
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
     }
 
     if (opzione == '5'){ // Controllo di esistenza di un dato valore nella struttura
       std::cout << "Inserisci l'elemento da ricercare: ";
       std::cin >> elemento;
       if (BinaryTreeInt.Exists(elemento)){
-	std::cout << "Elemento trovato";
+	std::cout << "Elemento trovato" << std::endl;
       } else{
-	std::cout << "Elemento non trovato";
+	std::cout << "Elemento non trovato" << std::endl;
       }
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
     }
 
     if (opzione == '6'){ // Controllo di vuotezza della  Struttura
@@ -67,13 +95,58 @@ void BinaryTreeVecInt(){
       } else{
 	std::cout << "La Struttura non è vuota" << std::endl;
       }
+
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
     }
     if (opzione == '7'){
       std::cout << "La dimensione della struttura è " << BinaryTreeInt.Size() << std::endl;
+
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
     }
     if (opzione == '8'){
       BinaryTreeInt.Clear();
       std::cout << "Struttura svuotata" << std::endl;
+
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
+    }
+    if (opzione == '9'){ // Esplorazione in lettura e/o scrittura
+      // Da implementare
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
+    }
+    if (opzione == 'a'){ // Prodotto degli interi minori di n
+      // Prendere dalla prima libreria 
+
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
+    }
+
+    if (opzione == 'b'){ // Funzione 3n
+      // Prendere dalla prima libreria 
+
+      std::cout << "\n";
+      OperazioniDaEseguire();
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(a)\n";
+      std::cout<< "\tCalcolo della funzione 3n(a)\n";
+      std::cout<< "\tUscita(q)\n";
     }
     if (opzione == 'q'){
       std::cout << "Scegli il tipo di struttura: "<< std::endl;
