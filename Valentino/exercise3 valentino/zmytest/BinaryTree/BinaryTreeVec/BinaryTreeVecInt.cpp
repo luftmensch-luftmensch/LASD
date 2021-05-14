@@ -26,8 +26,8 @@ void BinaryTreeVecInt(){
   lasd::BinaryTreeVec<int> BinaryTreeInt(VettoreInt);
 
   OperazioniDaEseguire();
-  std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-  std::cout<< "\tCalcolo della funzione 3n(e)\n";
+  std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+  std::cout<< "\tCalcolo della funzione 3n(f)\n";
   std::cout<< "\tUscita(q)\n";
   while (opzione != 'q') {
     std::cin >> opzione;
@@ -35,7 +35,8 @@ void BinaryTreeVecInt(){
     if ((opzione != '1') && (opzione != '2') && (opzione != '3') &&
 	(opzione != '4') && (opzione != '5') && (opzione != '6') &&
 	(opzione != '7') &&  (opzione != '8') && (opzione != '9') &&
-	(opzione != 'a') &&  (opzione != 'b') &&
+	(opzione != 'a') &&  (opzione != 'b') && (opzione != 'c') &&
+	(opzione != 'd') && (opzione != 'e') && (opzione != 'f') &&
 	(opzione != 'q')) {
       std::cout << "ERRORE: opzione non valida\n";
     }
@@ -43,8 +44,8 @@ void BinaryTreeVecInt(){
       MapPreOrder(BinaryTreeInt, &MapPrint<int> , 0);
       std::cout << "\n";
       OperazioniDaEseguire();
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
 
@@ -52,8 +53,8 @@ void BinaryTreeVecInt(){
       MapPostOrder(BinaryTreeInt, &MapPrint<int> , 0);
       std::cout << "\n";
       OperazioniDaEseguire();
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
 
@@ -61,8 +62,8 @@ void BinaryTreeVecInt(){
       MapInOrder(BinaryTreeInt, &MapPrint<int> , 0);
       std::cout << "\n";
       OperazioniDaEseguire();
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
 
@@ -70,8 +71,8 @@ void BinaryTreeVecInt(){
       MapBreadth(BinaryTreeInt, &MapPrint<int> , 0);
       std::cout << "\n";
       OperazioniDaEseguire();
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
 
@@ -86,8 +87,8 @@ void BinaryTreeVecInt(){
       std::cout << "\n";
       OperazioniDaEseguire();
 
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
 
@@ -101,8 +102,8 @@ void BinaryTreeVecInt(){
       std::cout << "\n";
       OperazioniDaEseguire();
 
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
     if (opzione == '7'){
@@ -110,26 +111,26 @@ void BinaryTreeVecInt(){
 
       std::cout << "\n";
       OperazioniDaEseguire();
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
-    if (opzione == '8'){
+    if (opzione == '8'){ // Svuotamento della struttura
       BinaryTreeInt.Clear();
       std::cout << "Struttura svuotata" << std::endl;
 
       std::cout << "\n";
       OperazioniDaEseguire();
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
     if (opzione == '9'){ // Esplorazione in lettura e/o scrittura
 
         lasd::BinaryTree<int>* BinaryTreeIntCopia=&BinaryTreeInt;
-        bool boolean=true;
+        bool check=true;
         typename lasd::BinaryTree<int>::Node* current = &BinaryTreeIntCopia->Root();
-        while(current!=nullptr&&boolean==true){
+        while(current!=nullptr && check==true){
 	  std::cout<<"L'elemento corrente e' : "<<current->Element()<<std::endl;
 	  std::cout<<"\n Cosa vuoi fare? "<<std::endl;
 	  std::cout<<"\n 1->Modifica il valore corrente \n 2->Visita il figlio sinistro (se presente) \n 3->Visita il figlio destro (se presente)\n"<<std::endl;
@@ -163,7 +164,7 @@ void BinaryTreeVecInt(){
               break;
             case 'q':
               std::cout << "\033[2J\033[1;1H";
-              boolean=false;
+              check=false;
               break;
             default:
               std::cout << "\033[2J\033[1;1H";
@@ -172,8 +173,8 @@ void BinaryTreeVecInt(){
         }
       std::cout << "\n";
       OperazioniDaEseguire();
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
     if (opzione == 'a'){ // Navigazione in  Pre-Order
@@ -249,7 +250,7 @@ void BinaryTreeVecInt(){
       std::cout<< "\tUscita(q)\n";
     }
 
-    if (opzione == 'f'){ // Navigazione in Ampiezza
+    if (opzione == 'd'){ // Navigazione in Ampiezza
 
       std::cout<<"Navigazione in PreOrder:"<<std::endl;
 
@@ -274,7 +275,7 @@ void BinaryTreeVecInt(){
       
     }
 
-    if (opzione == 'd'){ // Prodotto degli interi minori di n
+    if (opzione == 'e'){ // Prodotto degli interi minori di n
 
       lasd::BTBreadthIterator<int> Iteratore(BinaryTreeInt);
       std::cout<<"Inserisci il valore:\n"<<std::endl;
@@ -305,7 +306,7 @@ void BinaryTreeVecInt(){
       std::cout<< "\tUscita(q)\n";
     }
 
-    if (opzione == 'e'){ // Funzione 3n
+    if (opzione == 'f'){ // Funzione 3n
 
       MapPreOrder(BinaryTreeInt, &MapPrint<int> , 0);
       MapPreOrder(BinaryTreeInt, &MapTriple<int> , 0);
@@ -315,8 +316,8 @@ void BinaryTreeVecInt(){
       std::cout << "\n";
       OperazioniDaEseguire();
 
-      std::cout<< "\tCalcolo del prodotto degli interi minori di n(d)\n";
-      std::cout<< "\tCalcolo della funzione 3n(e)\n";
+      std::cout<< "\tCalcolo del prodotto degli interi minori di n(e)\n";
+      std::cout<< "\tCalcolo della funzione 3n(f)\n";
       std::cout<< "\tUscita(q)\n";
     }
     if (opzione == 'q'){
