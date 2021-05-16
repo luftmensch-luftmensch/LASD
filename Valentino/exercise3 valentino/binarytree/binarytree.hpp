@@ -79,17 +79,17 @@ public:
      virtual void FoldBreadth(FoldFunctor, const void*, void*) const noexcept override;
 
 protected:
-     virtual void AuxMapPreOrder(MapFunctor, void*, Node*) noexcept; 
-     virtual void AuxFoldPreOrder(FoldFunctor, const void*, void*, const Node*) const noexcept;
+     virtual void MapPreOrderPersonale(MapFunctor, void*, Node*) noexcept; 
+     virtual void FoldPreOrderPersonale(FoldFunctor, const void*, void*, const Node*) const noexcept;
 
-     virtual void AuxMapPostOrder(MapFunctor, void*, Node*) noexcept;
-     virtual void AuxFoldPostOrder(FoldFunctor, const void*, void*, const Node*) const noexcept;
+     virtual void MapPostOrderPersonale(MapFunctor, void*, Node*) noexcept;
+     virtual void FoldPostOrderPersonale(FoldFunctor, const void*, void*, const Node*) const noexcept;
 
-     virtual void AuxMapInOrder(MapFunctor, void*, Node*) noexcept;
-     virtual void AuxFoldInOrder(FoldFunctor, const void*, void*, const Node*) const noexcept;
+     virtual void MapInOrderPersonale(MapFunctor, void*, Node*) noexcept;
+     virtual void FoldInOrderPersonale(FoldFunctor, const void*, void*, const Node*) const noexcept;
   
-     virtual void AuxMapBreadth(MapFunctor, void*, Node*) noexcept;
-     virtual void AuxFoldBreadth(FoldFunctor, const void*, void*, const Node*) const noexcept;
+     virtual void MapBreadthPersonale(MapFunctor, void*, Node*) noexcept;
+     virtual void FoldBreadthPersonale(FoldFunctor, const void*, void*, const Node*) const noexcept;
 
 };
 

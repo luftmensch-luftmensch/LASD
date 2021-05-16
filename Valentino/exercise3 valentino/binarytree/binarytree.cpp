@@ -61,115 +61,115 @@ bool BinaryTree<Data>::operator!=(const BinaryTree<Data>& binaryTree) const noex
 template <typename Data>
 void BinaryTree<Data>::MapPreOrder(MapFunctor MapFunctor, void* parametro) noexcept{
   if(!Empty())
-    AuxMapPreOrder(MapFunctor, parametro, &Root());
+    MapPreOrderPersonale(MapFunctor, parametro, &Root());
 }
 template <typename Data>
 void BinaryTree<Data>::FoldPreOrder(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore) const noexcept{
   if(!Empty())
-    AuxFoldPreOrder(FoldFunctor, parametro, accumulatore, &Root());
+    FoldPreOrderPersonale(FoldFunctor, parametro, accumulatore, &Root());
 }
 
 template <typename Data>
 void BinaryTree<Data>::MapPostOrder(MapFunctor MapFunctor, void* parametro) noexcept{
   if(!Empty())
-    AuxMapPostOrder(MapFunctor, parametro, &Root());
+    MapPostOrderPersonale(MapFunctor, parametro, &Root());
 }
 
 template <typename Data>
 void BinaryTree<Data>::FoldPostOrder(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore) const noexcept{
   if(!Empty())
-    AuxFoldPostOrder(FoldFunctor, parametro, accumulatore, &Root());
+    FoldPostOrderPersonale(FoldFunctor, parametro, accumulatore, &Root());
 }
 template <typename Data>
 void BinaryTree<Data>::MapInOrder(MapFunctor MapFunctor, void* parametro) noexcept{
   if(!Empty())
-    AuxMapInOrder(MapFunctor, parametro, &Root());
+    MapInOrderPersonale(MapFunctor, parametro, &Root());
 }
 template <typename Data>
 void BinaryTree<Data>::FoldInOrder(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore) const noexcept{
   if(!Empty())
-    AuxFoldInOrder(FoldFunctor, parametro, accumulatore, &Root());
+    FoldInOrderPersonale(FoldFunctor, parametro, accumulatore, &Root());
 }
 
 template <typename Data>
 void BinaryTree<Data>::MapBreadth(MapFunctor MapFunctor, void* parametro) noexcept{
   if(!Empty())
-    AuxMapBreadth(MapFunctor, parametro, &Root());
+    MapBreadthPersonale(MapFunctor, parametro, &Root());
 }
 template <typename Data>
 void BinaryTree<Data>::FoldBreadth(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore) const noexcept{
   if(!Empty())
-    AuxFoldBreadth(FoldFunctor, parametro, accumulatore, &Root());
+    FoldBreadthPersonale(FoldFunctor, parametro, accumulatore, &Root());
 }
 
 template <typename Data>
-void BinaryTree<Data>::AuxMapPreOrder(MapFunctor MapFunctor, void* parametro, Node* nodo) noexcept{
+void BinaryTree<Data>::MapPreOrderPersonale(MapFunctor MapFunctor, void* parametro, Node* nodo) noexcept{
   MapFunctor(nodo->Element(), parametro);
 
   if(nodo->HasLeftChild())
-    AuxMapPreOrder(MapFunctor, parametro, &nodo->LeftChild());
+    MapPreOrderPersonale(MapFunctor, parametro, &nodo->LeftChild());
 
   if(nodo->HasRightChild())
-    AuxMapPreOrder(MapFunctor, parametro, &nodo->RightChild());
+    MapPreOrderPersonale(MapFunctor, parametro, &nodo->RightChild());
 }
 
 template <typename Data>
-void BinaryTree<Data>::AuxFoldPreOrder(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore, const Node* nodo) const noexcept{
+void BinaryTree<Data>::FoldPreOrderPersonale(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore, const Node* nodo) const noexcept{
   FoldFunctor(nodo->Element(), parametro, accumulatore);
 
   if (nodo->HasLeftChild())
-    AuxFoldPreOrder(FoldFunctor, parametro, accumulatore, &nodo->LeftChild());
+    FoldPreOrderPersonale(FoldFunctor, parametro, accumulatore, &nodo->LeftChild());
 
   if (nodo->HasRightChild())
-    AuxFoldPreOrder(FoldFunctor, parametro, accumulatore, &nodo->RightChild());
+    FoldPreOrderPersonale(FoldFunctor, parametro, accumulatore, &nodo->RightChild());
 }
 
 template <typename Data>
-void BinaryTree<Data>::AuxMapPostOrder(MapFunctor MapFunctor, void* parametro, Node* nodo) noexcept{
+void BinaryTree<Data>::MapPostOrderPersonale(MapFunctor MapFunctor, void* parametro, Node* nodo) noexcept{
   if (nodo->HasLeftChild())
-    AuxMapPostOrder(MapFunctor, parametro, &nodo->LeftChild());
+    MapPostOrderPersonale(MapFunctor, parametro, &nodo->LeftChild());
 
   if (nodo->HasRightChild())
-    AuxMapPostOrder(MapFunctor, parametro, &nodo->RightChild());
+    MapPostOrderPersonale(MapFunctor, parametro, &nodo->RightChild());
 
   MapFunctor(nodo->Element(), parametro);
 }
 
 template <typename Data>
-void BinaryTree<Data>::AuxFoldPostOrder(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore, const Node* nodo) const noexcept{
+void BinaryTree<Data>::FoldPostOrderPersonale(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore, const Node* nodo) const noexcept{
 
   if (nodo->HasLeftChild())
-    AuxFoldPostOrder(FoldFunctor, parametro, accumulatore, &nodo->LeftChild());
+    FoldPostOrderPersonale(FoldFunctor, parametro, accumulatore, &nodo->LeftChild());
   if (nodo->HasRightChild())
-    AuxFoldPostOrder(FoldFunctor, parametro, accumulatore, &nodo->RightChild());
+    FoldPostOrderPersonale(FoldFunctor, parametro, accumulatore, &nodo->RightChild());
   FoldFunctor(nodo->Element(), parametro, accumulatore);
 }
 
 template <typename Data>
-void BinaryTree<Data>::AuxMapInOrder(MapFunctor MapFunctor, void* parametro, Node* node) noexcept{
+void BinaryTree<Data>::MapInOrderPersonale(MapFunctor MapFunctor, void* parametro, Node* node) noexcept{
   if (node->HasLeftChild())
-    AuxMapInOrder(MapFunctor, parametro, &node->LeftChild());
+    MapInOrderPersonale(MapFunctor, parametro, &node->LeftChild());
 
   MapFunctor(node->Element(), parametro);
 
   if (node->HasRightChild())
-    AuxMapInOrder(MapFunctor, parametro, &node->RightChild());
+    MapInOrderPersonale(MapFunctor, parametro, &node->RightChild());
 }
   
 template <typename Data>
-void BinaryTree<Data>::AuxFoldInOrder(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore, const Node* node) const noexcept{
+void BinaryTree<Data>::FoldInOrderPersonale(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore, const Node* node) const noexcept{
 
   if (node->HasLeftChild())
-    AuxFoldInOrder(FoldFunctor, parametro, accumulatore, &node->LeftChild());
+    FoldInOrderPersonale(FoldFunctor, parametro, accumulatore, &node->LeftChild());
 
   FoldFunctor(node->Element(), parametro, accumulatore);
 
   if (node->HasRightChild())
-    AuxFoldInOrder(FoldFunctor, parametro, accumulatore, &node->RightChild());
+    FoldInOrderPersonale(FoldFunctor, parametro, accumulatore, &node->RightChild());
 }
 
 template <typename Data>
-void BinaryTree<Data>::AuxMapBreadth(MapFunctor MapFunctor, void* parametro, Node* nodo) noexcept{
+void BinaryTree<Data>::MapBreadthPersonale(MapFunctor MapFunctor, void* parametro, Node* nodo) noexcept{
   QueueLst<BinaryTree<Data>::Node*> coda;
 
   if (nodo != nullptr)
@@ -188,7 +188,7 @@ void BinaryTree<Data>::AuxMapBreadth(MapFunctor MapFunctor, void* parametro, Nod
   }
 }
 template <typename Data>
-void BinaryTree<Data>::AuxFoldBreadth(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore, const Node* nodo) const noexcept{
+void BinaryTree<Data>::FoldBreadthPersonale(FoldFunctor FoldFunctor, const void* parametro, void* accumulatore, const Node* nodo) const noexcept{
   QueueLst<const BinaryTree<Data>::Node*> coda;
 
   if (nodo != nullptr)
@@ -599,19 +599,21 @@ Data& BTBreadthIterator<Data>::operator*() const{
 template <typename Data>
 BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++(){
 
-  if (current->HasLeftChild()) {
-    queue.Enqueue(&(current->LeftChild()));
+  if (current != nullptr) {
+
+    if (current->HasLeftChild()) {
+      queue.Enqueue(&(current->LeftChild()));
+    }
     if (current->HasRightChild()) {
       queue.Enqueue(&(current->RightChild()));
     }
-  }
 
-  if (!queue.Empty()) {
-    current = queue.HeadNDequeue();
-  } else {
-    current = nullptr;
+    if (!queue.Empty()) {
+      current = queue.HeadNDequeue();
+    } else {
+      current = nullptr;
+    }
   }
-
   return *this;
 }
 

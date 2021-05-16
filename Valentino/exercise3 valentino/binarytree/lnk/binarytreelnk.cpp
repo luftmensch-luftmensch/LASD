@@ -1,10 +1,6 @@
 
 namespace lasd {
 
-/* ************************************************************************** */
-
-//NodeLnk class functions
-
 template <typename Data>
 BinaryTreeLnk<Data>::NodeLnk::NodeLnk(const Data& d){
   Valore = d;

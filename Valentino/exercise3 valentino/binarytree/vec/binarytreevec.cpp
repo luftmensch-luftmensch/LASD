@@ -1,9 +1,7 @@
 
 namespace lasd {
 
-/* ************************************************************************** */
 
-//NodeVec constructors
 template <typename Data>
 BinaryTreeVec<Data>::NodeVec::NodeVec(const Data& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p): in(p), riferimento(c){
   Valore = k;
@@ -34,41 +32,37 @@ inline bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept {
   return in*2+2 < (*riferimento).Size() && (*riferimento)[in*2+2] != nullptr;
 }
 
+
+template <typename Data>
+typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild() const {
+  if(!HasRightChild())
+    throw std::out_of_range("Impossibile accedere al figlio destro (non disponibile)");
+
+  return *(*riferimento)[in*2+2];
+}
 template <typename Data>
 typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild() const {
   if(!HasLeftChild())
-    throw std::out_of_range("Could not access to the left child: it is not available!");
+    throw std::out_of_range("Impossibile accedere al figlio sinistro (non disponibile)");
 
   return *(*riferimento)[in*2+1];
 }
 
 template <typename Data>
-typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild() const {
-  if(!HasRightChild())
-    throw std::out_of_range("Could not access to the right child: it is not available!");
-
-  return *(*riferimento)[in*2+2];
-}
-/* ************************************************************************** */
-//Specific Constructor
-template <typename Data>
-BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data>& con){
-  if(con.Size()!=0){
-    containerP.Resize(con.Size());
-    for(unsigned int i=0; i< con.Size(); i++){
-        containerP[i]= new NodeVec(con[i],&containerP,i);
+BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data>& linearContainer){
+  if(linearContainer.Size()!=0){
+    containerP.Resize(linearContainer.Size());
+    for(uint i=0; i< linearContainer.Size(); i++){
+        containerP[i]= new NodeVec(linearContainer[i],&containerP,i);
       }
     }
-  dimensione=con.Size();
+  dimensione=linearContainer.Size();
 }
 
-//Copy constructor
 
 template <typename Data>
 BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& binaryTree){
-  //Stiamo copiando un vettore di puntatori
-  //Non possiamo utilizzare il copy constructor di vettore!
-  //m_container = binaryTree.m_container;
+
   containerP.Resize(binaryTree.containerP.Size());
   for(unsigned long int i = 0; i < containerP.Size(); i++){
     if(binaryTree.containerP[i] != nullptr)
@@ -80,7 +74,6 @@ BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& binaryTree){
   dimensione = binaryTree.dimensione;
 }
 
-//Move constructor
 template <typename Data>
 BinaryTreeVec<Data>::BinaryTreeVec(BinaryTreeVec<Data>&& binaryTree) noexcept {
   std::swap(containerP, binaryTree.containerP);
@@ -90,10 +83,8 @@ BinaryTreeVec<Data>::BinaryTreeVec(BinaryTreeVec<Data>&& binaryTree) noexcept {
   UpdateReferences();
 }
 
-//Copy assignment
 template <typename Data>
 BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(const BinaryTreeVec<Data>& binaryTree){
-  //No self assignment
   if(this == &binaryTree)
     return *this;
 
@@ -105,14 +96,11 @@ BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(const BinaryTreeVec<Data>& b
 	return *this;
 }
 
-//Move assignment
 template <typename Data>
 BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec<Data>&& binaryTree) noexcept{
-  //No self assignment
   if(this == &binaryTree)
     return *this;
 
-  //Clear the current Tree
   BinaryTreeVec<Data>::Clear();
 
   std::swap(containerP, binaryTree.containerP);
@@ -123,7 +111,6 @@ BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec<Data>&& binary
   return *this;
 }
 
-/* ************************************************************************** */
 
 template <typename Data>
 void BinaryTreeVec<Data>::UpdateReferences() noexcept{
