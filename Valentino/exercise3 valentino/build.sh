@@ -13,4 +13,5 @@ g++ -O3 -o main \
   zmytest/BinaryTree/BinaryTreeList/BinaryTreeListInt.cpp \
   zmytest/BinaryTree/BinaryTreeList/BinaryTreeListFloat.cpp \
   zmytest/BinaryTree/BinaryTreeList/BinaryTreeListString.cpp \
+  zmytest/BinaryTree/BinaryTreeList/OperazioniDaEseguireList.cpp \
   main.cpp

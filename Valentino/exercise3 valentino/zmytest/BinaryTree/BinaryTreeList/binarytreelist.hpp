@@ -4,5 +4,5 @@
 void BinaryTreeListInt();
 void BinaryTreeListFloat();
 void BinaryTreeListString();
-
+void OperazioniDaEseguireList();
 #endif
