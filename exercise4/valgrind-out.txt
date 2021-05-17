@@ -1,0 +1,1233 @@
+==14316== Memcheck, a memory error detector
+==14316== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==14316== Using Valgrind-3.17.0-07f0cdcbb4-20210319X and LibVEX; rerun with -h for copyright info
+==14316== Command: ./main
+==14316== Parent PID: 5604
+==14316== 
+--14316-- 
+--14316-- Valgrind options:
+--14316--    --leak-check=full
+--14316--    --show-leak-kinds=all
+--14316--    --track-origins=yes
+--14316--    --verbose
+--14316--    --log-file=valgrind-out.txt
+--14316-- Contents of /proc/version:
+--14316--   Linux version 5.8.0-50-generic (buildd@lgw01-amd64-030) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #56~20.04.1-Ubuntu SMP Mon Apr 12 21:46:35 UTC 2021
+--14316-- 
+--14316-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2
+--14316-- Page sizes: currently 4096, max supported 4096
+--14316-- Valgrind library directory: /snap/valgrind/94/usr/libexec/valgrind
+--14316-- Reading syms from /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main
+--14316-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
+--14316--   Considering /usr/lib/x86_64-linux-gnu/ld-2.31.so ..
+--14316--   .. CRC mismatch (computed 975d0390 wanted 30bd717f)
+--14316--   Considering /lib/x86_64-linux-gnu/ld-2.31.so ..
+--14316--   .. CRC mismatch (computed 975d0390 wanted 30bd717f)
+--14316--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so ..
+--14316--   .. CRC is valid
+--14316-- Reading syms from /snap/valgrind/94/usr/libexec/valgrind/memcheck-amd64-linux
+--14316--    object doesn't have a dynamic symbol table
+--14316-- Warning: inlined fn name without absori
+--14316-- is shown as UnknownInlinedFun
+--14316-- Scheduler: using generic scheduler lock implementation.
+--14316-- Reading suppressions file: /snap/valgrind/94/usr/libexec/valgrind/default.supp
+==14316== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-14316-by-osboxes-on-???
+==14316== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-14316-by-osboxes-on-???
+==14316== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-14316-by-osboxes-on-???
+==14316== 
+==14316== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==14316== don't want to do, unless you know exactly what you're doing,
+==14316== or are doing some strange experiment):
+==14316==   /snap/valgrind/94/usr/libexec/valgrind/../../bin/vgdb --pid=14316 ...command...
+==14316== 
+==14316== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==14316==   /path/to/gdb ./main
+==14316== and then give GDB the following command
+==14316==   target remote | /snap/valgrind/94/usr/libexec/valgrind/../../bin/vgdb --pid=14316
+==14316== --pid is optional if only one valgrind process is running
+==14316== 
+--14316-- REDIR: 0x4022e10 (ld-linux-x86-64.so.2:strlen) redirected to 0x581ea59e (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--14316-- REDIR: 0x4022be0 (ld-linux-x86-64.so.2:index) redirected to 0x581ea5b8 (vgPlain_amd64_linux_REDIR_FOR_index)
+--14316-- Reading syms from /snap/valgrind/94/usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--14316-- Reading syms from /snap/valgrind/94/usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+==14316== WARNING: new redirection conflicts with existing -- ignoring it
+--14316--     old: 0x04022e10 (strlen              ) R-> (0000.0) 0x581ea59e vgPlain_amd64_linux_REDIR_FOR_strlen
+--14316--     new: 0x04022e10 (strlen              ) R-> (2007.0) 0x04a3ee50 strlen
+--14316-- REDIR: 0x401f5f0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4a3ff80 (strcmp)
+--14316-- REDIR: 0x4023370 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4a441a0 (mempcpy)
+--14316-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+--14316--    object doesn't have a symbol table
+--14316-- Reading syms from /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+--14316--    object doesn't have a symbol table
+--14316-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
+--14316--   Considering /usr/lib/x86_64-linux-gnu/libc-2.31.so ..
+--14316--   .. CRC mismatch (computed 86b78530 wanted e380f01c)
+--14316--   Considering /lib/x86_64-linux-gnu/libc-2.31.so ..
+--14316--   .. CRC mismatch (computed 86b78530 wanted e380f01c)
+--14316--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.31.so ..
+--14316--   .. CRC is valid
+--14316-- Reading syms from /usr/lib/x86_64-linux-gnu/libm-2.31.so
+--14316--   Considering /usr/lib/x86_64-linux-gnu/libm-2.31.so ..
+--14316--   .. CRC mismatch (computed fcb42c76 wanted f6c95789)
+--14316--   Considering /lib/x86_64-linux-gnu/libm-2.31.so ..
+--14316--   .. CRC mismatch (computed fcb42c76 wanted f6c95789)
+--14316--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.31.so ..
+--14316--   .. CRC is valid
+--14316-- REDIR: 0x4efa600 (libc.so.6:memmove) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+==14316== Preferring higher priority redirection:
+--14316--     old: 0x04fe5670 (__memcpy_avx_unalign) R-> (2018.0) 0x04a414c0 __memcpy_avx_unaligned_erms
+--14316--     new: 0x04fe5670 (__memcpy_avx_unalign) R-> (2018.1) 0x04a43180 memmove
+--14316-- REDIR: 0x4ef9900 (libc.so.6:strncpy) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa930 (libc.so.6:strcasecmp) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef9220 (libc.so.6:strcat) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef9960 (libc.so.6:rindex) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efbdd0 (libc.so.6:rawmemchr) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4f16e60 (libc.so.6:wmemchr) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4f169a0 (libc.so.6:wcscmp) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa760 (libc.so.6:mempcpy) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa590 (libc.so.6:bcmp) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef9890 (libc.so.6:strncmp) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef92d0 (libc.so.6:strcmp) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa6c0 (libc.so.6:memset) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4f16960 (libc.so.6:wcschr) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef97f0 (libc.so.6:strnlen) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef93b0 (libc.so.6:strcspn) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa980 (libc.so.6:strncasecmp) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef9350 (libc.so.6:strcpy) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efaad0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4f180d0 (libc.so.6:wcsnlen) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4f169e0 (libc.so.6:wcscpy) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef99a0 (libc.so.6:strpbrk) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef9280 (libc.so.6:index) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef97b0 (libc.so.6:strlen) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4f02d20 (libc.so.6:memrchr) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa9d0 (libc.so.6:strcasecmp_l) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa550 (libc.so.6:memchr) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4f16ab0 (libc.so.6:wcslen) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4ef9c60 (libc.so.6:strspn) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa8d0 (libc.so.6:stpncpy) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efa870 (libc.so.6:stpcpy) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efbe10 (libc.so.6:strchrnul) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4efaa20 (libc.so.6:strncasecmp_l) redirected to 0x48306e8 (_vgnU_ifunc_wrapper)
+--14316-- REDIR: 0x4fe2490 (libc.so.6:__strrchr_avx2) redirected to 0x4a3e7d0 (rindex)
+--14316-- REDIR: 0x4ef4260 (libc.so.6:malloc) redirected to 0x4a38f43 (malloc)
+--14316-- REDIR: 0x4fe2660 (libc.so.6:__strlen_avx2) redirected to 0x4a3ed90 (strlen)
+--14316-- REDIR: 0x4fdec50 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4a427c0 (bcmp)
+--14316-- REDIR: 0x4fddb60 (libc.so.6:__strcmp_avx2) redirected to 0x4a3fe40 (strcmp)
+--14316-- REDIR: 0x4fe5650 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4a43de0 (mempcpy)
+--14316-- REDIR: 0x4d05c10 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4a396b5 (operator new(unsigned long))
+--14316-- REDIR: 0x4fe5670 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4a43180 (memmove)
+--14316-- REDIR: 0x4d03e60 (libstdc++.so.6:operator delete(void*)) redirected to 0x4a3bd9b (operator delete(void*))
+--14316-- REDIR: 0x4ef4850 (libc.so.6:free) redirected to 0x4a3b831 (free)
+--14316-- REDIR: 0x4fe22a0 (libc.so.6:__strchrnul_avx2) redirected to 0x4a43cd0 (strchrnul)
+--14316-- REDIR: 0x4d05c70 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x4a3a931 (operator new[](unsigned long))
+--14316-- REDIR: 0x4d03e90 (libstdc++.so.6:operator delete[](void*)) redirected to 0x4a3cd3f (operator delete[](void*))
+--14316-- REDIR: 0x4fde4c0 (libc.so.6:__memchr_avx2) redirected to 0x4a40020 (memchr)
+--14316-- REDIR: 0x4d03ea0 (libstdc++.so.6:operator delete[](void*, unsigned long)) redirected to 0x4a3cfa7 (operator delete[](void*, unsigned long))
+--14316-- REDIR: 0x4d03e70 (libstdc++.so.6:operator delete(void*, unsigned long)) redirected to 0x4a3c003 (operator delete(void*, unsigned long))
+--14316-- REDIR: 0x4fe5af0 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x4a43070 (memset)
+==14316== 
+==14316== HEAP SUMMARY:
+==14316==     in use at exit: 2,976 bytes in 117 blocks
+==14316==   total heap usage: 440 allocs, 323 frees, 94,232 bytes allocated
+==14316== 
+==14316== Searching for pointers to 117 not-freed blocks
+==14316== Checked 116,040 bytes
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 1 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x14910D: void InsertAtFront<int>(unsigned int&, unsigned int&, lasd::List<int>&, bool, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x139551: stestListInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DB15: stestList(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DCF7: testSimpleExercise1() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5A3: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 2 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x149CAF: void InsertAtBack<double>(unsigned int&, unsigned int&, lasd::List<double>&, bool, double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13D207: stestListDouble(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DB20: stestList(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DCF7: testSimpleExercise1() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5A3: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 3 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153A00: lasd::StackLst<int>::Push(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x158FDA: void PushC<int>(unsigned int&, unsigned int&, lasd::Stack<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x16083A: void stestStackInt<lasd::StackLst<int> >(lasd::StackLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1512D2: stestStackInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EA5: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 4 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153A00: lasd::StackLst<int>::Push(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x158FDA: void PushC<int>(unsigned int&, unsigned int&, lasd::Stack<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x16085D: void stestStackInt<lasd::StackLst<int> >(lasd::StackLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1512D2: stestStackInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EA5: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 5 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153A00: lasd::StackLst<int>::Push(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x158FDA: void PushC<int>(unsigned int&, unsigned int&, lasd::Stack<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160880: void stestStackInt<lasd::StackLst<int> >(lasd::StackLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1512D2: stestStackInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EA5: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 6 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153A00: lasd::StackLst<int>::Push(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x158FDA: void PushC<int>(unsigned int&, unsigned int&, lasd::Stack<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1608A3: void stestStackInt<lasd::StackLst<int> >(lasd::StackLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1512D2: stestStackInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EA5: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 7 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1493D9: lasd::List<int>::List(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x149AA4: lasd::List<int>::operator=(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160B14: void stestStackInt<lasd::StackLst<int> >(lasd::StackLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1512D2: stestStackInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EA5: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 8 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153AF0: lasd::StackLst<double>::Push(double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15A1BC: void PushC<double>(unsigned int&, unsigned int&, lasd::Stack<double>&, double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15B09D: void stestStackFloat<lasd::StackLst<double> >(lasd::StackLst<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x14FE37: stestStackFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EB0: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 9 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153AF0: lasd::StackLst<double>::Push(double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15A1BC: void PushC<double>(unsigned int&, unsigned int&, lasd::Stack<double>&, double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15B0C1: void stestStackFloat<lasd::StackLst<double> >(lasd::StackLst<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x14FE37: stestStackFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EB0: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 10 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1546E0: lasd::QueueLst<int>::Enqueue(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15D59A: void EnqueueC<int>(unsigned int&, unsigned int&, lasd::Queue<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160F8D: void stestQueueInt<lasd::QueueLst<int> >(lasd::QueueLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1507B5: stestQueueInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152E95: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 11 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1546E0: lasd::QueueLst<int>::Enqueue(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15D59A: void EnqueueC<int>(unsigned int&, unsigned int&, lasd::Queue<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160FB0: void stestQueueInt<lasd::QueueLst<int> >(lasd::QueueLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1507B5: stestQueueInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152E95: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 12 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1546E0: lasd::QueueLst<int>::Enqueue(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15D59A: void EnqueueC<int>(unsigned int&, unsigned int&, lasd::Queue<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160FD3: void stestQueueInt<lasd::QueueLst<int> >(lasd::QueueLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1507B5: stestQueueInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152E95: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 13 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1546E0: lasd::QueueLst<int>::Enqueue(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15D59A: void EnqueueC<int>(unsigned int&, unsigned int&, lasd::Queue<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160FF6: void stestQueueInt<lasd::QueueLst<int> >(lasd::QueueLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1507B5: stestQueueInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152E95: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 14 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1546E0: lasd::QueueLst<int>::Enqueue(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15D59A: void EnqueueC<int>(unsigned int&, unsigned int&, lasd::Queue<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x16118C: void stestQueueInt<lasd::QueueLst<int> >(lasd::QueueLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1507B5: stestQueueInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152E95: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 15 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1493D9: lasd::List<int>::List(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x149AA4: lasd::List<int>::operator=(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x161244: void stestQueueInt<lasd::QueueLst<int> >(lasd::QueueLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1507B5: stestQueueInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152E95: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 16 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153BE0: lasd::QueueLst<double>::Enqueue(double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15E12C: void EnqueueC<double>(unsigned int&, unsigned int&, lasd::Queue<double>&, double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15EFC1: void stestQueueFloat<lasd::QueueLst<double> >(lasd::QueueLst<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1502F5: stestQueueFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152EA0: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 17 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153BE0: lasd::QueueLst<double>::Enqueue(double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15E12C: void EnqueueC<double>(unsigned int&, unsigned int&, lasd::Queue<double>&, double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15EFE5: void stestQueueFloat<lasd::QueueLst<double> >(lasd::QueueLst<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1502F5: stestQueueFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152EA0: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 18 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1784B8: lasd::BinaryTree<int>::AuxFoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<int>::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17AFB7: lasd::BinaryTree<int>::FoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17ACDC: void FoldBreadth<int, int, int>(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<int> const&, bool, lasd::BreadthFoldableContainer<int>::FoldFunctor, int const&, int const&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166913: stestBinaryTreeInt(lasd::BinaryTree<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x167845: stestBinaryTreeInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C8C: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 19 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17862F: lasd::BinaryTree<int>::AuxFoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<int>::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17AFB7: lasd::BinaryTree<int>::FoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17ACDC: void FoldBreadth<int, int, int>(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<int> const&, bool, lasd::BreadthFoldableContainer<int>::FoldFunctor, int const&, int const&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166913: stestBinaryTreeInt(lasd::BinaryTree<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x167845: stestBinaryTreeInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C8C: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 20 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E1E9: lasd::List<lasd::BinaryTree<double>::Node*>::InsertAtBack(lasd::BinaryTree<double>::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17E2E8: lasd::BTBreadthIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166CBC: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 21 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E1E9: lasd::List<lasd::BinaryTree<double>::Node*>::InsertAtBack(lasd::BinaryTree<double>::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17E2B4: lasd::BTBreadthIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166CE4: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 22 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166E1E: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 23 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C9F2: lasd::BTPostOrderIterator<double>::LeftMostLeafNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166FA8: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 24 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E1E9: lasd::List<lasd::BinaryTree<double>::Node*>::InsertAtBack(lasd::BinaryTree<double>::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17E2E8: lasd::BTBreadthIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166CBC: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 25 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E1E9: lasd::List<lasd::BinaryTree<double>::Node*>::InsertAtBack(lasd::BinaryTree<double>::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17E2B4: lasd::BTBreadthIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166CE4: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 26 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166E1E: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 27 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C9F2: lasd::BTPostOrderIterator<double>::LeftMostLeafNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166FA8: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 28 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x178128: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxFoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17D7D7: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1841E6: void FoldBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, bool, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldFunctor, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168ECF: stestBinaryTreeString(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1693C9: stestBinaryTreeString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169CA2: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 29 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17829F: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxFoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17D7D7: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1841E6: void FoldBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, bool, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldFunctor, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168ECF: stestBinaryTreeString(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1693C9: stestBinaryTreeString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169CA2: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 30 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17862F: lasd::BinaryTree<int>::AuxFoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<int>::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17AFB7: lasd::BinaryTree<int>::FoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17ACDC: void FoldBreadth<int, int, int>(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<int> const&, bool, lasd::BreadthFoldableContainer<int>::FoldFunctor, int const&, int const&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1883D5: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 31 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E485: lasd::BinaryTree<double>::AuxMapBreadth(std::function<void (double&, void*)>, void*, lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x184C30: lasd::BinaryTree<double>::MapBreadth(std::function<void (double&, void*)>, void*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1936F1: void MapBreadth<double, int>(unsigned int&, unsigned int&, lasd::BreadthMappableContainer<double>&, bool, lasd::BreadthMappableContainer<double>::MapFunctor, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1891DB: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 32 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196B73: lasd::BTInOrderIterator<double>::BTInOrderIterator(lasd::BinaryTree<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196DF7: void EqualBST<double>(unsigned int&, unsigned int&, lasd::BST<double> const&, lasd::BST<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x189390: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 33 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196B73: lasd::BTInOrderIterator<double>::BTInOrderIterator(lasd::BinaryTree<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196E0F: void EqualBST<double>(unsigned int&, unsigned int&, lasd::BST<double> const&, lasd::BST<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18949A: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 34 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195102: lasd::BTPostOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::LeftMostLeafNode(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x189FC6: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 35 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x19516F: lasd::BTPostOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::LeftMostLeafNode(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195241: lasd::BTPostOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A013: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 36 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x177B8F: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxMapBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, void*)>, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17CFE0: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::MapBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, void*)>, void*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x193D71: void MapBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int>(unsigned int&, unsigned int&, lasd::BreadthMappableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, bool, lasd::BreadthMappableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::MapFunctor, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A192: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 37 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195AC9: lasd::List<lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*>::InsertAtBack(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195BC8: lasd::BTBreadthIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A2BA: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are indirectly lost in loss record 38 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17829F: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxFoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17D7D7: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1841E6: void FoldBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, bool, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldFunctor, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A936: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 39 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153A00: lasd::StackLst<int>::Push(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x158FDA: void PushC<int>(unsigned int&, unsigned int&, lasd::Stack<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160A5C: void stestStackInt<lasd::StackLst<int> >(lasd::StackLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1512D2: stestStackInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EA5: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 40 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1783E5: lasd::BinaryTree<int>::AuxFoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<int>::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17AFB7: lasd::BinaryTree<int>::FoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17ACDC: void FoldBreadth<int, int, int>(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<int> const&, bool, lasd::BreadthFoldableContainer<int>::FoldFunctor, int const&, int const&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166913: stestBinaryTreeInt(lasd::BinaryTree<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x167845: stestBinaryTreeInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C8C: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 41 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1716EA: lasd::BTPreOrderIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166B3B: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 42 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C916: lasd::BTInOrderIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166E76: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 43 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1716EA: lasd::BTPreOrderIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166B3B: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 44 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C916: lasd::BTInOrderIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166E76: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 45 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x178055: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxFoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17D7D7: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1841E6: void FoldBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, bool, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldFunctor, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168ECF: stestBinaryTreeString(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1693C9: stestBinaryTreeString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169CA2: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 46 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1783E5: lasd::BinaryTree<int>::AuxFoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<int>::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17AFB7: lasd::BinaryTree<int>::FoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17ACDC: void FoldBreadth<int, int, int>(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<int> const&, bool, lasd::BreadthFoldableContainer<int>::FoldFunctor, int const&, int const&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1883D5: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 47 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195EE2: lasd::BTInOrderIterator<int>::LeftMostNode(lasd::BinaryTree<int>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195FF3: lasd::BTInOrderIterator<int>::BTInOrderIterator(lasd::BinaryTree<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196817: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x188415: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 48 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195EE2: lasd::BTInOrderIterator<int>::LeftMostNode(lasd::BinaryTree<int>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195FF3: lasd::BTInOrderIterator<int>::BTInOrderIterator(lasd::BinaryTree<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19682F: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x188415: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 49 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1960D6: lasd::BTInOrderIterator<int>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19685E: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x188415: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 50 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1960D6: lasd::BTInOrderIterator<int>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196866: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x188415: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 51 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195EE2: lasd::BTInOrderIterator<int>::LeftMostNode(lasd::BinaryTree<int>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195FF3: lasd::BTInOrderIterator<int>::BTInOrderIterator(lasd::BinaryTree<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196817: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18848D: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 52 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195EE2: lasd::BTInOrderIterator<int>::LeftMostNode(lasd::BinaryTree<int>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195FF3: lasd::BTInOrderIterator<int>::BTInOrderIterator(lasd::BinaryTree<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19682F: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18848D: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 53 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1960D6: lasd::BTInOrderIterator<int>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19685E: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18848D: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 54 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1960D6: lasd::BTInOrderIterator<int>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196866: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18848D: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 55 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195EE2: lasd::BTInOrderIterator<int>::LeftMostNode(lasd::BinaryTree<int>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195FF3: lasd::BTInOrderIterator<int>::BTInOrderIterator(lasd::BinaryTree<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196817: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1884B5: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 56 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195EE2: lasd::BTInOrderIterator<int>::LeftMostNode(lasd::BinaryTree<int>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195FF3: lasd::BTInOrderIterator<int>::BTInOrderIterator(lasd::BinaryTree<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19682F: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1884B5: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 57 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1960D6: lasd::BTInOrderIterator<int>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19685E: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1884B5: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 58 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1960D6: lasd::BTInOrderIterator<int>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196866: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1884B5: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 59 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195EE2: lasd::BTInOrderIterator<int>::LeftMostNode(lasd::BinaryTree<int>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195FF3: lasd::BTInOrderIterator<int>::BTInOrderIterator(lasd::BinaryTree<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196817: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1887F3: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 60 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195EE2: lasd::BTInOrderIterator<int>::LeftMostNode(lasd::BinaryTree<int>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195FF3: lasd::BTInOrderIterator<int>::BTInOrderIterator(lasd::BinaryTree<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19682F: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1887F3: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 61 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1960D6: lasd::BTInOrderIterator<int>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19685E: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1887F3: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 62 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1960D6: lasd::BTInOrderIterator<int>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196866: void EqualBST<int>(unsigned int&, unsigned int&, lasd::BST<int> const&, lasd::BST<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1887F3: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 63 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E1E9: lasd::List<lasd::BinaryTree<double>::Node*>::InsertAtBack(lasd::BinaryTree<double>::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17E407: lasd::BinaryTree<double>::AuxMapBreadth(std::function<void (double&, void*)>, void*, lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x184C30: lasd::BinaryTree<double>::MapBreadth(std::function<void (double&, void*)>, void*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1936F1: void MapBreadth<double, int>(unsigned int&, unsigned int&, lasd::BreadthMappableContainer<double>&, bool, lasd::BreadthMappableContainer<double>::MapFunctor, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1891DB: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 64 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196B73: lasd::BTInOrderIterator<double>::BTInOrderIterator(lasd::BinaryTree<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196E0F: void EqualBST<double>(unsigned int&, unsigned int&, lasd::BST<double> const&, lasd::BST<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x189390: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 65 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C916: lasd::BTInOrderIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196E50: void EqualBST<double>(unsigned int&, unsigned int&, lasd::BST<double> const&, lasd::BST<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x189390: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 66 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C916: lasd::BTInOrderIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196E58: void EqualBST<double>(unsigned int&, unsigned int&, lasd::BST<double> const&, lasd::BST<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x189390: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 67 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x18E4DA: lasd::BTPreOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x189CC1: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 68 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x177952: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxMapBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, void*)>, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17CFE0: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::MapBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, void*)>, void*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x193D71: void MapBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int>(unsigned int&, unsigned int&, lasd::BreadthMappableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, bool, lasd::BreadthMappableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::MapFunctor, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A192: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 69 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195AC9: lasd::List<lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*>::InsertAtBack(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195BC8: lasd::BTBreadthIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A336: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 70 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195AC9: lasd::List<lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*>::InsertAtBack(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195BC8: lasd::BTBreadthIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A374: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 71 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1952F2: lasd::BTInOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::LeftMostNode(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A4AD: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 72 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1953A6: lasd::BTInOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A50E: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 73 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1953A6: lasd::BTInOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A568: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 74 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1953A6: lasd::BTInOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A5C2: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 24 bytes in 1 blocks are definitely lost in loss record 75 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x178055: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxFoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17D7D7: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1841E6: void FoldBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, bool, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldFunctor, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A936: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 bytes in 1 blocks are indirectly lost in loss record 76 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1540A4: lasd::StackLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Push(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15795F: void PushM<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::Stack<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15C5C0: void stestStackString<lasd::StackLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >(lasd::StackLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1516E2: stestStackString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EBB: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 bytes in 1 blocks are indirectly lost in loss record 77 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x156844: lasd::QueueLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Enqueue(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x157EEF: void EnqueueM<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::Queue<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15FF7F: void stestQueueString<lasd::QueueLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >(lasd::QueueLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152266: stestQueueString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152EAB: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 78 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x14910D: void InsertAtFront<int>(unsigned int&, unsigned int&, lasd::List<int>&, bool, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x139599: stestListInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DB15: stestList(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DCF7: testSimpleExercise1() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5A3: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 79 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x149CAF: void InsertAtBack<double>(unsigned int&, unsigned int&, lasd::List<double>&, bool, double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13D1E3: stestListDouble(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DB20: stestList(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DCF7: testSimpleExercise1() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5A3: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 bytes in 1 blocks are definitely lost in loss record 80 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x14A57F: lasd::List<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::List(lasd::List<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13A7BD: stestListString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DB2B: stestList(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DCF7: testSimpleExercise1() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5A3: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 81 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x14939B: lasd::List<int>::List(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x149AA4: lasd::List<int>::operator=(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160B14: void stestStackInt<lasd::StackLst<int> >(lasd::StackLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1512D2: stestStackInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EA5: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 82 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x14939B: lasd::List<int>::List(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x149AA4: lasd::List<int>::operator=(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x161244: void stestQueueInt<lasd::QueueLst<int> >(lasd::QueueLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1507B5: stestQueueInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152E95: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 83 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166E1E: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 84 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C9F2: lasd::BTPostOrderIterator<double>::LeftMostLeafNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166FA8: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 85 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166E1E: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 86 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C9F2: lasd::BTPostOrderIterator<double>::LeftMostLeafNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166FA8: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 87 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1784B8: lasd::BinaryTree<int>::AuxFoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<int>::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17AFB7: lasd::BinaryTree<int>::FoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17ACDC: void FoldBreadth<int, int, int>(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<int> const&, bool, lasd::BreadthFoldableContainer<int>::FoldFunctor, int const&, int const&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1883D5: stestBSTInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B17C: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 88 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196B73: lasd::BTInOrderIterator<double>::BTInOrderIterator(lasd::BinaryTree<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196DF7: void EqualBST<double>(unsigned int&, unsigned int&, lasd::BST<double> const&, lasd::BST<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x189390: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 89 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17C862: lasd::BTInOrderIterator<double>::LeftMostNode(lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196B73: lasd::BTInOrderIterator<double>::BTInOrderIterator(lasd::BinaryTree<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x196E0F: void EqualBST<double>(unsigned int&, unsigned int&, lasd::BST<double> const&, lasd::BST<double> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18949A: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 90 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x177A1C: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxMapBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, void*)>, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17CFE0: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::MapBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, void*)>, void*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x193D71: void MapBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int>(unsigned int&, unsigned int&, lasd::BreadthMappableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, bool, lasd::BreadthMappableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::MapFunctor, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A192: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 91 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x195AC9: lasd::List<lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*>::InsertAtBack(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195B94: lasd::BTBreadthIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A2BA: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 (24 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 92 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x178128: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxFoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17D7D7: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1841E6: void FoldBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, bool, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldFunctor, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A936: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 bytes in 2 blocks are definitely lost in loss record 93 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x177B8F: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxMapBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, void*)>, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17CFE0: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::MapBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, void*)>, void*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x193D71: void MapBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int>(unsigned int&, unsigned int&, lasd::BreadthMappableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, bool, lasd::BreadthMappableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::MapFunctor, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A192: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 48 bytes in 2 blocks are definitely lost in loss record 94 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17829F: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxFoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17D7D7: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1841E6: void FoldBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, bool, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldFunctor, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A936: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 bytes in 3 blocks are indirectly lost in loss record 95 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E1E9: lasd::List<lasd::BinaryTree<double>::Node*>::InsertAtBack(lasd::BinaryTree<double>::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17E50D: lasd::BinaryTree<double>::AuxMapBreadth(std::function<void (double&, void*)>, void*, lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x184C30: lasd::BinaryTree<double>::MapBreadth(std::function<void (double&, void*)>, void*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1936F1: void MapBreadth<double, int>(unsigned int&, unsigned int&, lasd::BreadthMappableContainer<double>&, bool, lasd::BreadthMappableContainer<double>::MapFunctor, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1891DB: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 (24 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 96 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153AF0: lasd::StackLst<double>::Push(double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15A1BC: void PushC<double>(unsigned int&, unsigned int&, lasd::Stack<double>&, double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15B0E5: void stestStackFloat<lasd::StackLst<double> >(lasd::StackLst<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x14FE37: stestStackFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EB0: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 (24 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 97 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153BE0: lasd::QueueLst<double>::Enqueue(double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15E12C: void EnqueueC<double>(unsigned int&, unsigned int&, lasd::Queue<double>&, double const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15EF9D: void stestQueueFloat<lasd::QueueLst<double> >(lasd::QueueLst<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1502F5: stestQueueFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152EA0: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 bytes in 1 blocks are definitely lost in loss record 98 of 110
+==14316==    at 0x4A3A99F: operator new[](unsigned long) (vg_replace_malloc.c:579)
+==14316==    by 0x152532: stestQueueString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152EAB: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 (24 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 99 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1784B8: lasd::BinaryTree<int>::AuxFoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<int>::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17AFB7: lasd::BinaryTree<int>::FoldBreadth(std::function<void (int const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17ACDC: void FoldBreadth<int, int, int>(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<int> const&, bool, lasd::BreadthFoldableContainer<int>::FoldFunctor, int const&, int const&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166913: stestBinaryTreeInt(lasd::BinaryTree<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x167845: stestBinaryTreeInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C8C: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 (24 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 100 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E1E9: lasd::List<lasd::BinaryTree<double>::Node*>::InsertAtBack(lasd::BinaryTree<double>::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17E2B4: lasd::BTBreadthIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166CBC: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168168: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 (24 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 101 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E1E9: lasd::List<lasd::BinaryTree<double>::Node*>::InsertAtBack(lasd::BinaryTree<double>::Node* const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17E2B4: lasd::BTBreadthIterator<double>::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x166CBC: stestBinaryTreeFloat(lasd::BinaryTree<double>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168278: stestBinaryTreeFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169C97: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 (24 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 102 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x178128: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::AuxFoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*, lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node const*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x17D7D7: lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldBreadth(std::function<void (std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*, void*)>, void const*, void*) const (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1841E6: void FoldBreadth<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&, bool, lasd::BreadthFoldableContainer<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::FoldFunctor, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x168ECF: stestBinaryTreeString(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1693C9: stestBinaryTreeString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x169CA2: testSimpleExercise3() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5B7: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 72 (24 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 103 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x19516F: lasd::BTPostOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::LeftMostLeafNode(lasd::BinaryTree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x195241: lasd::BTPostOrderIterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::operator++() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18A013: stestBSTString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B192: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 96 bytes in 4 blocks are indirectly lost in loss record 104 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1493D9: lasd::List<int>::List(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x149AA4: lasd::List<int>::operator=(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x139A21: stestListInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DB15: stestList(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DCF7: testSimpleExercise1() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5A3: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 96 (48 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 105 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1540A4: lasd::StackLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Push(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15795F: void PushM<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::Stack<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15C5FF: void stestStackString<lasd::StackLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >(lasd::StackLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1516E2: stestStackString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EBB: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 96 (48 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 106 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x156844: lasd::QueueLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::Enqueue(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x157EEF: void EnqueueM<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(unsigned int&, unsigned int&, lasd::Queue<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15FF40: void stestQueueString<lasd::QueueLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >(lasd::QueueLst<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152266: stestQueueString(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152EAB: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 120 (24 direct, 96 indirect) bytes in 1 blocks are definitely lost in loss record 107 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x14939B: lasd::List<int>::List(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x149AA4: lasd::List<int>::operator=(lasd::List<int> const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x139A21: stestListInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DB15: stestList(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x13DCF7: testSimpleExercise1() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5A3: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 120 (24 direct, 96 indirect) bytes in 1 blocks are definitely lost in loss record 108 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x153A00: lasd::StackLst<int>::Push(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x158FDA: void PushC<int>(unsigned int&, unsigned int&, lasd::Stack<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1608C6: void stestStackInt<lasd::StackLst<int> >(lasd::StackLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1512D2: stestStackInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x151EA5: stestStack(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15306C: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 120 (24 direct, 96 indirect) bytes in 1 blocks are definitely lost in loss record 109 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x17E485: lasd::BinaryTree<double>::AuxMapBreadth(std::function<void (double&, void*)>, void*, lasd::BinaryTree<double>::Node*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x184C30: lasd::BinaryTree<double>::MapBreadth(std::function<void (double&, void*)>, void*) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1936F1: void MapBreadth<double, int>(unsigned int&, unsigned int&, lasd::BreadthMappableContainer<double>&, bool, lasd::BreadthMappableContainer<double>::MapFunctor, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1891DB: stestBSTFloat(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x18B187: testSimpleExercise4() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5C1: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== 144 (24 direct, 120 indirect) bytes in 1 blocks are definitely lost in loss record 110 of 110
+==14316==    at 0x4A39723: operator new(unsigned long) (vg_replace_malloc.c:417)
+==14316==    by 0x1546E0: lasd::QueueLst<int>::Enqueue(int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x15D59A: void EnqueueC<int>(unsigned int&, unsigned int&, lasd::Queue<int>&, int const&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x160F6A: void stestQueueInt<lasd::QueueLst<int> >(lasd::QueueLst<int>&, unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x1507B5: stestQueueInt(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x152E95: stestQueue(unsigned int&, unsigned int&) (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x153077: testSimpleExercise2() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x19A5AD: lasdtest() (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316==    by 0x136CF0: main (in /home/osboxes/Desktop/LASD/ESERCIZIO4/exercise4/main)
+==14316== 
+==14316== LEAK SUMMARY:
+==14316==    definitely lost: 1,800 bytes in 70 blocks
+==14316==    indirectly lost: 1,176 bytes in 47 blocks
+==14316==      possibly lost: 0 bytes in 0 blocks
+==14316==    still reachable: 0 bytes in 0 blocks
+==14316==         suppressed: 0 bytes in 0 blocks
+==14316== 
+==14316== ERROR SUMMARY: 68 errors from 68 contexts (suppressed: 0 from 0)
