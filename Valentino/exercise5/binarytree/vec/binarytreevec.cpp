@@ -1,298 +1,217 @@
 
 namespace lasd {
 
-/* ************************************************************************** */
-//NodeVec class functions
 
-//NodeVec constructor
 template <typename Data>
-BinaryTreeVec<Data>::NodeVec::NodeVec(const Data& toinsert, lasd::Vector<NodeVec*>* con, const unsigned long int& ind):index(ind), myrefvector(con){
-
-  BinaryTree<Data>::Node::value = toinsert;
+BinaryTreeVec<Data>::NodeVec::NodeVec(const Data& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p): in(p), riferimento(c){
+  Valore = k;
 }
 
-//Element() function: returns the value of the node
+template <typename Data>
+BinaryTreeVec<Data>::NodeVec::NodeVec(const Data&& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p): in(p), riferimento(c){
+  Valore = std::move(k);
+}
+
 template <typename Data>
 Data const& BinaryTreeVec<Data>::NodeVec::Element() const noexcept{
-
-  return BinaryTree<Data>::Node::value;
+  return Valore;
 }
 
-//Element() function: returns the value of the node
 template <typename Data>
 Data& BinaryTreeVec<Data>::NodeVec::Element() noexcept{
-
-  return BinaryTree<Data>::Node::value;
+  return Valore;
 }
 
-//HasLeftChild() function: returns true if the current node has a left child, false otherwise
 template <typename Data>
-bool BinaryTreeVec<Data>::NodeVec::HasLeftChild() const noexcept {
-  if((index*2+1)< (*myrefvector).Size() && (*myrefvector)[index*2+1] !=nullptr){
-    return true;
-  }
-  else{
-    return false;
-  }
+inline bool BinaryTreeVec<Data>::NodeVec::HasLeftChild() const noexcept {
+  return in*2+1 < (*riferimento).Size() && (*riferimento)[in*2+1] != nullptr;
 }
 
-//HasRightChild() function: returns true if the current node has a right child, false otherwise
 template <typename Data>
-bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept {
-  if((index*2+2)< (*myrefvector).Size() && (*myrefvector)[index*2+2] != nullptr){
-    return true;
-  }
-  else{
-    return false;
-  }
+inline bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept {
+  return in*2+2 < (*riferimento).Size() && (*riferimento)[in*2+2] != nullptr;
 }
 
-//LeftChild() function: returns the left child of the current node
+
+template <typename Data>
+typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild() const {
+  if(!HasRightChild())
+    throw std::out_of_range("Impossibile accedere al figlio destro (non disponibile)");
+
+  return *(*riferimento)[in*2+2];
+}
 template <typename Data>
 typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::LeftChild() const {
-  if(HasLeftChild()){
-    return *(*myrefvector)[index*2+1];
-  }
-  else{
-    throw std::out_of_range("Unable to access to the left child of the current node");
-  }
+  if(!HasLeftChild())
+    throw std::out_of_range("Impossibile accedere al figlio sinistro (non disponibile)");
+
+  return *(*riferimento)[in*2+1];
 }
 
-//RightChild() function: returns the right child of the current node
-template <typename Data> typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::NodeVec::RightChild()const {
-  if(HasRightChild()){
-    return *(*myrefvector)[index*2+2];
-  }
-  else{
-    throw std::out_of_range("Unable to access to the right child of the current node");
-  }
-}
-
-/* ************************************************************************** */
-//BinaryTreeVec class function
-
-//Specific Constructor
 template <typename Data>
-BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data>& con){
-  if(con.Size()!=0){
-    cont.Resize(con.Size());
-    int i=0;
-    while( i< con.Size()){
-        cont[i]= new NodeVec(con[i],&cont,i);
-        i++;
+BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data>& linearContainer){
+  if(linearContainer.Size()!=0){
+    containerP.Resize(linearContainer.Size());
+    for(uint i=0; i< linearContainer.Size(); i++){
+        containerP[i]= new NodeVec(linearContainer[i],&containerP,i);
       }
     }
-    dim=con.Size();
+  dimensione=linearContainer.Size();
 }
 
 
-//Copy constructor
 template <typename Data>
-BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& binarytree){
-                       //Copying the vector of pointers
-  cont.Resize(binarytree.cont.Size());
-  int i=0;
-  while( i < cont.Size()){
-    if(binarytree.cont[i] != nullptr)
-      cont[i] = new NodeVec(binarytree.cont[i]->Element(),&cont,i );
-    else{
-      cont[i] = nullptr;
-    }
-    i++;
+BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec<Data>& binaryTree){
+
+  containerP.Resize(binaryTree.containerP.Size());
+  for(unsigned long int i = 0; i < containerP.Size(); i++){
+    if(binaryTree.containerP[i] != nullptr)
+      containerP[i] = new NodeVec(binaryTree.containerP[i]->Element(),&containerP,i );
+    else containerP[i] = nullptr;
   }
-  dim = binarytree.dim;
+
+  nodeperlevel = binaryTree.nodeperlevel;
+  dimensione = binaryTree.dimensione;
 }
 
-//Move constructor
 template <typename Data>
-BinaryTreeVec<Data>::BinaryTreeVec(BinaryTreeVec<Data>&& binarytree) noexcept {
+BinaryTreeVec<Data>::BinaryTreeVec(BinaryTreeVec<Data>&& binaryTree) noexcept {
+  std::swap(containerP, binaryTree.containerP);
+  std::swap(nodeperlevel, binaryTree.nodeperlevel);
+  std::swap(dimensione, binaryTree.dimensione);
 
-  std::swap(cont, binarytree.cont);
-  std::swap(dim, binarytree.dim);
-                                 //update of the myrefvectors
-  for(unsigned long int i = 0; i < cont.Size(); i++){
-    if(cont[i] != nullptr)
-      cont[i]->myrefvector = &cont;
-  }
+  UpdateReferences();
 }
 
-//Copy assignment
 template <typename Data>
-BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(const BinaryTreeVec<Data>& binarytree){
-
-  if(this == &binarytree)
+BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(const BinaryTreeVec<Data>& binaryTree){
+  if(this == &binaryTree)
     return *this;
 
-  BinaryTreeVec<Data> *temptree = new BinaryTreeVec<Data>(binarytree);
-	std::swap(*this, *temptree);
-	temptree->BinaryTreeVec<Data>::Clear();
-	delete temptree;
+  BinaryTreeVec<Data> *tmp = new BinaryTreeVec<Data>(binaryTree);
+	std::swap(*this, *tmp);
+	tmp->BinaryTreeVec<Data>::Clear();
+	delete tmp;
+
 	return *this;
 }
 
-//Move assignment
 template <typename Data>
-BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec<Data>&& binarytree) noexcept{
-
-  if(this == &binarytree){
+BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec<Data>&& binaryTree) noexcept{
+  if(this == &binaryTree)
     return *this;
-  }
+
   BinaryTreeVec<Data>::Clear();
-  std::swap(cont, binarytree.cont);
-  std::swap(dim, binarytree.dim);
-                             //update of the myrefvectors
-  int i=0;
-  while( i < cont.Size()){
-    if(cont[i] != nullptr){
-      cont[i]->myrefvector = &cont;
-    }
-    i++;
-  }
+
+  std::swap(containerP, binaryTree.containerP);
+  std::swap(nodeperlevel, binaryTree.nodeperlevel);
+  std::swap(dimensione, binaryTree.dimensione);
+  UpdateReferences();
+
   return *this;
 }
 
-/* ************************************************************************** */
 
-//Auxiliary function to delete the treevec
 template <typename Data>
-void BinaryTreeVec<Data>::DeleteTree(typename BinaryTreeVec<Data>::NodeVec*& node) noexcept{
-
-  if(node->HasLeftChild()){
-    DeleteTree(cont[node->LeftChild().index]);
+void BinaryTreeVec<Data>::UpdateReferences() noexcept{
+  for(unsigned long int i = 0; i < containerP.Size(); i++){
+    if(containerP[i] != nullptr)
+      containerP[i]->riferimento = &containerP;
   }
-  if(node->HasRightChild()){
-    DeleteTree(cont[node->RightChild().index]);
-  }
-  delete node;
-  node = nullptr;
-  dim--;
 }
 
-//Reduce function
+template <typename Data>
+void BinaryTreeVec<Data>::DeleteTree(typename BinaryTreeVec<Data>::NodeVec*& treevec) noexcept{
+  if (treevec->HasLeftChild())
+    DeleteTree(containerP[treevec->LeftChild().in]);
+
+  if (treevec->HasRightChild())
+    DeleteTree(containerP[treevec->RightChild().in]);
+
+  nodeperlevel[treevec->Height()]--;
+  delete treevec;
+  treevec = nullptr;
+  dimensione--;
+}
+
 template <typename Data>
 void BinaryTreeVec<Data>::Reduce(){
+  unsigned long int i = nodeperlevel.Size() - 1;
+  unsigned long int newSize = containerP.Size();
+  while (i != 0 && nodeperlevel[i] == 0) {
+    i--;
+    newSize = newSize / 2;
+  }
 
-  unsigned long newsize;
-  newsize = cont.Size();
-  newsize=newsize/2;
-  cont.Resize(newsize);
+  containerP.Resize(newSize);
+  nodeperlevel.Resize(i + 1);
 }
-
-//Expand function
+  
 template <typename Data>
 void BinaryTreeVec<Data>::Expand(){
-                      //Creazione del nuovo vettore con size*2+1
-  unsigned long oldsize;
-  oldsize=cont.Size();
-  cont.Resize(oldsize*2+1);
-                     //Svuotamento del vecchio vettore
-  int i=oldsize;
-  while(i < cont.Size()){
-    cont[i] = nullptr;
-    i++;
-  }
-}
-/* ************************************************************************** */
-//Destructor
-template <typename Data>
-BinaryTreeVec<Data>::~BinaryTreeVec()noexcept{
+  const unsigned long int oldSize = containerP.Size();
+  containerP.Resize(oldSize * 2 + 1);
 
+  for (unsigned long int i = oldSize; i < containerP.Size(); i++)
+    containerP[i] = nullptr;
+
+  nodeperlevel.Resize(nodeperlevel.Size() + 1);
+  nodeperlevel[nodeperlevel.Size() - 1] = 0;
+}
+
+template <typename Data>
+BinaryTreeVec<Data>::~BinaryTreeVec() noexcept {
   BinaryTreeVec<Data>::Clear();
 }
-
-//Comparison operators
+  
 template <typename Data>
-bool BinaryTreeVec<Data>::operator==(const BinaryTreeVec<Data>& binarytree) const noexcept{
-                      //Self comparison returns true
-  if(this == &binarytree){
-    return true;
-  }
-                        //If sizes are different,returns false
-  if(dim != binarytree.dim){
+bool BinaryTreeVec<Data>::operator==(const BinaryTreeVec<Data>& binaryTree) const noexcept{
+  if(this == &binaryTree)
+   return true;
+  if(dimensione != binaryTree.dimensione)
     return false;
+  if(nodeperlevel != binaryTree.nodeperlevel)
+    return false;
+
+  for (unsigned long int i = 0; i < dimensione; i++) {
+    if (containerP[i] == nullptr && binaryTree.containerP[i] != nullptr)
+      return false;
+
+    if (containerP[i] != nullptr && binaryTree.containerP[i] == nullptr)
+      return false;
+
+    if (containerP[i] != nullptr && binaryTree.containerP[i] != nullptr && containerP[i]->Element() != binaryTree.containerP[i]->Element())
+      return false;
   }
 
-  unsigned int index=0;
-
-  while(index < dim){
-                               //if one of the two nodes is nullptr and the other is not nullptr
-    if( cont[index]==nullptr && binarytree.cont[index]!=nullptr){
-      return false;
-    }
-    if( cont[index]!=nullptr && binarytree.cont[index]==nullptr){
-      return false;
-    }
-                                   //if the two elements are different
-    if(cont[index]!=nullptr && binarytree.cont[index]!=nullptr && cont[index]->Element()!=binarytree.cont[index]->Element()){
-      return false;
-    }
-    index++;
-  }
   return true;
 }
 
-//Other comparison operator
 template <typename Data>
-bool BinaryTreeVec<Data>::operator!=(const BinaryTreeVec<Data>& binarytree) const noexcept{
-
-  return !(*this == binarytree);
+bool BinaryTreeVec<Data>::operator!=(const BinaryTreeVec<Data>& binaryTree) const noexcept{
+  return !(*this == binaryTree);
 }
 
-//Root function (const): returns the root of the binary tree
 template <typename Data>
 typename BinaryTreeVec<Data>::NodeVec const& BinaryTreeVec<Data>::Root() const {
-
-  if(!Empty()){
-    return *cont[0];
-  }
-  else{
-    throw std::out_of_range("Could not access to the root, tree is empty!");
-  }
-
-
+  if (Empty())
+    throw std::out_of_range("Impossibile accedere alla root, l'albero è vuoto");
+  return *containerP[0];
 }
-
-//Root function: returns the root of the binary tree
+  
 template <typename Data>
 typename BinaryTreeVec<Data>::NodeVec& BinaryTreeVec<Data>::Root(){
-
   return const_cast<NodeVec&>(const_cast<const BinaryTreeVec<Data>*>(this)->Root());
 }
 
-//Clear function
+  
 template <typename Data>
 void BinaryTreeVec<Data>::Clear() noexcept {
-
-  unsigned int i=0;
-  while(i < cont.Size()){
-    delete cont[i];
-    i++;
-  }
-  cont.Clear();
-  dim=0;
+  for (unsigned long int i = 0; i < containerP.Size(); i++)
+    delete containerP[i];
+  containerP.Clear();
+  dimensione = 0;
+  nodeperlevel.Clear();
 }
-
-
-//lasd::BreadthMappableContainer<Data> protected function
-template <typename Data>
-void BinaryTreeVec<Data>::MapBreadth(MapFunctor mapFunctor, void* par) noexcept{
-
-  for(unsigned long i = 0; i < cont.Size(); i++){
-    if(cont[i] != nullptr)
-      mapFunctor(cont[i]->value, par);
-  }
-}
-
-//lasd::BreadthFoldableContainer<Data> protected function
-template <typename Data>
-void BinaryTreeVec<Data>::FoldBreadth(FoldFunctor foldFunctor, const void* par, void* acc) const noexcept{
-
-  for(unsigned long i = 0; i < cont.Size(); i++){
-    if(cont[i] != nullptr)
-      foldFunctor(cont[i]->value, par, acc);
-  }
-}
-
-/* ************************************************************************** */
 
 }

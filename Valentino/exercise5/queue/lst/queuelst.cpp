@@ -1,106 +1,64 @@
 
 namespace lasd {
+    template <typename Data>
+    QueueLst<Data>::QueueLst(): List<Data>() {} // Costruttore di default
 
-/* ************************************************************************** */
+    template <typename Data>
+    QueueLst<Data>::QueueLst(const LinearContainer<Data>& con): List<Data>::List(con) {} // Costruttore Specifico
 
-//Default constructor: calls to the constructor of the class List
-template <typename Data>
-QueueLst<Data>::QueueLst(): List<Data>() {
+    template <typename Data>
+    QueueLst<Data>::QueueLst(const QueueLst& q): List<Data>(q){} // Costruttore di copia
 
-}
+    template <typename Data>
+    QueueLst<Data>::QueueLst(QueueLst&& q) noexcept : List<Data>(std::move(q)){} // Costuttore di spostamento
 
-//Specific constructor: calls to the specific constructor of the class List
-template <typename Data>
-QueueLst<Data>::QueueLst (const LinearContainer<Data>& con): List<Data>::List(con) {
+    template <typename Data>
+    QueueLst<Data>& QueueLst<Data>::operator=(const QueueLst& q){ // Assegnamento (copia)
+      List<Data>::operator=(q);
+      return *this;
+    }
+    template <typename Data>
+    QueueLst<Data>& QueueLst<Data>::operator=(QueueLst&& q) noexcept { // Assegnamento (spostamento)
+      List<Data>::operator=(std::move(q));
+      return *this;
+    }
+    template <typename Data>
+    bool QueueLst<Data>::operator==(const QueueLst& q) const noexcept{ // Operatori di confronto
+      return List<Data>::operator==(q);
+    }
 
-}
+    template <typename Data>
+    bool QueueLst<Data>::operator!=(const QueueLst& q) const noexcept{
+      return List<Data>::operator!=(q);
+    }
+    template <typename Data>
+    Data& QueueLst<Data>::Head() const { // Funzione Head
+      if(Empty())
+	    throw std::length_error("Impossibile rimuovere dalla Coda: la sua dimesione è 0!");
 
-//Copy constructor: calls to the copy constructor of the class List
-template <typename Data>
-QueueLst<Data>::QueueLst(const QueueLst& queuelist): List<Data>(queuelist){
+      return List<Data>::Front();
+    }
+    template <typename Data>
+    void QueueLst<Data>::Dequeue(){ // Funzione Dequeue
+      if(Empty())
+	    throw std::length_error("Impossibile rimuovere dalla Coda: la sua dimesione è 0!");
 
-}
+      return List<Data>::RemoveFromFront();
+    }
 
-//Move constructor: calls to the move constructor of the class List
-template <typename Data>
-QueueLst<Data>::QueueLst(QueueLst&& queuelist) noexcept : List<Data>(std::move(queuelist)){
+    template <typename Data>
+    Data QueueLst<Data>::HeadNDequeue(){ // Funzione HeadNDequeue 
+      if(Empty())
+	    throw std::length_error("Impossibile rimuovere dalla Coda: la sua dimesione è 0!");
 
-}
-
-//Copy assignment:calls to the copy assignment of the class List
-template <typename Data>
-QueueLst<Data>& QueueLst<Data>::operator= (const QueueLst& queuelist){
-  List<Data>::operator=(queuelist);
-  return *this;
-}
-
-//Move assignment: calls to the move assignment of the class List
-template <typename Data>
-QueueLst<Data>& QueueLst<Data>::operator=(QueueLst&& queuelist) noexcept {
-  List<Data>::operator=(queuelist);
-  return *this;
-}
-
-//Comparison operator: calls to the comparison operator of the class List
-template <typename Data>
-bool QueueLst<Data>::operator== (const QueueLst& queuelist) const noexcept{
-  return List<Data>::operator== (queuelist);
-}
-
-//Other comparison operator: calls to the comparison operator of the class List
-template <typename Data>
-bool QueueLst<Data>::operator!= (const QueueLst& queuelist) const noexcept{
-  return List<Data>::operator!= (queuelist);
-}
-
-//Head function: calls to the Front function of the class List
-template <typename Data>
-Data& QueueLst<Data>::Head() const {
-                            //if the queue is empty, throws an exception (lenght_error)
-  if( Empty() ){
-  	throw std::length_error("Impossible to remove from the Queue: the Queue is empty!");
-  }
-  else{
-  return List<Data>::Front();
-  }
-}
-
-//HeadNDequeue function
-template <typename Data>
-Data QueueLst<Data>::HeadNDequeue(){
-                        //if the queue is empty, throws an exception (lenght_error)
-  if( Empty() ){
-    throw std::length_error("Impossible to remove from the Queue: the Queue is empty!");
-  }
-  else{
-    return List<Data>::FrontNRemove();
-  }
-}
-
-//Enqueue function (copy): calls to the InsertAtBack function of the class List
-template <typename Data>
-void QueueLst<Data>::Enqueue (const Data& val){
-  List<Data>::InsertAtBack(val);
-}
-
-//Enqueue function (move): calls to the InsertAtBack function of the class List
-template <typename Data>
-void QueueLst<Data>::Enqueue(Data&& val) noexcept{
-  List<Data>::InsertAtBack(val);
-}
-
-//Dequeue function: calls to the RemoveFromFront function from the class List
-template <typename Data>
-void QueueLst<Data>::Dequeue(){
-                               //if the queue is empty, throws an exception (lenght_error)
-  if( Empty() ){
-  	throw std::length_error("Impossible to remove from the Queue: the Queue is empty!");
-  }
-  else{
-  return List<Data>::RemoveFromFront();
-  }
-}
-
-/* ************************************************************************** */
-
+      return List<Data>::FrontNRemove();
+    }
+    template <typename Data>
+    void QueueLst<Data>::Enqueue(const Data& d){ // Funzione Enqueue (copia)
+      List<Data>::InsertAtBack(d);
+    }
+    template <typename Data>
+    void QueueLst<Data>::Enqueue(Data&& d){ // Funzione Enqueue (spostamento)
+      List<Data>::InsertAtBack(std::move(d));
+    }
 }

@@ -6,6 +6,9 @@ g++ -O3 -o main \
   zlasdtest/exercise3/simpletest.cpp zlasdtest/exercise3/fulltest.cpp \
   zlasdtest/exercise4/simpletest.cpp zlasdtest/exercise4/fulltest.cpp \
   zlasdtest/exercise5/simpletest.cpp zlasdtest/exercise5/fulltest.cpp \
-  zlasdtest/container/container.cpp \
-  zlasdtest/test.cpp main.cpp
-  #zlasdtest/test.cpp zmytest/test.cpp main.cpp
+  zlasdtest/container/container.cpp zlasdtest/test.cpp \
+  zmytest/MatrixVec/MatrixVecInt.cpp zmytest/MatrixVec/MatrixVecFloat.cpp \
+  zmytest/MatrixVec/MatrixVecString.cpp zmytest/MatrixCSR/MatrixCsrInt.cpp \
+  zmytest/MatrixCSR/MatrixCsrFloat.cpp zmytest/MatrixCSR/MatrixCsrString.cpp \
+  zmytest/MatrixVec/OperazioniDaEseguire.cpp \
+  zmytest/test.cpp main.cpp

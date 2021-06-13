@@ -2,105 +2,73 @@
 namespace lasd {
 
 /* ************************************************************************** */
-
-//Default Constructor: calls to the constructor of the class List
 template <typename Data>
-StackLst<Data>::StackLst(): List<Data>::List() {
-
-}
+StackLst<Data>::StackLst(): List<Data>::List() {} // Costruttore di default
 
 
-// Specific constructor: calls to the specific constructor of the class List
 template <typename Data>
-StackLst<Data>::StackLst (const LinearContainer<Data>& con): List<Data>::List(con) {
+StackLst<Data>::StackLst(const LinearContainer<Data>& Container): List<Data>::List(Container) {} // Costruttore specifico
 
-}
-
-// Copy constructor: calls to the copy constructor of the class List
- template<typename Data>
- StackLst<Data>::StackLst (const StackLst<Data>& stacklist): List<Data>::List(stacklist){
-
- }
-
-//Move constructor list: calls to the move constructor of the class List
 template<typename Data>
-StackLst<Data>::StackLst (StackLst<Data>&& stacklist)noexcept: List<Data>::List(std::move(stacklist)){
+StackLst<Data>::StackLst(const StackLst<Data>& StackList): List<Data>::List(StackList){} // Costruttore di copia
 
-}
 
-//Copy assignment: calls to the copy assignment of the class List
 template <typename Data>
-StackLst<Data>& StackLst<Data>::operator= (const StackLst& stacklist){
-  List<Data>::operator=(stacklist);
+StackLst<Data>& StackLst<Data>::operator=(const StackLst& ListaDaCopiare){ // Assegnamento (copia)
+  List<Data>::operator=(ListaDaCopiare);
+  return *this;
+}
+template<typename Data>
+StackLst<Data>::StackLst(StackLst<Data>&& StackList) noexcept: List<Data>::List(std::move(StackList)){} // Costruttore di spostamento
+
+template <typename Data>
+StackLst<Data>& StackLst<Data>::operator=(StackLst&& ListaDaSpostare) noexcept { // Assegnamento (spostamento)
+  List<Data>::operator=(std::move(ListaDaSpostare));
   return *this;
 }
 
-//Move assignment: calls to the move assignment of the class List
+
 template <typename Data>
-StackLst<Data>& StackLst<Data>::operator= (StackLst&& stacklist) noexcept{
-  List<Data>::operator=(stacklist);
-  return *this;
+bool StackLst<Data>::operator==(const StackLst& ListaDaConfrontare) const noexcept{ // Operatori di confronto
+  return List<Data>::operator==(ListaDaConfrontare);
+}
+template <typename Data>
+bool StackLst<Data>::operator!=(const StackLst& ListaDaConfrontare) const noexcept{
+  return List<Data>::operator!=(ListaDaConfrontare);
+}
+
+template <typename Data>
+void StackLst<Data>::Push(const Data& d){ // Funzione Push (copia)
+  List<Data>::InsertAtFront(d);
 }
 
 
-//Comparison operator: calls to the comparison operator of the class List
 template <typename Data>
-bool StackLst<Data>::operator==(const StackLst& stacklist) const noexcept{
-  return List<Data>::operator==(stacklist);
+void StackLst<Data>::Push(Data&& d){ // Funzione Push (spostamento)
+  List<Data>::InsertAtFront(std::move(d));
 }
 
-//Other Comparison operator: calls to the comparison operator of the class List
 template <typename Data>
-bool StackLst<Data>::operator!=(const StackLst& stacklist) const noexcept{
-  return List<Data>::operator!=(stacklist);
-}
+Data& StackLst<Data>::Top() const { // Funzione Top
+  if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
 
-//Push function (copy): calls to the InsertAtFront function of the class List
-template <typename Data>
-void StackLst<Data>::Push (const Data& val){
-  List<Data>::InsertAtFront(val);
-}
-
-
-//Push function (move): calls to the InsertAtFront function of the class List
-template <typename Data>
-void StackLst<Data>::Push (Data&& val) noexcept{
-  List<Data>::InsertAtFront(val);
-}
-
-//Top function: calls to the Front function from the class List
-template <typename Data>
-Data& StackLst<Data>::Top() const {
-  if( Empty() ){
-  	throw std::length_error("Impossible to remove from the Stack: the Stack is empty!");
-  }
-  else{
   return List<Data>::Front();
-  }
 }
-
-//Pop function: calls to the RemoveFromFront function from the class List
 template <typename Data>
-void StackLst<Data>::Pop(){
-  if( Empty() ){
-  	throw std::length_error("Impossible to remove from the Stack: the Stack is empty!");
-  }
-  else{
+void StackLst<Data>::Pop(){ // Funzione Pop
+  if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
+
   List<Data>::RemoveFromFront();
-  }
 }
-
-//TopNPop function: calls to the FrontNRemove function from the class List
 template <typename Data>
-Data StackLst<Data>::TopNPop(){
-  if( Empty() ){
-  	throw std::length_error("Impossible to remove from the Stack: the Stack is empty!");
-  }
-  else{
+Data StackLst<Data>::TopNPop(){ // Funzione TopNPop
+  if(Empty())
+	    throw std::length_error("Impossibile rimuovere dallo Stack: la sua dimensione è 0!");
+
   return List<Data>::FrontNRemove();
-  }
 }
 
-/* ************************************************************************** */
 
 }

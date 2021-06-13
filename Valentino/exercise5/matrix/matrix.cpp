@@ -1,21 +1,12 @@
-
 namespace lasd {
 
-/* ************************************************************************** */
-//Specific member functions
-
-//RowNumber function
 template<typename Data>
  unsigned int Matrix<Data>::RowNumber() const noexcept{
-   return nrow;
+   return nRighe;
  }
 
-//ColumnNumber function
 template<typename Data>
  unsigned int Matrix<Data>::ColumnNumber() const noexcept{
-   return ncol;
+   return nColonne;
  }
-
-/* ************************************************************************** */
-
 }

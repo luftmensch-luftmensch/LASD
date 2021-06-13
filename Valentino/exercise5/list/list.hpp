@@ -5,6 +5,8 @@
 /* ************************************************************************** */
 
 #include "../container/container.hpp"
+#include <stdexcept>
+#include <iostream>
 
 /* ************************************************************************** */
 
@@ -21,7 +23,7 @@ private:
 
 protected:
 
-  using LinearContainer<Data>::dim;
+  using LinearContainer<Data>::dimensione;
 
   struct Node
   {
@@ -59,6 +61,10 @@ protected:
     bool operator!=(const Node&) const noexcept;
 
     /* ********************************************************************** */
+
+    // Specific member functions
+
+    // ...
 
   };
 
@@ -121,7 +127,7 @@ public:
   Data& Front() const override;
   Data& Back() const override;
 
-  Data& operator[](const unsigned long)const override;
+  Data& operator[](const ulong)const override;
 
   /* ************************************************************************ */
 
@@ -144,17 +150,17 @@ protected:
   void FoldPreOrder(FoldFunctor, const void*, void*, Node*) const;
   void FoldPostOrder(FoldFunctor, const void*, void*, Node*) const;
 
-
   struct Node* First;
   struct Node* Last;
+
 
 
 };
 
 /* ************************************************************************** */
 
+
+
 }
-
 #include "list.cpp"
-
 #endif

@@ -1,105 +1,61 @@
-
 #ifndef MATRIXVEC_HPP
 #define MATRIXVEC_HPP
 
-/* ************************************************************************** */
-
 #include "../matrix.hpp"
-
 #include "../../vector/vector.hpp"
-
-/* ************************************************************************** */
 
 namespace lasd {
 
-/* ************************************************************************** */
-
 template <typename Data>
-class MatrixVec : virtual public Matrix<Data>,virtual protected Vector<Data>{ // Must extend Matrix<Data>
+class MatrixVec : virtual public Matrix<Data>,virtual protected Vector<Data>{
 
 private:
 
 protected:
 
-
-  using Matrix<Data>::nrow;
-  using Matrix<Data>::ncol;
-  using Vector<Data>::dim;
-  using Vector<Data>::elem;
+  using Matrix<Data>::nRighe;
+  using Matrix<Data>::nColonne;
+  using Vector<Data>::dimensione;
+  using Vector<Data>::elemento;
 
 public:
 
-     // Default constructor: costruisce una matrice di 0 righe e 0 colonne (vuota)
-     MatrixVec();
+   using Matrix<Data>::RowNumber;
+   using Matrix<Data>::ColumnNumber;
 
-  /* ************************************************************************ */
+   using Vector<Data>::MapPreOrder;
+   using Vector<Data>::MapPostOrder;
 
-     // Specific constructors: costruisce una matrice vuota se.. riga x colonna altrimenti
-     MatrixVec(unsigned int,unsigned int); // A matrix of some specified dimension
+   using Vector<Data>::FoldPreOrder;
+   using Vector<Data>::FoldPostOrder;
 
-  /* ************************************************************************ */
+   MatrixVec();
+   ~MatrixVec();
 
-     // Copy constructor
-     MatrixVec(const MatrixVec<Data>&);
+   MatrixVec(uint,uint);
 
-     // Move constructor
-     MatrixVec(MatrixVec<Data>&&) noexcept;
+   MatrixVec(const MatrixVec<Data>&);
+   MatrixVec(MatrixVec<Data>&&) noexcept;
 
-  /* ************************************************************************ */
-     // Destructor
-     ~MatrixVec();
 
-  /* ************************************************************************ */
-     // Copy assignment
-     MatrixVec<Data>& operator=(const MatrixVec<Data>&);
+   MatrixVec<Data>& operator=(const MatrixVec<Data>&);
+   MatrixVec<Data>& operator=(MatrixVec<Data>&&)noexcept;
 
-     // Move assignment
-     MatrixVec<Data>& operator=(MatrixVec<Data>&&)noexcept;
+   bool operator==(const MatrixVec<Data>&) const noexcept;
+   bool operator!=(const MatrixVec<Data>&) const noexcept;
 
-  /* ************************************************************************ */
-  // Comparison operators
-     bool operator==(const MatrixVec<Data>&) const noexcept;
-     bool operator!=(const MatrixVec<Data>&) const noexcept;
 
-  /* ************************************************************************ */
+   void RowResize(ulong newNRighe) override;
+   void ColumnResize(ulong newNColonne) override;
+   virtual void Clear() override;
 
-  // Specific member functions (inherited from Matrix)
+   virtual bool ExistsCell(ulong riga, ulong colonna) const noexcept;
 
-     using Matrix<Data>::RowNumber;
-     using Matrix<Data>::ColumnNumber;
-
-     void RowResize(unsigned long newnrow) override; // Override Matrix member
-     void ColumnResize(unsigned long newncol) override; // Override Matrix member
-
-     virtual bool ExistsCell(unsigned long row, unsigned long column) const noexcept; // Override Matrix member (should not throw exceptions)
-
-     Data& operator()(unsigned long row,unsigned long col); // Override Matrix member (mutable access to the element; throw out_of_range when out of range)
-     Data const& operator()(const unsigned long row,const unsigned long col) const; // Override Matrix member (immutable access to the element; throw out_of_range when out of range and length_error when not present)
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from Container)
-     virtual void Clear() override; // Override Container member
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from MappableContainer)
-     using Vector<Data>::MapPreOrder;
-     using Vector<Data>::MapPostOrder;
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from FoldableContainer)
-
-     using Vector<Data>::FoldPreOrder;
-     using Vector<Data>::FoldPostOrder;
+   Data& operator()(ulong riga,ulong colonna);
+   Data const& operator()(const ulong riga, const ulong colonna) const;
 
 };
-
-/* ************************************************************************** */
-
 }
 
 #include "matrixvec.cpp"
-
 #endif

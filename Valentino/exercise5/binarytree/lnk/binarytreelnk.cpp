@@ -1,245 +1,174 @@
 
 namespace lasd {
 
-/* ************************************************************************** */
-
-//NodeLnk class functions
-
-//NodeLnk constructor
 template <typename Data>
-BinaryTreeLnk<Data>::NodeLnk::NodeLnk(const Data& dat){
-
-  BinaryTree<Data>::Node::value = dat;
+BinaryTreeLnk<Data>::NodeLnk::NodeLnk(const Data& d){
+  Valore = d;
 }
-//NodeLnk constructor
-template <typename Data>
-BinaryTreeLnk<Data>::NodeLnk::NodeLnk(Data&& dat)noexcept{
 
-  BinaryTree<Data>::Node::value = std::move(dat);
+template <typename Data>
+BinaryTreeLnk<Data>::NodeLnk::NodeLnk(Data&& d) noexcept{
+  Valore = std::move(d);
 }
 
 
-//Element() function: returns the value of the node
 template <typename Data>
 Data const& BinaryTreeLnk<Data>::NodeLnk::Element() const noexcept{
-
-  return BinaryTree<Data>::Node::value;
+  return Valore;
 }
 
-//Element() function: returns the value of the node
 template <typename Data>
 Data& BinaryTreeLnk<Data>::NodeLnk::Element() noexcept{
-
-  return BinaryTree<Data>::Node::value;
+  return Valore;
 }
 
-//HasLeftChild() function: returns true if the current node has a left child, false otherwise
 template <typename Data>
 bool BinaryTreeLnk<Data>::NodeLnk::HasLeftChild() const noexcept {
-
-  if(left!=nullptr){
-    return true;
-  }
-  else{
-    return false;
-  }
+  return sinistro != nullptr;
 }
 
-//HasRightChild() function: returns true if the current node has a right child, false otherwise
 template <typename Data>
 bool BinaryTreeLnk<Data>::NodeLnk::HasRightChild() const noexcept {
-
-  if(right!=nullptr){
-    return true;
-  }
-  else{
-    return false;
-  }
+  return destro!= nullptr;
 }
 
-//LeftChild() function: returns the left child of the current node
+
 template <typename Data>
-typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild() const{
+typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::LeftChild() const {
+  if (sinistro == nullptr)
+    throw std::out_of_range("Impossibile accedere al nodo sinistro, il suo puntatore è nullo");
 
-  if(left != nullptr){
-    return *left;
-  }
-  else{
-    throw std::out_of_range("Unable to access to the left node");
-  }
+  return *sinistro;
 }
 
-//RightChild() function: returns the right child of the current node
 template <typename Data>
 typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::RightChild() const{
+  if (destro == nullptr)
+    throw std::out_of_range("Impossibile accedere al nodo destro, il suo puntatore è nullo");
 
-  if(right != nullptr){
-    return *right;
-  }
-  else{
-    throw std::out_of_range("Unable to access to the right node");
-  }
+  return *destro;
 }
-/******************************************************************************/
-//BinaryTreeLnk class function
 
-//Specific constructor
 template <typename Data>
-BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& con){
-
-  if(con.Size()!=0){
-    RecursiveFillingTree(con, root,0,con.Size());
+BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& linearContainer){
+  if (linearContainer.Size() != 0) {
+    Insert(linearContainer, root, 0, linearContainer.Size());
   }
 }
 
-//Auxiliary function for specific constructor
 template <typename Data>
-void BinaryTreeLnk<Data>::RecursiveFillingTree(const LinearContainer<Data>& con, BinaryTreeLnk<Data>::NodeLnk*& root, unsigned int index, unsigned long condim){
-
-  if(index<condim){
-    root = new NodeLnk(con[index]);
-    dim++;
-    NodeLnk* tempnode=root;
-
-    RecursiveFillingTree(con,tempnode->left ,2*index+1,condim);
-    RecursiveFillingTree(con, tempnode->right,2*index+2,condim);
+void BinaryTreeLnk<Data>::Insert(const LinearContainer<Data>& linearContainer, BinaryTreeLnk<Data>::NodeLnk*& root, uint i, ulong dimensioneContainer){
+  if (i < dimensioneContainer) {
+    root = new NodeLnk(linearContainer[i]);
+    dimensione++;
+    NodeLnk *node = root;
+    Insert(linearContainer, node->sinistro, (2 * i) + 1, dimensioneContainer);
+    Insert(linearContainer, node->destro, (2 * i) + 2, dimensioneContainer);
   }
 }
 
-//Copy constructor
-template <typename Data>
-BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk<Data>& oldtree){
-
-  if(oldtree.root!=nullptr){
-    AuxCopyTree(oldtree.root,root);
-    dim=oldtree.dim;
+template<typename Data>
+BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk <Data> &binaryTree) {
+  if (binaryTree.root != nullptr) {
+    root = Copy(binaryTree);
+    dimensione = binaryTree.Size();
   }
-  else{
-    root=nullptr;
+}
+template <typename Data>
+void BinaryTreeLnk<Data>::RecursiveCopy(typename BinaryTreeLnk<Data>::NodeLnk** StrutturaDiArrivo, const typename BinaryTreeLnk<Data>::NodeLnk* DaCopiare){
+
+  (*StrutturaDiArrivo) = new NodeLnk(DaCopiare->Element());
+
+  if(DaCopiare->HasLeftChild()){
+    RecursiveCopy(&(*StrutturaDiArrivo)->sinistro, &DaCopiare->LeftChild());
+  }
+
+  if(DaCopiare->HasRightChild()){
+    RecursiveCopy(&(*StrutturaDiArrivo)->destro, &DaCopiare->RightChild());
   }
 }
 
-//Auxiliary function for copy constructor
 template <typename Data>
-void BinaryTreeLnk<Data>::AuxCopyTree(NodeLnk* const& oldtreenode,NodeLnk*& newtreenode){
-
-  if(oldtreenode==nullptr){
-    newtreenode=nullptr;
-    return;
-  }
-  else{
-    newtreenode=new NodeLnk(oldtreenode->value);
-    AuxCopyTree(oldtreenode->left,newtreenode->left);
-    AuxCopyTree(oldtreenode->right,newtreenode->right);
-  }
+typename BinaryTreeLnk<Data>::NodeLnk* BinaryTreeLnk<Data>::Copy(const BinaryTreeLnk<Data>& DaCopiare){
+  BinaryTreeLnk<Data>::NodeLnk* alberoDiArrivo;
+  RecursiveCopy(&alberoDiArrivo, &DaCopiare.Root());
+  return alberoDiArrivo;
 }
 
-//Move constructor
 template <typename Data>
-BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk<Data>&& binarytree) noexcept {
-
-  std::swap(root, binarytree.root);
-  std::swap(dim,binarytree.dim);
-  binarytree.Clear();
+BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk<Data>&& binaryTree) noexcept{
+  std::swap(root, binaryTree.root);
+  std::swap(dimensione, binaryTree.dimensione);
 }
 
-
-//Copy assignment
 template <typename Data>
-BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data>& binarytree){
-                        //Cannot assign the same tree
-  if(this == &binarytree){
+BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk<Data>& binaryTree){
+  if (this == &binaryTree)
     return *this;
-  }
 
-  BinaryTreeLnk<Data> *temptree=new BinaryTreeLnk<Data>(binarytree);
-	std::swap(*this, *temptree);
-	temptree->Clear();
-	delete temptree;
-
-	return *this;
-}
-
-//Move assignment
-template <typename Data>
-BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk<Data>&& binarytree) noexcept{
-                         //Cannot assign the same tree
-  if(this == &binarytree){
-    return *this;
-  }
-  std::swap(root, binarytree.root);
-  std::swap(dim, binarytree.dim);
-
-  binarytree.Clear();
+  BinaryTreeLnk<Data> *tmp = new BinaryTreeLnk<Data>(binaryTree);
+  std::swap(*this, *tmp);
+  tmp->BinaryTreeLnk<Data>::Clear();
+  delete tmp;
 
   return *this;
 }
 
-//Destructor
+template <typename Data>
+BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk<Data>&& binaryTree) noexcept{
+  if (this == &binaryTree)
+    return *this;
+
+  BinaryTreeLnk<Data>::Clear();
+
+  std::swap(root, binaryTree.root);
+  std::swap(dimensione, binaryTree.dimensione);
+  return *this;
+}
+
 template <typename Data>
 BinaryTreeLnk<Data>::~BinaryTreeLnk() noexcept{
-
   BinaryTreeLnk<Data>::Clear();
 }
 
-//Comparison operator
 template <typename Data>
-bool BinaryTreeLnk<Data>::operator==(const BinaryTreeLnk<Data>& binarytree) const noexcept{
-
-  return BinaryTree<Data>::operator==(binarytree);
+bool BinaryTreeLnk<Data>::operator==(const BinaryTreeLnk<Data>& binaryTree) const noexcept{
+  return BinaryTree<Data>::operator==(binaryTree);
 }
 
-//Other comparison operator
 template <typename Data>
-bool BinaryTreeLnk<Data>::operator!=(const BinaryTreeLnk<Data>& binarytree) const noexcept{
-
-  return BinaryTree<Data>::operator!=(binarytree);
+bool BinaryTreeLnk<Data>::operator!=(const BinaryTreeLnk<Data>& binaryTree) const noexcept{
+  return BinaryTree<Data>::operator!=(binaryTree);
 }
 
-//Root function (const): returns the root of the binary tree
 template <typename Data>
 typename BinaryTreeLnk<Data>::NodeLnk const& BinaryTreeLnk<Data>::Root() const {
-
-  if(root != nullptr){
-    return *root;
-  }
-  else{
-    throw std::out_of_range("Tree is empty!");
-  }
+  if (root == nullptr)
+    throw std::out_of_range("L'albero è vuoto!");
+  return *root;
 }
 
-//Root function: returns the root of the binary tree
 template <typename Data>
 typename BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::Root(){
-
   return const_cast<NodeLnk&>(const_cast<const BinaryTreeLnk<Data>*>(this)->Root());
 }
 
-//Clear function
 template <typename Data>
 void BinaryTreeLnk<Data>::Clear() {
-
-  if(root != nullptr){
-    AuxRecursiveDeleteTree(root);
-  }
+  if (root != nullptr)
+    DeleteTree(root);
 }
 
-//Auxiliary function for clearing the tree
 template <typename Data>
-void BinaryTreeLnk<Data>::AuxRecursiveDeleteTree(NodeLnk*& currentnode) noexcept{
+void BinaryTreeLnk<Data>::DeleteTree(typename BinaryTreeLnk<Data>::NodeLnk*& alberoDiPartenza) noexcept{
+  if (alberoDiPartenza->HasLeftChild())
+    DeleteTree(alberoDiPartenza->sinistro);
 
-  if(currentnode->HasLeftChild()){
-    AuxRecursiveDeleteTree(currentnode->left);
-  }
-  if(currentnode->HasRightChild()){
-    AuxRecursiveDeleteTree(currentnode->right);
-  }
+  if (alberoDiPartenza->HasRightChild())
+    DeleteTree(alberoDiPartenza->destro);
 
-  delete currentnode;
-  currentnode = nullptr;
-  BinaryTree<Data>::dim=dim-1;
+  delete alberoDiPartenza;
+  alberoDiPartenza = nullptr;
+  BinaryTree<Data>::dimensione--;
 }
-
-/* ************************************************************************** */
-
 }

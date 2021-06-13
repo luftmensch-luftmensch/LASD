@@ -20,66 +20,49 @@ private:
 
 protected:
 
-  using Container::dim;
+  using Container::dimensione;
 
 public:
 
-  // Default constructor
-  QueueLst();
+  QueueLst(); // Costruttore di default
 
-  /* ************************************************************************ */
+  QueueLst(const LinearContainer<Data>& ); // Costruttore specifico
 
-  // Specific constructor
-  QueueLst(const LinearContainer<Data>& ); // A queue obtained from a LinearContainer
 
-  /* ************************************************************************ */
+  QueueLst(const QueueLst&); // Costruttore di copia
 
-  // Copy constructor
-  QueueLst(const QueueLst&);
+  QueueLst(QueueLst&&) noexcept; // Costruttore di spostamento
 
-  // Move constructor
-  QueueLst(QueueLst&&) noexcept;
 
-  /* ************************************************************************ */
+  ~QueueLst() noexcept = default; // Distruttore
 
-  // Destructor
-  ~QueueLst() noexcept = default;
+  QueueLst& operator=(const QueueLst&); // Assegnamento (copia)
 
-  /* ************************************************************************ */
+  QueueLst& operator=(QueueLst&&) noexcept; // Assegnamento (spostamento)
 
-  // Copy assignment
-  QueueLst& operator=(const QueueLst&);
-
-  // Move assignment
-  QueueLst& operator=(QueueLst&&) noexcept;
-
-  /* ************************************************************************ */
-
-  // Comparison operators
+  // Operatori di confronto
   bool operator==(const QueueLst&) const noexcept;
   bool operator!=(const QueueLst&) const noexcept;
 
-  /* ************************************************************************ */
-
   // Specific member functions (inherited from Queue)
 
-  void Enqueue(const Data&) override; // Override Queue member (copy of the value)
-  void Enqueue(Data&&) noexcept override; // Override Queue member (move of the value)
-  Data& Head() const override; // Override Queue member (must throw std::length_error when empty)
-  void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
-  Data HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
+  void Enqueue(const Data&) override;       // Override Queue member
+  void Enqueue(Data&&) override;           // Override Queue member
+  Data& Head() const override;            // Override Queue member
+  void Dequeue() override;               // Override Queue member
+  Data HeadNDequeue() override;         // Override Queue member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
   using List<Data>::Empty;
-  using List<Data>::Clear;
+
   using List<Data>::Size;
 
-};
+  using List<Data>::Clear;
 
-/* ************************************************************************** */
+};
 
 }
 

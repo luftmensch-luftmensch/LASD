@@ -5,6 +5,8 @@
 /* ************************************************************************** */
 
 #include "../container/container.hpp"
+#include <stdexcept>
+#include <iostream>
 
 /* ************************************************************************** */
 
@@ -21,9 +23,9 @@ private:
 
 protected:
 
-  using LinearContainer<Data>::dim;
+  using LinearContainer<Data>::dimensione;
 
-  Data* elem=nullptr;
+  Data* elemento=nullptr;
 
 public:
 
@@ -103,9 +105,6 @@ public:
 };
 
 /* ************************************************************************** */
-
 }
-
 #include "vector.cpp"
-
 #endif

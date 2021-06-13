@@ -1,169 +1,139 @@
-
 namespace lasd {
 
-/* ************************************************************************** */
-//MatrixVec specific member function
-
-//Default constructor
 template<typename Data>
 MatrixVec<Data>::MatrixVec(){
-  nrow=0;
-  ncol=0;
-  dim=0;
+  nRighe=0;
+  nColonne=0;
+  dimensione=0;
 }
 
-//Specific constructor
 template<typename Data>
-MatrixVec<Data>::MatrixVec(unsigned int r, unsigned int c){
-  if(r!=0 && c!=0){
-    nrow=r;
-    ncol=c;
-    dim=r*c;
-    elem = new Data[dim] {};
+MatrixVec<Data>::MatrixVec(unsigned int riga, unsigned int colonna){
+  if (riga != 0 && colonna != 0) {
+    nRighe = riga;
+    nColonne = colonna;
+    dimensione = riga * colonna;
+    elemento = new Data[dimensione]{};
   }
 }
 
-//Copy constructor
 template<typename Data>
-MatrixVec<Data>::MatrixVec(const MatrixVec<Data>& matrix):Vector<Data>(matrix){
-  nrow=matrix.nrow;
-  ncol=matrix.ncol;
-}
-//:Vector<Data>(std::move(matrix))
-//Move constructor
-template<typename Data>
-MatrixVec<Data>::MatrixVec(MatrixVec<Data>&& matrix)noexcept:Vector<Data>(std::move(matrix)){
-  std::swap(nrow,matrix.nrow);
-  matrix.nrow=0;
-  std::swap(ncol,matrix.ncol);
-  //std::swap(elem,matrix.elem);
-  //std::swap(dim,matrix.dim);
-  matrix.ncol=0;
+MatrixVec<Data>::MatrixVec(const MatrixVec<Data>& matrice):Vector<Data>(matrice){
+  nRighe = matrice.nRighe;
+  nColonne = matrice.nColonne;
 }
 
-//Destructor
+template<typename Data>
+MatrixVec<Data>::MatrixVec(MatrixVec<Data>&& matrice)noexcept:Vector<Data>(std::move(matrice)){
+  std::swap(nRighe, matrice.nRighe);
+  matrice.nRighe = 0;
+  std::swap(nColonne, matrice.nColonne);
+  matrice.nColonne = 0;
+}
+
 template<typename Data>
 MatrixVec<Data>::~MatrixVec(){
   Vector<Data>::Clear();
-  nrow=0;
-  ncol=0;
+  nRighe = 0;
+  nColonne = 0;
 }
 
-
-//Copy assignment
 template<typename Data>
-MatrixVec<Data>& MatrixVec<Data>::operator=(const MatrixVec<Data>& matrix){
-    //Vector<Data>::operator=(matrix);
-    nrow=matrix.nrow;
-    ncol=matrix.ncol;
-    MatrixVec<Data>* newvec= new MatrixVec<Data>(matrix);
-    std::swap(*this,*newvec);
-    delete newvec;
-    return *this;
-  }
-
-//Move assignment
-template <typename Data>
-MatrixVec<Data>& MatrixVec<Data>::operator=(MatrixVec<Data>&& matrix)noexcept{
-    Vector<Data>::operator=(std::move(matrix));
-    std::swap(nrow,matrix.nrow);
-    std::swap(ncol,matrix.ncol);
-    return *this;
-  }
-
-//Comparison operator
-template <typename Data>
-bool MatrixVec<Data>::operator==(const MatrixVec<Data>& matrix) const noexcept{
-  return Vector<Data>::operator==(matrix);
+MatrixVec<Data>& MatrixVec<Data>::operator=(const MatrixVec<Data>& matrice){
+  nRighe = matrice.nRighe;
+  nColonne = matrice.nColonne;
+  MatrixVec<Data> *nuovoVettore = new MatrixVec<Data>(matrice);
+  std::swap(*this, *nuovoVettore);
+  delete nuovoVettore;
+  return *this;
 }
 
-//Other Comparison operator
 template <typename Data>
-bool MatrixVec<Data>::operator!=(const MatrixVec<Data>& matrix) const noexcept{
-  return Vector<Data>::operator!=(matrix);
+MatrixVec<Data>& MatrixVec<Data>::operator=(MatrixVec<Data>&& matrice)noexcept{
+  Vector<Data>::operator=(std::move(matrice));
+  std::swap(nRighe, matrice.nRighe);
+  std::swap(nColonne, matrice.nColonne);
+  return *this;
 }
 
-//RowResize function
+template <typename Data>
+bool MatrixVec<Data>::operator==(const MatrixVec<Data>& matrice) const noexcept{
+  return Vector<Data>::operator==(matrice);
+}
+
+template <typename Data>
+bool MatrixVec<Data>::operator!=(const MatrixVec<Data>& matrice) const noexcept{
+  return Vector<Data>::operator!=(matrice);
+}
+
 template<typename Data>
-void MatrixVec<Data>::RowResize(unsigned long newnrow){
-  unsigned long newdim=newnrow*ncol;
-  Vector<Data>::Resize(newdim);
-  nrow=newnrow;
+void MatrixVec<Data>::RowResize(ulong newNRighe){
+  ulong nuovaDim=newNRighe*nColonne;
+  Vector<Data>::Resize(nuovaDim);
+  nRighe=newNRighe;
 }
 
-//ColumnResize function
 template<typename Data>
-void MatrixVec<Data>::ColumnResize(unsigned long newncol){
-  if(newncol==0){
+void MatrixVec<Data>::ColumnResize(ulong newNColonne){
+  if (newNColonne == 0) {
     Clear();
-  }
-  else if(ncol!=newncol){
-    unsigned long newdim=newncol*nrow;
-    MatrixVec<Data> tmpelem(nrow,newncol);
-    if(ncol<newncol){
-       uint i=0;
-       while(i<nrow){
-         uint j=0;
-         while(j<ncol){
-           std::swap(elem[i*ncol+j], tmpelem.elem[i*newncol+j]);
-           j++;
-         }
-         i++;
-        }
-      std::swap(elem,tmpelem.elem);
-      ncol = newncol;
-      dim=newdim;
-    }
-    else if(ncol>newncol){
+  } else if (nColonne != newNColonne) {
+    ulong nuovaDim = newNColonne * nRighe;
+    MatrixVec<Data> elementoTemp(nRighe, newNColonne);
+    if (nColonne < newNColonne) {
+      uint i = 0;
+      while (i < nRighe) {
+	uint j = 0;
+	while (j < nColonne) {
+	  std::swap(elemento[i * nColonne + j],
+		    elementoTemp.elemento[i * newNColonne + j]);
+	  j++;
+	}
+	i++;
+      }
+      std::swap(elemento, elementoTemp.elemento);
+      nColonne = newNColonne;
+      dimensione = nuovaDim;
+    } else if (nColonne > newNColonne) {
       uint i=0;
-      while(i<nrow){
+      while(i<nRighe){
         uint j=0;
-        while(j<newncol){
-          std::swap(elem[i*ncol+j], tmpelem.elem[i*newncol+j]);
+        while(j<newNColonne){
+          std::swap(elemento[i*nColonne+j], elementoTemp.elemento[i*newNColonne+j]);
           j++;
         }
         i++;
        }
-      std::swap(elem,tmpelem.elem);
-      ncol = newncol;
-      dim=newdim;
+      std::swap(elemento,elementoTemp.elemento);
+      nColonne = newNColonne;
+      dimensione=nuovaDim;
     }
   }
 }
 
-//Clear function
 template<typename Data>
 void MatrixVec<Data>::Clear(){
   Vector<Data>::Clear();
-  nrow=0;
-  ncol=0;
+  nRighe=0;
+  nColonne=0;
 }
 
-//ExistsCell function
-template<typename Data>
-bool MatrixVec<Data>::ExistsCell(unsigned long row,unsigned long col)const noexcept{
-  return(row<nrow && col<ncol);
+template <typename Data>
+bool MatrixVec<Data>::ExistsCell(ulong righe, ulong colonne) const noexcept {
+  return (righe < nRighe && colonne < nColonne);
 }
 
-//Operator () (const)
 template<typename Data>
-Data const& MatrixVec<Data>::operator()(unsigned long row,unsigned long col)const{
-  if(row>=nrow || col>=ncol){
-    throw std::out_of_range("out_of_range: you can't access at the desired memory location");
-  }
-  else{
-    return elem[row*ncol+col];
+Data const& MatrixVec<Data>::operator()(ulong righe,ulong colonne)const{
+  if (righe >= nRighe || colonne >= nColonne) {
+    throw std::out_of_range("Impossibile accedere all'area di memoria desiderata");
+  } else {
+    return elemento[righe * nColonne + colonne];
   }
 }
 
-//Operator () (non-const)
 template<typename Data>
-Data& MatrixVec<Data>::operator()(const unsigned long row,const unsigned long col){
-  return const_cast<Data&>(static_cast<const MatrixVec<Data>*>(this)->operator()(row,col));
+Data& MatrixVec<Data>::operator()(const ulong righe,const ulong colonne){
+  return const_cast<Data&>(static_cast<const MatrixVec<Data>*>(this)->operator()(righe,colonne));
 }
-
-
-
-/* ************************************************************************** */
-
 }

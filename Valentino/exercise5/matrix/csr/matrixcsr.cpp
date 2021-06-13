@@ -1,294 +1,269 @@
 
 namespace lasd {
 
-/* ************************************************************************** */
-
-//MatrixCSR specific member function
-
-//Default constructor
 template<typename Data>
 MatrixCSR<Data>::MatrixCSR(){
-  ncol=0;
-  nrow=0;
-  rowsvector.Resize(1);
-  rowsvector[0]=&First;
+  nColonne=0;
+  nRighe=0;
+  vettoreDiRighe.Resize(1);
+  vettoreDiRighe[0]=&First;
 }
 
-//Specific constructor
 template <typename Data>
-MatrixCSR<Data>::MatrixCSR(unsigned long rows,unsigned long columns){
-  ncol=columns;
-  nrow=rows;
+MatrixCSR<Data>::MatrixCSR(ulong righe,ulong colonne){
+  nColonne=colonne;
+  nRighe=righe;
 
-  rowsvector.Resize(rows+1);
-  for(unsigned long index=0;index<=rows;index++){
-    rowsvector[index]=&First;
+  vettoreDiRighe.Resize(righe+1);
+  for(ulong j=0;j<=righe;j++){
+    vettoreDiRighe[j]=&First;
   }
 }
 
-//Destructor
 template<typename Data>
 MatrixCSR<Data>::~MatrixCSR(){
-  List<std::pair<Data,unsigned long>>::Clear();
-  rowsvector.Clear();
-  nrow=0;
-  ncol=0;
+  List<std::pair<Data,ulong>>::Clear();
+  vettoreDiRighe.Clear();
+  nRighe=0;
+  nColonne=0;
 }
 
-//Copy constructor
 template <typename Data>
-MatrixCSR<Data>::MatrixCSR(const MatrixCSR<Data>& mat) : MatrixCSR(mat.nrow,mat.ncol){
-  for(unsigned long row=0;row<nrow;row++){
-    for(Node** ptr=mat.rowsvector[row];ptr!=mat.rowsvector[row+1];ptr= &((*ptr)->next)){
-      Node& nod= **ptr;
-      (*this)(row,nod.elemento.second)= nod.elemento.first;
+MatrixCSR<Data>::MatrixCSR(const MatrixCSR<Data>& mat) : MatrixCSR(mat.nRighe,mat.nColonne){
+  for (ulong riga = 0; riga < nRighe; riga++) {
+    for (Node **nodoPtr = mat.vettoreDiRighe[riga]; nodoPtr != mat.vettoreDiRighe[riga + 1]; nodoPtr = &((*nodoPtr)->next)) {
+      Node &current = **nodoPtr;
+      (*this)(riga, current.elemento.second) = current.elemento.first;
     }
   }
 }
 
-//Move constructor
 template <typename Data>
-MatrixCSR<Data>::MatrixCSR(MatrixCSR<Data>&& matrix)noexcept:List<std::pair<Data,ulong>>::List(std::move(matrix)){
-  rowsvector.Resize(1);
-  std::swap(nrow,matrix.nrow);
-  std::swap(ncol,matrix.ncol);
-  std::swap(rowsvector,matrix.rowsvector);
-  rowsvector[0]=&First;
-  for(unsigned long index=0;index<matrix.dim &&matrix.rowsvector[index]==&matrix.First;++index){
-    matrix.rowsvector[index]=&matrix.First;
+MatrixCSR<Data>::MatrixCSR(MatrixCSR<Data>&& matrice)noexcept:List<std::pair<Data,ulong>>::List(std::move(matrice)){
+  vettoreDiRighe.Resize(1);
+  std::swap(nRighe,matrice.nRighe);
+  std::swap(nColonne,matrice.nColonne);
+  std::swap(vettoreDiRighe,matrice.vettoreDiRighe);
+  vettoreDiRighe[0]=&First;
+  for(ulong j=0;j<matrice.dimensione &&matrice.vettoreDiRighe[j]==&matrice.First;++j){
+    matrice.vettoreDiRighe[j]=&matrice.First;
   }
-  matrix.Clear();
+  matrice.Clear();
 }
 
-//Copy assignment
 template <typename Data>
-MatrixCSR<Data>& MatrixCSR<Data>::operator=(const MatrixCSR<Data>& matrix){
-  MatrixCSR<Data>* newmatrix= new MatrixCSR<Data>(matrix);
-  std::swap(*this,*newmatrix);
-  delete newmatrix;
+MatrixCSR<Data>& MatrixCSR<Data>::operator=(const MatrixCSR<Data>& matrice){
+  MatrixCSR<Data>* nuovaMatrice= new MatrixCSR<Data>(matrice);
+  std::swap(*this,*nuovaMatrice);
+  delete nuovaMatrice;
   return *this;
 }
 
-//Move assignment
 template<typename Data>
-MatrixCSR<Data>& MatrixCSR<Data>::operator=(MatrixCSR<Data>&& matrix) noexcept{
+MatrixCSR<Data>& MatrixCSR<Data>::operator=(MatrixCSR<Data>&& matrice) noexcept{
 
-  std::swap(First,matrix.First);
-  std::swap(nrow,matrix.nrow);
-  std::swap(ncol,matrix.ncol);
-  std::swap(rowsvector,matrix.rowsvector);
-  std::swap(dim,matrix.dim);
-  for(unsigned long index=0;index<dim &&rowsvector[index]==&matrix.First;++index){
-      rowsvector[index]=&First;
+  std::swap(First, matrice.First);
+  std::swap(nRighe, matrice.nRighe);
+  std::swap(nColonne, matrice.nColonne);
+  std::swap(vettoreDiRighe, matrice.vettoreDiRighe);
+  std::swap(dimensione, matrice.dimensione);
+  for (ulong j = 0; j < dimensione && vettoreDiRighe[j] == &matrice.First; ++j) {
+    vettoreDiRighe[j] = &First;
   }
-  for(unsigned long index=0;index<matrix.dim &&matrix.rowsvector[index]==&First;++index){
-    matrix.rowsvector[index]=&matrix.First;
+  for(ulong j=0;j<matrice.dimensione &&matrice.vettoreDiRighe[j]==&First;++j){
+    matrice.vettoreDiRighe[j]=&matrice.First;
   }
   return *this;
 }
 
-//Comparison operator
 template <typename Data>
-bool MatrixCSR<Data>::operator==(const MatrixCSR<Data>& matrix) const noexcept{
-  return (nrow==matrix.nrow) && (ncol==matrix.ncol) && List<std::pair<Data,unsigned long>>::operator==(matrix);
-}
-//Other comparison operator
-template <typename Data>
-bool MatrixCSR<Data>::operator!=(const MatrixCSR<Data>& matrix) const noexcept{
-  return !(*this==matrix);
+bool MatrixCSR<Data>::operator==(const MatrixCSR<Data>& matrice) const noexcept{
+  return (nRighe==matrice.nRighe) && (nColonne==matrice.nColonne) && List<std::pair<Data,ulong>>::operator==(matrice);
 }
 
-//RowResize function
 template <typename Data>
-void MatrixCSR<Data>::RowResize(unsigned long newnrow){
-  if(newnrow==0){
-    List<std::pair<Data,unsigned long>>::Clear();
-  }
-  else if(newnrow<nrow){
-    Node** ptr=rowsvector[newnrow];
-     while((*ptr)!=nullptr){
-       Node* tmp=*ptr;
-       *ptr=(*ptr)->next;
-       delete tmp;
-       tmp=nullptr;
-       --dim;
-     }
-    rowsvector.Resize(newnrow+1);
-  }
-  else{
-    rowsvector.Resize(newnrow+1);
-    for(uint i=nrow;i<newnrow;i++){
+bool MatrixCSR<Data>::operator!=(const MatrixCSR<Data>& matrice) const noexcept{
+  return !(*this==matrice);
+}
 
-      rowsvector[i+1]=rowsvector[i];
+template <typename Data>
+void MatrixCSR<Data>::RowResize(ulong newNRighe){
+  if (newNRighe == 0) {
+    List<std::pair<Data, ulong>>::Clear();
+  } else if (newNRighe < nRighe) {
+    Node **nodoPtr = vettoreDiRighe[newNRighe];
+    while ((*nodoPtr) != nullptr) {
+      Node *temp = *nodoPtr;
+      *nodoPtr = (*nodoPtr)->next;
+      delete temp;
+      temp = nullptr;
+      --dimensione;
+    }
+    vettoreDiRighe.Resize(newNRighe+1);
+  } else {
+    vettoreDiRighe.Resize(newNRighe+1);
+    for(uint i=nRighe;i<newNRighe;i++){
+      vettoreDiRighe[i+1]=vettoreDiRighe[i];
     }
   }
-nrow=newnrow;
+  nRighe=newNRighe;
 }
 
-//ColumnResize function
 template <typename Data>
-void MatrixCSR<Data>::ColumnResize(unsigned long newncol){
-  if(newncol==0){
-    List<std::pair<Data,unsigned long>>::Clear();
-  }
-  else if(newncol<ncol){
-    unsigned long index=1;
-    Node** ptr=&First;
-    while(index<=nrow){
-      Node* nod;
-      Node** ext=rowsvector[index];
-      while(ptr!=ext && (*ptr)->elemento.second< newncol){
-        nod=*ptr;
-        ptr=&(nod->next);
+void MatrixCSR<Data>::ColumnResize(ulong newNColonne){
+  if (newNColonne == 0) {
+    List<std::pair<Data, ulong>>::Clear();
+  } else if (newNColonne < nColonne) {
+    ulong j=1;
+    Node** nodoPtr=&First;
+    while(j<=nRighe){
+      Node* current;
+      Node** nextRiga = vettoreDiRighe[j];
+      while(nodoPtr!= nextRiga && (*nodoPtr)->elemento.second < newNColonne){
+        current=*nodoPtr;
+        nodoPtr=&(current->next);
       }
-      if(ptr!=ext){
-        if(ext==rowsvector[nrow]){
-          Last=nod;
+      if(nodoPtr!=nextRiga){
+        if(nextRiga==vettoreDiRighe[nRighe]){
+          Last=current;
         }
-        Node* tmp=*ptr;
-        *ptr=*ext;
-        *ext=nullptr;
-        for(Node* ptr=tmp;ptr!=nullptr;ptr=ptr->next){
-          dim--;
+        Node* temp=*nodoPtr;
+        *nodoPtr=*nextRiga;
+        *nextRiga=nullptr;
+        for(Node* nodoPtr=temp;nodoPtr!=nullptr;nodoPtr=nodoPtr->next){
+          dimensione--;
         }
-        delete tmp;
+        delete temp;
       }
-      for(;index<=nrow && rowsvector[index]==ext;++index){
-        rowsvector[index]=ptr;
+      for(;j<=nRighe && vettoreDiRighe[j]==nextRiga;++j){
+        vettoreDiRighe[j]=nodoPtr;
       }
     }
   }
-  ncol=newncol;
+  nColonne=newNColonne;
 }
 
-//Clear function
 template <typename Data>
 void MatrixCSR<Data>::Clear(){
-  nrow=0;
-  ncol=0;
-  List<std::pair<Data,unsigned long>>::Clear();
-  rowsvector.Resize(1);
-
+  nRighe = 0;
+  nColonne = 0;
+  List<std::pair<Data, ulong>>::Clear();
+  vettoreDiRighe.Resize(1);
 }
 
-//ExistsCell function
 template <typename Data>
-bool MatrixCSR<Data>::ExistsCell(unsigned long row,unsigned long column)const noexcept{
-  if((row<nrow) && (column<ncol)){
-    Node** ptr= rowsvector[row];
-    while(ptr!= rowsvector[row+1]) {
-      Node& nod=**ptr;
-      if(nod.elemento.second==column){
-        return true;
+bool MatrixCSR<Data>::ExistsCell(ulong riga,ulong colonna )const noexcept{
+  if ((riga < nRighe) && (colonna < nColonne)) {
+    Node **nodoPtr = vettoreDiRighe[riga];
+    while (nodoPtr != vettoreDiRighe[riga + 1]) {
+      Node &current = **nodoPtr;
+      if (current.elemento.second == colonna) {
+	return true;
       }
-      ptr=&(nod.next);
+      nodoPtr = &(current.next);
     }
   }
   return false;
 }
 
-
-//Operator () function (non-const)
 template <typename Data>
-Data& MatrixCSR<Data>::operator()(unsigned long row,unsigned long col){
-  if((row<nrow) && (col<ncol)){
-    Node** ptr=rowsvector[row];
-    while(ptr!=rowsvector[row+1]){
-      if((*ptr)->elemento.second==col){
-        return (*ptr)->elemento.first;
-      }
-      else if((*ptr)->elemento.second>col){
-        Node* newnode=new Node;
-        newnode->elemento.second=col;
-        Node* tmp=*ptr;
-        *ptr=newnode;
-        newnode->next=tmp;
-        ++dim;
-        return newnode->elemento.first;
-      }
-      else{
-        ptr=&((*ptr)->next);
+Data& MatrixCSR<Data>::operator()(ulong riga,ulong colonna ){
+  if((riga<nRighe) && (colonna <nColonne)){
+    Node** nodoPtr=vettoreDiRighe[riga];
+    while (nodoPtr != vettoreDiRighe[riga + 1]) {
+      if ((*nodoPtr)->elemento.second == colonna) {
+	return (*nodoPtr)->elemento.first;
+      } else if ((*nodoPtr)->elemento.second > colonna) {
+	Node *nuovoNodo = new Node;
+	nuovoNodo->elemento.second = colonna;
+	Node *temp = *nodoPtr;
+	*nodoPtr = nuovoNodo;
+	nuovoNodo->next = temp;
+	++dimensione;
+	return nuovoNodo->elemento.first;
+      } else {
+	nodoPtr = &((*nodoPtr)->next);
       }
     }
-    Node* newnode=new Node;
-    newnode->elemento.second=col;
-    Node* tmp=*ptr;
-    *ptr=newnode;
-    if(*ptr!=nullptr){
-      newnode->next=tmp;
+    Node *nuovoNodo = new Node;
+    nuovoNodo->elemento.second=colonna ;
+    Node* temp=*nodoPtr;
+    *nodoPtr=nuovoNodo;
+    if(*nodoPtr!=nullptr){
+      nuovoNodo->next=temp;
     }
-    for(ulong i=row+2;i<nrow+1;i++){
-      if(rowsvector[i]==rowsvector[row+1]){
-        rowsvector[i]=&newnode->next;
+    for(ulong i=riga+2;i<nRighe+1;i++){
+      if(vettoreDiRighe[i]==vettoreDiRighe[riga+1]){
+        vettoreDiRighe[i]=&nuovoNodo->next;
       }
     }
-    rowsvector[row+1]=&newnode->next;
-    ++dim;
-    return newnode->elemento.first;
+    vettoreDiRighe[riga+1]=&nuovoNodo->next;
+    ++dimensione;
+    return nuovoNodo->elemento.first;
 
   }
   else{
-    throw std::out_of_range("out_of_range: you can't access at the desired memory location");
+    throw std::out_of_range("Impossibile accedere all'area di memoria desiderata");
   }
 }
 
 
 
-//Operator () function (const)
 template <typename Data>
-Data const& MatrixCSR<Data>::operator()(unsigned long row,unsigned long col)const{
-   if((row<nrow) && (col<ncol)){
-     Node** ptr=rowsvector[row];
+Data const& MatrixCSR<Data>::operator()(ulong riga,ulong colonna )const{
+   if((riga<nRighe) && (colonna <nColonne)){
+     Node** nodoPtr=vettoreDiRighe[riga];
      bool trovato=false;
-     while(ptr!=rowsvector[row+1] && (*ptr)->elemento.second<=col){
-
-       if((*ptr)->elemento.second==col){
-         return (*ptr)->elemento.first;
+     while (nodoPtr != vettoreDiRighe[riga + 1] && (*nodoPtr)->elemento.second <= colonna) {
+       if ((*nodoPtr)->elemento.second == colonna) {
+	 return (*nodoPtr)->elemento.first;
        }
-       ptr=&((*ptr)->next);
+       nodoPtr = &((*nodoPtr)->next);
      }
-     if(trovato==false){
-       throw std::length_error("the desired element is not present into the matrix");
+     if (trovato == false) {
+       throw std::length_error("L'elemento desiderato non è presente nella matrice");
      }
    }
    else{
-     throw std::out_of_range("out_of_range: you can't access at the desired memory location");
+     throw std::out_of_range("Impossibile accedere all'area di memoria desiderata");
    }
-  throw std::out_of_range("out_of_range: you can't access at the desired memory location");
+   throw std::out_of_range("Impossibile accedere all'area di memoria desiderata");
 }
 
 
-//MapPreOrder function
 template<typename Data>
 void MatrixCSR<Data>::MapPreOrder(MapFunctor fun,void* par){
-  List<std::pair<Data,unsigned long>>::MapPreOrder(
-    [&fun](std::pair<Data,unsigned long>& datx, void* parx) {  fun(datx.first,parx); }
-  ,par);
+  List<std::pair<Data, ulong>>::MapPreOrder(
+      [&fun](std::pair<Data, ulong> &datx, void *parx) {
+	fun(datx.first, parx);
+      },
+      par);
 }
 
-//MapPostOrder function
 template<typename Data>
 void MatrixCSR<Data>::MapPostOrder(MapFunctor fun,void* par){
-  List<std::pair<Data,unsigned long>>::MapPostOrder(
-    [&fun](std::pair<Data,unsigned long>& datx, void* parx) {  fun(datx.first,parx); }
-  ,par);
+  List<std::pair<Data, ulong>>::MapPostOrder(
+      [&fun](std::pair<Data, ulong> &datx, void *parx) {
+	fun(datx.first, parx);
+      },
+      par);
 }
 
-//FoldPreOrder function
 template<typename Data>
 void MatrixCSR<Data>::FoldPreOrder(FoldFunctor fun,const void* par,void* acc)const{
-  List<std::pair<Data,unsigned long>>::FoldPreOrder(
-    [&fun](const std::pair<Data,unsigned long>& datx, const void* parx,void* accx) {  fun(datx.first,parx,accx); }
-  ,par,acc);
+  List<std::pair<Data, ulong>>::FoldPreOrder(
+      [&fun](const std::pair<Data, ulong> &datx, const void *parx, void *accx) {
+	fun(datx.first, parx, accx);
+      },
+      par, acc);
 }
 
-//FoldPostOrder function
 template<typename Data>
 void MatrixCSR<Data>::FoldPostOrder(FoldFunctor fun,const void* par,void* acc)const{
-  List<std::pair<Data,unsigned long>>::FoldPostOrder(
-    [&fun](const std::pair<Data,unsigned long>& datx, const void* parx,void* accx) {  fun(datx.first,parx,accx); }
-  ,par,acc);
+  List<std::pair<Data, ulong>>::FoldPostOrder(
+      [&fun](const std::pair<Data, ulong> &datx, const void *parx, void *accx) {
+	fun(datx.first, parx, accx);
+      },
+      par, acc);
 }
-/* ************************************************************************** */
-
 }

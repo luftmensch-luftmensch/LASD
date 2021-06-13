@@ -1,134 +1,88 @@
-
 #ifndef BINARYTREEVEC_HPP
 #define BINARYTREEVEC_HPP
-
-/* ************************************************************************** */
 
 #include "../binarytree.hpp"
 #include "../../vector/vector.hpp"
 
-/* ************************************************************************** */
-
 namespace lasd {
 
-/* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec: virtual public BinaryTree<Data> { // Must extend BinaryTree<Data>
+class BinaryTreeVec: virtual public BinaryTree<Data> {
 
 private:
 
 protected:
 
-  using BinaryTree<Data>::dim;
+  using Container::dimensione;
   void Expand();
   void Reduce();
+  void UpdateReferences() noexcept;
+  
+  lasd::Vector<unsigned long int> nodeperlevel = lasd::Vector<unsigned long int>(0);
 
-  struct NodeVec: virtual public BinaryTree<Data>::Node { // Must extend Node
+  struct NodeVec: virtual public BinaryTree<Data>::Node {
 
   private:
 
   protected:
-
     friend class BinaryTreeVec<Data>;
 
-    using BinaryTree<Data>::Node::value;
-           //index for the array
-    unsigned int index = 0;
-           //pointer reference to the array
-    lasd::Vector<NodeVec*>* myrefvector;
+    Data Valore;
 
-    NodeVec(const Data& toinsert, lasd::Vector<NodeVec*>* con, const unsigned long int& ind);
+    uint in = 0;
+    
+    lasd::Vector<NodeVec*>* riferimento;
+
+    NodeVec(const Data& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p);
+    NodeVec(const Data&& k, lasd::Vector<NodeVec*>* c, const unsigned long int& p);
 
   public:
+    using BinaryTree<Data>::Node::isLeaf;
 
-    ~NodeVec() = default;
     NodeVec& operator=(const NodeVec&);
     NodeVec& operator=(NodeVec&&) noexcept;
 
     virtual Data& Element() noexcept;
     virtual const Data& Element() const noexcept;
 
-    using BinaryTree<Data>::Node::isLeaf;
-    bool HasLeftChild() const noexcept override;
-    bool HasRightChild() const noexcept override;
     NodeVec& LeftChild() const override;
-    NodeVec& RightChild() const override;
+    bool HasLeftChild() const noexcept override;
 
+    NodeVec& RightChild() const override;
+    bool HasRightChild() const noexcept override;
 
   };
 protected:
-                           //auxiliary container
-  lasd::Vector<NodeVec*> cont = lasd::Vector<NodeVec*>(0);
+  lasd::Vector<NodeVec*> containerP = lasd::Vector<NodeVec*>(0);
   void DeleteTree(NodeVec*&) noexcept;
-
 
 public:
 
-     // Default constructor
-     BinaryTreeVec() = default;
-
-  /* ************************************************************************ */
-
-     // Specific constructors
-     BinaryTreeVec(const LinearContainer<Data>&); // A binary tree obtained from a LinearContainer
-
-  /* ************************************************************************ */
-
-     // Copy constructor
-     BinaryTreeVec(const BinaryTreeVec&);
-
-     // Move constructor
-     BinaryTreeVec(BinaryTreeVec&&) noexcept;
-
-  /* ************************************************************************ */
-
-     // Destructor
-     ~BinaryTreeVec() noexcept;
-
-  /* ************************************************************************ */
-
-     // Copy assignment
-     BinaryTreeVec& operator=(const BinaryTreeVec&);
-
-     // Move assignment
-     BinaryTreeVec& operator=(BinaryTreeVec&&) noexcept;
-
-  /* ************************************************************************ */
-
-     // Comparison operators
-     bool operator==(const BinaryTreeVec&) const noexcept;
-     bool operator!=(const BinaryTreeVec&) const noexcept;
-
-  /* ************************************************************************ */
-
-     // Specific member functions (inherited from BinaryTree)
-     virtual NodeVec& Root() override;
-
-     virtual NodeVec const& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
-
-  /* ************************************************************************ */
-
-     // Specific member functions (inherited from Container)
-
-     void Clear() noexcept override; // Override Container member
      using Container::Size;
      using Container::Empty;
 
-     // Specific member functions (inherited from MappableContainer)
+     ~BinaryTreeVec() noexcept;
 
-     using typename MappableContainer<Data>::MapFunctor;
-     void MapBreadth(MapFunctor, void*) noexcept override;
+     BinaryTreeVec() = default;
+     BinaryTreeVec(const LinearContainer<Data>&); // A binary tree obtained from a LinearContainer
 
-     // Specific member functions (inherited from FoldableContainer)
+     BinaryTreeVec(const BinaryTreeVec&);
+     BinaryTreeVec& operator=(const BinaryTreeVec&);
 
-     using typename FoldableContainer<Data>::FoldFunctor;
-     void FoldBreadth(FoldFunctor, const void*, void*) const noexcept override;
+     BinaryTreeVec(BinaryTreeVec&&) noexcept;
+     BinaryTreeVec& operator=(BinaryTreeVec&&) noexcept;
+
+     bool operator==(const BinaryTreeVec&) const noexcept;
+     bool operator!=(const BinaryTreeVec&) const noexcept;
+
+     virtual NodeVec& Root() override;
+
+     virtual NodeVec const& Root() const override;
+
+     void Clear() noexcept override;
 
 };
-
-/* ************************************************************************** */
-
 }
 
 #include "binarytreevec.cpp"

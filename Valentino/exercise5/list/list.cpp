@@ -1,25 +1,23 @@
-
-namespace lasd {
-
+#include <stdexcept>
 /* ************************************************************************** */
-
+namespace lasd{
 // Specific constructors Node
 template<typename Data>
-List<Data>::Node::Node( const Data& value ){
-  elemento=value;
-  next=nullptr;
+List<Data>::Node::Node(const Data& valore){
+  elemento = valore;
+  next = nullptr;
 }
 
 // Specific constructors Node (move)
 template<typename Data>
-List<Data>::Node::Node (Data&& value) noexcept{
-  std::swap(elemento, value);
+List<Data>::Node::Node(Data&& valore) noexcept{
+  std::swap(elemento, valore);
   next = nullptr;
 }
 
 // Copy constructors Node
 template<typename Data>
-List<Data>::Node::Node (const Node& nodo){
+List<Data>::Node::Node(const Node& nodo){
   this->elemento = nodo.elemento;
   this->next = nodo.next;
 }
@@ -49,10 +47,9 @@ bool List<Data>::Node::operator!=(const Node& nodo) const noexcept{
 // Default constructors list
 template<typename Data>
 List<Data>::List(){
-  First=nullptr;
-  Last=nullptr;
+  First = nullptr;
+  Last = nullptr;
 }
-
 //Specific constructor for the list
 template<typename Data>
 List<Data>::List(const LinearContainer<Data>& con){
@@ -65,8 +62,8 @@ List<Data>::List(const LinearContainer<Data>& con){
   else{
     First= nullptr;
     Last= nullptr;
-    for (unsigned long index=0; index < con.Size(); index++){
-      InsertAtBack(con[index]);
+    for (ulong i=0; i < con.Size(); i++){
+      InsertAtBack(con[i]);
     }
   }
 }
@@ -74,33 +71,33 @@ List<Data>::List(const LinearContainer<Data>& con){
 
 // Copy constructors List
 template<typename Data>
-List<Data>::List(const List<Data>& oldList){
+List<Data>::List(const List<Data>& otherList){
                             //if the two lists are different i can proceed with comparisons (i can't copy the same list into a list)
-  if(this!=&oldList){
+  if(this != &otherList){
                             //if the list to copy is empty, i have nothing to copy
-    if(oldList.First==nullptr){
+    if(otherList.First==nullptr){
     First=nullptr;
     Last=nullptr;
-    dim=0;
+    dimensione=0;
     }
                            //else, i create a new node into the new list with the element from the other list
     else{
-      struct Node* current;
-      current=oldList.First;
-      struct Node* node=new Node(current->elemento);
+      struct Node* corrente;
+      corrente=otherList.First;
+      struct Node* node=new Node(corrente->elemento);
                           //here i can refresh the pointers with the correct values
       First=node;
       Last=First;
                           //i can proceed with the copy until the last one element of the other list
-      current=current->next;
-      while(current != nullptr){
-        struct Node* newnode=new Node(current->elemento);
+      corrente=corrente->next;
+      while(corrente != nullptr){
+        struct Node* newnode=new Node(corrente->elemento);
         Last->next=newnode;
         Last=newnode;
-        current=current->next;
+        corrente=corrente->next;
       }
                         //at the end, i refresh the size of the new list with the size from the other list
-      dim=oldList.dim;
+      dimensione=otherList.dimensione;
     }
   }
 }
@@ -108,46 +105,40 @@ List<Data>::List(const List<Data>& oldList){
 
 // Move constructors list
 template<typename Data>
-List<Data>::List(List<Data>&& oldList) noexcept{
-  dim = oldList.dim;
-  oldList.dim = 0;
-  First = oldList.First;
-  oldList.First = nullptr;
+List<Data>::List(List<Data>&& otherList) noexcept{
+  dimensione = otherList.dimensione;
+  otherList.dimensione = 0;
+  First = otherList.First;
+  otherList.First = nullptr;
 }
 
 // Distruttore list
 template<typename Data>
 List<Data>::~List(){
-  Node* current = First;
+  Node* corrente = First;
                              //delete of nodes from the list until the last one element of the list is found
-  while(current != nullptr){
-    Node* todelete = current;
-    current = current->next;
-    delete todelete;
+  while(corrente != nullptr){
+    Node* da_delete = corrente;
+    corrente = corrente->next;
+    delete da_delete;
   }
 }
 
 // Copy assignment list
 template<typename Data>
-List<Data>& List<Data>::operator=(const List<Data>& list){
-                  //can't assign the same list
-  if(this == &list){
-		return *this;
-  }
-  List<Data> *tmplist=new List<Data>(list);
-                                 //using the std::swap library function for assign a list to another list
-  std::swap(*this,*tmplist);
-  delete tmplist;
+List<Data>& List<Data>::operator=(const List<Data>& listaDaCopiare){
+  List<Data> *listaTemporanea = new List<Data>(listaDaCopiare);
+  std::swap(*listaTemporanea, *this);
+  delete listaTemporanea;
   return *this;
 }
 
 // Move assignment list
 template<typename Data>
-List<Data>& List<Data>::operator=(List<Data>&& list) noexcept{
-                               //using the std::swap library function for simply exchange the pointer from the two lists
-  std::swap(First, list.First);
-  std::swap(Last, list.Last);
-  std::swap(dim, list.dim);
+List<Data>& List<Data>::operator=(List<Data>&& listaDaSpostare) noexcept{
+  std::swap(First, listaDaSpostare.First);
+  std::swap(Last, listaDaSpostare.Last);
+  std::swap(dimensione, listaDaSpostare.dimensione);
   return *this;
 }
 
@@ -155,16 +146,16 @@ List<Data>& List<Data>::operator=(List<Data>&& list) noexcept{
 template<typename Data>
 bool List<Data>::operator==(const List<Data>& list) const noexcept{
                                //the comparison makes sense if the two sizes are equal
-  if(dim==list.dim){
-    struct Node* currentnode = First;
-    struct Node* tmp = list.First;
-    for(unsigned long index = 0; index < dim; index++){
+  if(dimensione == list.dimensione){
+    struct Node* corrente = First;
+    struct Node* Tmp = list.First;
+    for(ulong j = 0; j < dimensione; j++){
                                //comparison between the i-esim element of the two lists
-      if(currentnode->elemento != tmp->elemento){
+      if(corrente->elemento != Tmp->elemento){
         return false;
       }
-      currentnode = currentnode->next;
-      tmp = tmp->next;
+      corrente = corrente->next;
+      Tmp = Tmp->next;
     }
     return true;
   }
@@ -172,7 +163,6 @@ bool List<Data>::operator==(const List<Data>& list) const noexcept{
     return false;
   }
 }
-
 // Other comparison list
 template<typename Data>
 bool List<Data>::operator!=(const List<Data>& list) const noexcept{
@@ -183,109 +173,102 @@ bool List<Data>::operator!=(const List<Data>& list) const noexcept{
 // RemoveFromFront functions list
 template<typename Data>
 void List<Data>::RemoveFromFront(){
-  struct Node* currentnode;
+  struct Node* corrente;
                                  //i can't remove a node from an empty list
-  if(First == nullptr){
+  if(First == nullptr)
     throw std::length_error("Accesso ad una lista vuota.");
-  }                               //if the pointer to the First and the Last are the same element, simply make the list empty
-  else if (First==Last){
-    dim--;
-    First=nullptr;
-    Last=nullptr;
+                                 //if the pointer to the First and the Last are the same element, simply make the list empty
+  else if (First == Last){
+    dimensione--;
+    First = nullptr;
+    Last = nullptr;
   }
                                 //else, just "discard" the pointer to the first and make the next element as First
   else{
-    currentnode = First;
+    corrente = First;
     First = First->next;
-    dim--;
+    dimensione--;
   }
 }
 
 // FrontNRemove functions list
 template<typename Data>
 Data& List<Data>::FrontNRemove(){
-  struct Node* currentnode;
+  struct Node* corrente;
                                    //i can't remove a node from an empty list
-  if(First==nullptr){
+  if(First == nullptr)
     throw std::length_error("Accesso ad una lista vuota.");
-  }
                                    //if the pointer to the First and the Last are the same element, simply make the list empty and return the element
-                                   //saved in the "current" var
-  else if(First==Last){
-    dim--;
-    currentnode=First;
-    First=nullptr;
-    Last=nullptr;
-    return currentnode->elemento;
+                                   //saved in the "corrente" var
+  else if (First == Last){
+    dimensione--;
+    corrente = First;
+    First = nullptr;
+    Last = nullptr;
+    return corrente->elemento;
   }
   else{
                                    //else, just "discard" the pointer to the first and make the next element as First and return the element
-                                   //saved in the "current" var
-    currentnode=First;
-    First=First->next;
-    dim--;
-    return currentnode->elemento;
+                                   //saved in the "corrente" var
+    corrente = First;
+    First = First->next;
+    dimensione--;
+    return corrente->elemento;
   }
 }
 
 // InsertAtFront functions list
 template<typename Data>
-void List<Data>::InsertAtFront (const Data& value){
+void List<Data>::InsertAtFront(const Data& value){
                                           //creates a new node to insert with his value
-  //struct Node* newNode;
-  //newNode = new Node(value);
-  Node* newNode=new Node(value);
+  struct Node* newNode;
+  newNode = new Node(value);
                                           //the "next" pointer of the new node points to the old head
-  newNode->next=First;
+  newNode->next = First;
                                         //the new node is the new First (head)
-  First=newNode;
-  dim++;
+  First = newNode;
+  dimensione++;
                                         //refresh the Last pointer of the list if the list is empty
-  if (Last==nullptr){
-    Last=newNode;
-  }
+  if (Last == nullptr)
+    Last = newNode;
 }
 
 // InsertAtFront (move) functions list
 template<typename Data>
-void List<Data>::InsertAtFront (Data&& value) noexcept{
+void List<Data>::InsertAtFront(Data&& value) noexcept{
                                               //creates a new node to insert with his value
-  //struct Node* newNode;
-  //newNode=new Node(std::move(value));
-  Node* newNode=new Node(std::move(value));
+  struct Node* newNode;
+  newNode = new Node(std::move(value));
                                                 //the "next" pointer of the new node points to the old head
-  newNode->next=First;
+  newNode->next = First;
                                                  //the new node is the new First (head)
-  First=newNode;
-  dim++;
+  First = newNode;
+  dimensione++;
                                                 //refresh the Last pointer of the list if the list is empty
-  if(Last == nullptr){
+  if(Last == nullptr)
     Last = newNode;
-  }
 }
 
 // InsertAtBack functions list
 template<typename Data>
-void List<Data>::InsertAtBack (const Data& value){
+void List<Data>::InsertAtBack(const Data& value){
                                    //creates a new node to insert with his value
   struct Node* newNode;
-  newNode=new Node(value);
+  newNode = new Node(value);
                                   //if the list is empty, the new node is the one and only node of the list
   if(!First){
-    First=newNode;
-    Last=newNode;
-    dim++;
+    First = newNode;
+    Last = newNode;
+    dimensione++;
   }
   else{
                                  //else, go to the bottom of the list and insert the node there
-    struct Node* tmp=First;
-    while(tmp->next){
-       tmp = tmp->next;
-    }
-    tmp->next=newNode;
-    dim++;
+    struct Node* tmp = First;
+    while(tmp->next) tmp = tmp->next;
+    tmp->next = newNode;
+    dimensione++;
                                  //refresh the Last pointer
-    Last=tmp->next;
+    Last= tmp->next;
   }
 }
 
@@ -299,18 +282,16 @@ void List<Data>::InsertAtBack(Data&& value) noexcept{
   if(!First){
     First = newNode;
     Last = newNode;
-    dim++;
+    dimensione++;
   }
   else{
                                   //else, go to the bottom of the list and insert the node there
-    struct Node* tmp=First;
-    while(tmp->next){
-      tmp=tmp->next;
-    }
-    tmp->next=newNode;
-    dim++;
+    struct Node* tmp = First;
+    while(tmp->next) tmp = tmp->next;
+    tmp->next = newNode;
+    dimensione++;
                                   //refresh the Last pointer
-    Last=tmp->next;
+    Last= tmp->next;
   }
 }
 
@@ -318,21 +299,21 @@ void List<Data>::InsertAtBack(Data&& value) noexcept{
 template<typename Data>
 void List<Data>::Clear(){
   struct Node* tmp;
-
-  while(First!=nullptr){
-    tmp=First;
-    First=First->next;
+                              //
+  while(First != nullptr){
+    tmp = First;
+    First = First->next;
   }
-  Last=nullptr;
-  dim=0;
-  First=nullptr;
+  Last = nullptr;
+  dimensione = 0;
+  First = nullptr;
 }
 
 // Front functions list
 template<typename Data>
 Data& List<Data>::Front() const{
                                  //if the First element is empty, return the value associated
-  if (First!=nullptr){
+  if (First != nullptr){
     return First->elemento;
   }
                                 //else i can't return nothing because the list is empty
@@ -345,7 +326,7 @@ Data& List<Data>::Front() const{
 template<typename Data>
 Data& List<Data>::Back() const{
                             //if the size!=0, return the Last element of the list
-  if(dim!=0){
+  if(dimensione != 0){
     return Last->elemento;
   }
                            //else i can't return nothing because the list is empty
@@ -355,19 +336,19 @@ Data& List<Data>::Back() const{
 }
 // Operator [] functions list
 template<typename Data>
-Data& List<Data>::operator[](const unsigned long index) const{
-                           //i can gain access to a specific index only if the index is between 0 and size-1
-  if(index < dim){
-    struct Node* current;
-    current = First;
-                           //now i can flow the list until i find the right element (i=index) and return the element associated
-    for(unsigned long i = 0; i < index; i++){
-      current = current->next;
+Data& List<Data>::operator[](const ulong j) const{
+                           //i can gain access to a specific j only if the j is between 0 and size-1
+  if(j < dimensione){
+    struct Node* corrente;
+    corrente = First;
+                           //now i can flow the list until i find the right element (i=j) and return the element associated
+    for(ulong i = 0; i < j; i++){
+      corrente = corrente->next;
     }
-    return current->elemento;
+    return corrente->elemento;
   }
   else{
-    throw std::out_of_range("Accesso all'indice " + std::to_string(index) + ": lunghezza della lista" + std::to_string(dim) + ".");
+    throw std::out_of_range("Accesso all'indice " + std::to_string(j) + ": lunghezza della lista" + std::to_string(dimensione) + ".");
   }
 }
 
@@ -406,16 +387,15 @@ void List<Data>::MapPreOrder(MapFunctor fun, void* par, Node* curr){
 // Map (protected) functions PostOrder list:executed from one point of the list onwards
 template<typename Data>
 void List<Data>::MapPostOrder(MapFunctor fun, void* par, Node* curr){
-  unsigned long index = dim;
-  while(index > 0){
-    fun((*this)[--index],par);
+  for (ulong j = dimensione; j > 0; --j){
+    fun((*this)[j-1],par);
   }
 }
 
 // Fold (protected) functions PreOrder list:executed from one point of the list onwards
 template<typename Data>
 void List<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc, Node* curr) const{
-  for(; curr != nullptr; curr=curr->next){
+  for(; curr != nullptr; curr = curr->next){
     fun(curr->elemento,par,acc);
   }
 }
@@ -423,13 +403,8 @@ void List<Data>::FoldPreOrder(FoldFunctor fun, const void* par, void* acc, Node*
 // Fold (protected) functions PostOrder list:executed from one point of the list onwards
 template<typename Data>
 void List<Data>::FoldPostOrder(FoldFunctor fun, const void* par, void* acc, Node* curr) const{
-  unsigned long index=dim;
-  while (index > 0){
-    fun((*this)[index-1],par,acc);
-    index--;
-    }
+  for (ulong j = dimensione; j > 0; j--){
+    fun((*this)[j-1],par,acc);
   }
-
-/* ************************************************************************** */
-
+  }
 }
